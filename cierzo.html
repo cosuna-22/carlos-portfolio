@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caso CIERZO · Carlos Osuna</title>
+<meta name="description" content="CIERZO: marca de café de especialidad para llevar en Zaragoza. Proyecto propio de Carlos Osuna.">
+<meta property="og:title" content="Caso CIERZO · Carlos Osuna">
+<meta property="og:image" content="img/cierzo-02-inicio.jpg">
+<meta name="theme-color" content="#ff5a1f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .wind{position:absolute;right:0;top:40px;width:min(560px,60vw);opacity:.9;pointer-events:none;z-index:0}
+  .wind path{stroke-dasharray:600;stroke-dashoffset:600;animation:blow 3.2s ease-in-out infinite}
+  .wind path:nth-child(2){animation-delay:.4s}.wind path:nth-child(3){animation-delay:.8s}
+  @keyframes blow{40%,60%{stroke-dashoffset:0}100%{stroke-dashoffset:-600}}
+  .points-list span{display:block;padding:8px 0;border-bottom:1px solid #4a463f;font-size:15.5px;color:#d5cfc2}
+  .points-list span:last-child{border-bottom:0}
+  .points-list strong{color:var(--bg)}
+  .persona-list div{display:flex;gap:14px;align-items:baseline;padding:8px 0;border-bottom:1.5px dashed #c9c2b2}
+  .persona-list div:last-child{border-bottom:0}
+  .persona-list b{font-family:var(--mono);color:var(--accent)}
+  .phase{padding:10px 0 10px 16px;border-left:3px solid var(--accent);margin-bottom:10px}
+  .phase:last-child{margin-bottom:0;border-left-color:#c9c2b2}
+  .phase p{font-size:15px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <a href="index.html" class="logo">carlos<span>.</span>osuna</a>
+    <ul>
+      <li><a href="index.html#proyectos">← Portfolio</a></li>
+      <li class="hide-sm"><a href="kfc.html">01 KFC</a></li>
+      <li class="hide-sm"><a href="playstation.html">02 PlayStation</a></li>
+      <li class="hide-sm"><a href="cierzo.html" aria-current="page">03 CIERZO</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="case-hero" style="position:relative;overflow:hidden">
+  <svg class="wind" viewBox="0 0 560 260" fill="none" stroke="#ff5a1f" stroke-width="5" stroke-linecap="round" aria-hidden="true">
+    <path d="M10 60 H360 a40 40 0 1 0 -40 -40"/>
+    <path d="M10 130 H520"/>
+    <path d="M10 200 H300 a40 40 0 1 1 -40 40"/>
+  </svg>
+  <div class="wrap" style="position:relative;z-index:1">
+    <span class="case-num" aria-hidden="true">03</span>
+    <span class="pill mono">Proyecto propio · En desarrollo</span>
+    <h1 style="margin-top:20px">CIERZO: café para cafeteros. <em>Sin colas.</em></h1>
+    <p class="lead">Marca de café de especialidad para llevar en Zaragoza, creada desde cero. Se pide desde el móvil, se recoge sin cola en el mostrador app o en un punto partner, y cada pedido suma puntos en el Club CIERZO.</p>
+    <div class="ficha reveal">
+      <div><span class="mono muted">Tipo</span><p>Marca propia · omnicanal</p></div>
+      <div><span class="mono muted">Mi papel</span><p>Estrategia, público, propuesta de valor, app y lanzamiento</p></div>
+      <div><span class="mono muted">Canales</span><p>Tienda, app, Instagram, TikTok, LinkedIn y podcast</p></div>
+      <div><span class="mono muted">Presupuesto de lanzamiento</span><p>10.000 € repartidos en un trimestre</p></div>
+    </div>
+  </div>
+</header>
+
+<!-- LA APP -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <div style="max-width:640px">
+        <span class="eyebrow">Prototipo funcional</span>
+        <h2 class="mid">La <em style="font-style:normal;color:var(--accent)">app</em> de la fase 1.</h2>
+        <p class="lead-on-dark" style="margin-top:14px">Cada pantalla resuelve un paso del embudo, desde el registro con 20&nbsp;% de bienvenida hasta el aviso de “tu pedido está listo”.</p>
+      </div>
+      <a class="btn accent" href="app-cierzo.html" target="_blank" rel="noopener">Probar la app ↗</a>
+    </div>
+    <p class="hint mono" style="color:#bdb6a8;margin-bottom:10px">Desliza → · clic para ampliar</p>
+    <div class="phones" data-lightbox>
+      <figure><img src="img/cierzo-01-bienvenida.jpg" alt="Bienvenida: registro y 20 % en el primer pedido" loading="lazy"><figcaption><b>01</b><strong>Bienvenida</strong><span>Cómo funciona, registro en un toque y 20 % en el primer pedido.</span></figcaption></figure>
+      <figure><img src="img/cierzo-02-inicio.jpg" alt="Inicio: pedir, repetir pedido, puntos y punto de recogida" loading="lazy"><figcaption><b>02</b><strong>Inicio</strong><span>Pedir o repetir el último pedido, puntos y punto de recogida.</span></figcaption></figure>
+      <figure><img src="img/cierzo-03-carta.jpg" alt="Carta con habituales, cafés y bollería" loading="lazy"><figcaption><b>03</b><strong>Carta</strong><span>Tus habituales arriba; carta corta y purista de especialidad.</span></figcaption></figure>
+      <figure><img src="img/cierzo-04-producto.jpg" alt="Personalización del flat white con leche de avena" loading="lazy"><figcaption><b>04</b><strong>Personalización</strong><span>Leche entera, sin lactosa o avena, y descafeinado.</span></figcaption></figure>
+      <figure><img src="img/cierzo-05-pedido.jpg" alt="Pedido con venta cruzada, hora de recogida y pago móvil" loading="lazy"><figcaption><b>05</b><strong>Pedido</strong><span>Venta cruzada, hora de recogida y pago móvil.</span></figcaption></figure>
+      <figure><img src="img/cierzo-06-puntos.jpg" alt="Mapa de puntos de recogida en Zaragoza" loading="lazy"><figcaption><b>06</b><strong>¿Dónde recoges?</strong><span>El punto más rápido ahora, en lista o en mapa.</span></figcaption></figure>
+      <figure><img src="img/cierzo-07-seguimiento.jpg" alt="Seguimiento del pedido con código de recogida" loading="lazy"><figcaption><b>07</b><strong>Seguimiento</strong><span>Código de recogida y aviso “tu pedido está listo”.</span></figcaption></figure>
+      <figure><img src="img/cierzo-08-club.jpg" alt="Club CIERZO con QR personal, premios y niveles" loading="lazy"><figcaption><b>08</b><strong>Club CIERZO</strong><span>QR personal, premios para canjear y niveles.</span></figcaption></figure>
+    </div>
+    <div class="grid g4" style="margin-top:30px">
+      <div class="card flat"><div class="stat-num" style="color:var(--accent)">20 %</div><p class="stat-lbl">en el primer pedido, solo pagando en la app</p></div>
+      <div class="card flat"><div class="stat-num" style="color:var(--accent)">10 pts</div><p class="stat-lbl">por café y 5 por bollería; 100 puntos, café gratis</p></div>
+      <div class="card flat"><div class="stat-num" style="color:var(--accent)">2 niveles</div><p class="stat-lbl">Brisa y Cierzo, con catas y ediciones exóticas</p></div>
+      <div class="card flat"><div class="stat-num" style="color:var(--accent)">4 puntos</div><p class="stat-lbl">de recogida en Zaragoza: tienda y partners</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTRATEGIA -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Marca, público y salida al mercado</span>
+    <h2 class="mid" style="margin-bottom:32px">La <em>estrategia.</em></h2>
+    <div class="grid g3">
+      <div class="card reveal">
+        <span class="eyebrow">Propuesta de valor</span>
+        <h3>Conveniencia primero</h3>
+        <p>Pedir sin colas y recoger donde te venga bien. El buen café se da por hecho; lo que fideliza es el tiempo que ahorras.</p>
+      </div>
+      <div class="card reveal">
+        <span class="eyebrow">Público objetivo</span>
+        <div class="persona-list">
+          <div><b>1</b><span>Aficionado al café en casa</span></div>
+          <div><b>2</b><span>Principiante que compra su primera cafetera con molinillo</span></div>
+          <div><b>3</b><span>Oficinas y clientes B2B</span></div>
+        </div>
+      </div>
+      <div class="card accent reveal">
+        <span class="eyebrow" style="color:#fff">Buyer persona</span>
+        <h3>20–35 años, estudia y trabaja</h3>
+        <p>Activo en redes y siempre con prisa: quiere un café bueno sin perder tiempo en la cola.</p>
+      </div>
+      <div class="card reveal">
+        <span class="eyebrow">Embudo de captación</span>
+        <div class="funnel">
+          <div>Redes sociales y QR</div>
+          <div>Landing intermedia (captura de datos)</div>
+          <div>Descarga de la app</div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <span class="eyebrow">Lanzamiento por fases</span>
+        <div class="phase"><strong>Fase 1 · Takeaway + app</strong><p>Pre-pedido sin colas y Club de puntos</p></div>
+        <div class="phase"><strong>Fase 2 · Venta de grano</strong><p>Ecommerce dentro de la propia app</p></div>
+        <div class="phase"><strong>Después · Cafeteras y B2B</strong><p>Cafeteras propias y servicio a oficinas</p></div>
+      </div>
+      <div class="card dark reveal">
+        <span class="eyebrow" style="color:#bdb6a8">Red de recogida</span>
+        <h3 style="color:var(--accent)">Una tienda y tres partners</h3>
+        <div class="points-list">
+          <span><strong>Centro</strong> · tienda CIERZO, calle Coso</span>
+          <span><strong>Campus</strong> · campus San Francisco</span>
+          <span><strong>Delicias</strong> · estación Zaragoza-Delicias</span>
+          <span><strong>Ranillas</strong> · coworking zona Expo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-nav">
+      <a href="playstation.html"><span class="mono">← Caso anterior</span><b>02 · PlayStation</b></a>
+      <a href="index.html#proyectos" class="next"><span class="mono">Volver →</span><b>Todos los proyectos</b></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap mono">
+    <span>© 2026 Carlos Osuna · Marketing, but with a strategy.</span>
+    <span><a href="index.html#contacto">Hablemos →</a></span>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,843 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>CIERZO App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Work+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: desktop = guía de la demo + móvil enmarcado; móvil = la app a pantalla completa. Vista de app: scroll + barra de acción fija + tabbar */
+:root{
+  --night:#14212B; --cream:#F3EFE8; --clay:#9A4A22; --sky:#6FA8CF;
+  --bg:#E9E3D8; --surface:#F7F4EE; --card:#FFFFFF; --ink:#14212B; --muted:#56616C; --line:#E2DACD;
+  --accent:#9A4A22; --accent-ink:#FFFFFF; --brand:#2F5D7C; --ok:#2F6B3A; --ok-bg:#E3EFE2; --chip:#EFE9DF;
+  --hero:#14212B; --hero-ink:#F3EFE8; --hero-muted:#A9B6C1; --hero-line:rgba(243,239,232,.14);
+  --map-land:#ECE5D9; --map-road:#FFFFFF; --map-road-2:#DDD3C4; --map-water:#A9C7DA; --map-water-label:#3E6E8E; --map-park:#CFDDBF; --map-park-label:#56713F; --map-label:#3B4650; --map-street:#6F7983; --map-landmark:#9A4A22; --map-partner:#2F5D7C; --map-closed:#9AA3AB;
+  --f-display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --f-body:'Work Sans','Helvetica Neue',Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0A1117; --surface:#111C25; --card:#1A2934; --ink:#F3EFE8; --muted:#A9B6C1; --line:#29404F;
+  --accent:#D0794A; --accent-ink:#14212B; --brand:#6FA8CF; --ok:#86C994; --ok-bg:#1F3A2A; --chip:#223645;
+  --hero:#24394A; --hero-ink:#F3EFE8; --hero-muted:#B9C6D0; --hero-line:rgba(243,239,232,.16); --map-land:#16232D; --map-road:#2A3B48; --map-road-2:#22323E; --map-water:#24485E; --map-water-label:#8FB7D0; --map-park:#1F3A2C; --map-park-label:#8DB48A; --map-label:#C9D3DB; --map-street:#8796A2; --map-landmark:#D0794A; --map-partner:#6FA8CF; --map-closed:#5B6873; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0A1117; --surface:#111C25; --card:#1A2934; --ink:#F3EFE8; --muted:#A9B6C1; --line:#29404F;
+  --accent:#D0794A; --accent-ink:#14212B; --brand:#6FA8CF; --ok:#86C994; --ok-bg:#1F3A2A; --chip:#223645;
+  --hero:#24394A; --hero-ink:#F3EFE8; --hero-muted:#B9C6D0; --hero-line:rgba(243,239,232,.16); --map-land:#16232D; --map-road:#2A3B48; --map-road-2:#22323E; --map-water:#24485E; --map-water-label:#8FB7D0; --map-park:#1F3A2C; --map-park-label:#8DB48A; --map-label:#C9D3DB; --map-street:#8796A2; --map-landmark:#D0794A; --map-partner:#6FA8CF; --map-closed:#5B6873; color-scheme:dark }
+
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance}
+p{margin:0}
+
+/* ---------- Escenario (desktop) ---------- */
+.stage{min-height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center;max-width:1200px;margin:0 auto;padding-block:32px;padding-inline:40px}
+.guide{display:flex;flex-direction:column;gap:20px;min-width:0}
+.brandrow{display:flex;align-items:center;gap:12px}
+.brandrow .word{font-family:var(--f-display);font-weight:800;letter-spacing:.18em;font-size:24px}
+.guide h1{font-size:40px;line-height:1.05;font-weight:800}
+.guide p{color:var(--muted);max-width:52ch}
+.steps{display:flex;flex-direction:column;gap:4px;margin:0;padding:0;list-style:none}
+.steps button{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left;background:transparent;border:1px solid transparent;border-radius:12px;padding:9px 12px}
+.steps button:hover{background:var(--card)}
+.steps button[aria-current="true"]{background:var(--card);border-color:var(--line)}
+.steps .n{font-family:var(--f-display);font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.steps .t{font-weight:600}
+.steps .d{display:block;font-size:13px;color:var(--muted);font-weight:400}
+.mf{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--chip);white-space:nowrap}
+.mf.hot{background:var(--accent);color:var(--accent-ink)}
+.ghost{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 16px;font-weight:600;align-self:flex-start}
+
+.phone{width:390px;height:min(820px,calc(100dvh - 64px));min-height:640px;border-radius:46px;background:#0B1218;padding:10px;box-shadow:0 30px 60px -30px rgba(20,33,43,.6)}
+.app{position:relative;height:100%;border-radius:37px;overflow:hidden;background:var(--surface);display:flex;flex-direction:column}
+#view{display:flex;flex-direction:column;height:100%}
+.scroll{flex:1;overflow-y:auto;overscroll-behavior:contain}
+.screen{padding:4px 18px 24px;display:flex;flex-direction:column;gap:14px}
+
+@media (max-width:900px){
+  .stage{display:block;padding:0;max-width:none;height:100%}
+  .guide{display:none}
+  .phone{width:100%;height:100%;min-height:0;border-radius:0;padding:0;box-shadow:none;background:var(--surface)}
+  .app{border-radius:0}
+}
+
+/* ---------- Chrome de la app ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px 10px;min-height:68px}
+.topbar .title{font-family:var(--f-display);font-weight:700;font-size:17px;flex:1;text-align:center}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:800;letter-spacing:.16em;font-size:17px}
+.iconbtn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;flex:none}
+.spacer{width:42px;flex:none}
+.tabbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line);background:var(--card);padding:4px 4px calc(8px + env(safe-area-inset-bottom,0px))}
+.tabbar button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted);padding:8px 0 4px;position:relative;min-height:52px}
+.tabbar button[aria-current="page"]{color:var(--ink)}
+.tabbar button[aria-current="page"]::before{content:"";position:absolute;top:0;left:calc(50% - 14px);width:28px;height:3px;border-radius:0 0 3px 3px;background:var(--accent)}
+.tabbar button[aria-current="page"] svg{stroke:var(--accent)}
+.badge{position:absolute;top:4px;left:calc(50% + 6px);min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:var(--accent-ink);font-size:11px;display:grid;place-items:center;padding:0 5px;font-variant-numeric:tabular-nums}
+.actionbar{padding:10px 18px;background:var(--surface);border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+
+/* ---------- Componentes ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.stack{display:flex;flex-direction:column;gap:8px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.h-xl{font-size:28px;font-weight:800;line-height:1.08}
+.h-lg{font-size:20px;font-weight:700;font-family:var(--f-display)}
+.h-md{font-size:16px;font-weight:700;font-family:var(--f-display)}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.price{font-family:var(--f-display);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.btn{border:0;border-radius:14px;padding:13px 16px;font-weight:600;min-height:50px;display:flex;align-items:center;justify-content:center;gap:8px;width:100%}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.dark{background:var(--night);color:var(--cream)}
+.btn.line{background:var(--card);border:1px solid var(--line)}
+.btn.split{justify-content:space-between}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;min-height:42px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip:disabled{opacity:.5;cursor:not-allowed}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.grid2 .chip{border-radius:12px;width:100%}
+.pill{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--chip);white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.off{background:var(--chip);color:var(--muted)}
+.mapbox.tall{height:330px}
+.pcard{display:flex;flex-direction:column;gap:6px;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+.pcard[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.pc-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pc-name{font-family:var(--f-display);font-weight:700;font-size:16px}
+.tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--chip)}
+.tag.best{background:var(--accent);color:var(--accent-ink)}
+.pc-times{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:2px}
+.pc-times>span:not(.save){background:var(--chip);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column}
+.pc-times b{font-family:var(--f-display);font-size:20px;font-variant-numeric:tabular-nums}
+.save{grid-column:1/-1;font-size:13px;font-weight:600;color:var(--ok)}
+.pclosed{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border:1px dashed var(--line);border-radius:14px}
+.simrow{display:flex;gap:6px;flex-wrap:wrap}
+.simrow button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.simrow button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.mapbox{height:290px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.pt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.pt[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.waits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:6px}
+.waits div{background:var(--chip);border-radius:10px;padding:6px 8px;font-size:12px}
+.waits b{display:block;font-family:var(--f-display);font-size:16px}
+.divider{height:1px;background:var(--line)}
+.tile{width:56px;height:56px;border-radius:14px;background:var(--chip);display:grid;place-items:center;flex:none}
+
+/* Hero: bloque de marca */
+.hero{background:var(--hero);color:var(--hero-ink);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.hero .muted,.hero .eyebrow{color:var(--hero-muted)}
+.hero .wind{position:absolute;right:-24px;bottom:-30px;opacity:.06;pointer-events:none}
+.hero .btn.line{background:transparent;border-color:var(--hero-line);color:var(--hero-ink)}
+.bar{height:8px;border-radius:5px;background:var(--chip);overflow:hidden}
+.bar>span{display:block;height:100%;background:var(--accent);border-radius:5px;transition:width .6s ease}
+.hero .bar{background:var(--hero-line)}
+.hero .bar>span{background:var(--sky)}
+
+/* Lista de carta */
+.item{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px 10px 10px;text-align:left;width:100%}
+.item .name{font-weight:600;display:block}
+.item .desc{font-size:13px;color:var(--muted);display:block}
+.meta{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.meta span{font-size:11px;font-weight:600;color:var(--muted);background:var(--chip);border-radius:6px;padding:2px 6px;font-variant-numeric:tabular-nums}
+.segment{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));background:var(--chip);border-radius:12px;padding:4px;gap:4px}
+.segment button{border:0;background:transparent;border-radius:9px;padding:9px;font-weight:600;min-height:42px}
+.segment button[aria-pressed="true"]{background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.hscroll{display:grid;grid-auto-flow:column;grid-auto-columns:150px;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.fav{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:left;display:flex;flex-direction:column;gap:8px}
+
+/* Hojas, avisos y seguimiento */
+.scrim{position:absolute;inset:0;background:rgba(10,17,23,.5);display:flex;align-items:flex-end;z-index:20}
+.sheet{background:var(--surface);width:100%;border-radius:24px 24px 0 0;padding:14px 18px calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:16px;max-height:90%;overflow-y:auto}
+.grab{width:42px;height:5px;border-radius:3px;background:var(--line);margin:0 auto}
+.toast{position:absolute;left:10px;right:10px;top:10px;z-index:30;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 14px;display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;align-items:center;box-shadow:0 12px 30px -12px rgba(0,0,0,.35);animation:drop .35s ease}
+.toast .ic{width:36px;height:36px;border-radius:10px;background:var(--night);display:grid;place-items:center}
+@keyframes drop{from{transform:translateY(-120%)}to{transform:none}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.live{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 1.4s ease infinite}
+@media (prefers-reduced-motion: reduce){.toast,.live{animation:none}.bar>span{transition:none}}
+.banner{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:12px 14px;text-align:left;width:100%}
+.track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.track .seg{height:6px;border-radius:4px;background:var(--hero-line)}
+.track .seg.on{background:var(--sky)}
+.pickup{font-family:var(--f-display);font-weight:800;font-size:40px;letter-spacing:.06em;line-height:1}
+.stars{display:flex;gap:4px}
+.stars button{background:none;border:0;padding:6px;min-width:44px;min-height:44px}
+.qrwrap{background:#FFFFFF;border-radius:16px;padding:12px;display:grid;place-items:center;gap:6px}
+.qrwrap canvas{image-rendering:pixelated}
+.qrwrap .code{font-family:var(--f-display);font-weight:700;letter-spacing:.2em;color:#14212B;font-size:12px}
+.switch{position:relative;width:48px;height:28px;border-radius:14px;background:var(--line);border:0;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#FFF;transition:transform .2s}
+.switch[aria-checked="true"]{background:var(--ok)}
+.switch[aria-checked="true"]::after{transform:translateX(20px)}
+
+/* Bienvenida */
+.welcome{flex:1;display:flex;flex-direction:column;justify-content:space-between;background:var(--night);color:var(--cream);padding:28px 22px calc(22px + env(safe-area-inset-bottom,0px));gap:22px;overflow-y:auto}
+.welcome .muted{color:#A9B6C1}
+.welcome .btn.line{background:transparent;border:1px solid #3A5163;color:var(--cream)}
+.welcome .btn.primary{background:#9A4A22;color:#FFFFFF}
+.how{display:flex;flex-direction:column;gap:12px;margin:0;padding:0;list-style:none}
+.how li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:center}
+.how .num{width:40px;height:40px;border-radius:12px;background:#1F3344;display:grid;place-items:center;font-family:var(--f-display);font-weight:800}
+.offer{background:#9A4A22;color:#FFF;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:center}
+.linkbtn{background:none;border:0;text-decoration:underline;text-underline-offset:3px;padding:10px;min-height:44px}
+</style>
+
+<div class="stage">
+  <aside class="guide" aria-label="Guía de la demo">
+    <div class="brandrow">
+      <svg width="36" height="28" viewBox="0 0 40 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M3 8h22a5 5 0 1 0-5-5"/><path d="M3 16h30"/><path d="M3 24h18a5 5 0 1 1-5 5"/></svg>
+      <span class="word">CIERZO</span>
+    </div>
+    <h1>La app de la fase 1</h1>
+    <p>Prototipo funcional: pide sin colas, recoge en el mostrador app y suma puntos con tu QR. Cada pantalla resuelve un microfunnel del plan.</p>
+    <ol class="steps" id="steps"></ol>
+    <div class="stack" style="gap:6px"><span class="small" style="color:var(--muted)">Hora de la demo (aperturas y esperas)</span><div class="simrow" id="sim" role="group" aria-label="Hora simulada"></div></div>
+    <button class="ghost" id="reset" type="button">Reiniciar demo</button>
+    <p class="small">Prototipo para clase: registro, pagos, avisos y QR están simulados.</p>
+  </aside>
+
+  <div class="phone">
+    <div class="app" id="app">
+      <div id="view"></div>
+      <div id="layer"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* CIERZO · red de puntos (simulada) y plano esquemático de Zaragoza */
+(function(){
+const POINTS = [
+  {id:'centro', short:'Centro', go:6, name:'CIERZO Centro', kind:'Tienda CIERZO', type:'store', zone:'Calle Coso · junto a plaza de España', x:640, y:402,
+   hours:{wk:[450,1200], sat:[540,840], sun:[540,840]}, paso:12, app:3, prepares:true,
+   why:'Nuestra tienda: escaparate de marca, formación de partners y control de calidad.'},
+  {id:'campus', short:'Campus', go:9, name:'Punto CIERZO Campus', kind:'Partner · cafetería universitaria', type:'partner', zone:'Campus San Francisco (Universidad de Zaragoza)', x:505, y:598,
+   hours:{wk:[450,1140], sat:null, sun:null}, paso:10, app:3, prepares:true,
+   why:'Miles de estudiantes y personal cada mañana: el núcleo de nuestro buyer persona.'},
+  {id:'delicias', short:'Delicias', go:22, name:'Punto CIERZO Delicias', kind:'Partner · quiosco en la estación', type:'partner', zone:'Estación Zaragoza-Delicias', x:168, y:436,
+   hours:{wk:[390,1320], sat:[390,1320], sun:[420,1320]}, paso:8, app:2, prepares:true,
+   why:'Viajeros con prisa y horario amplio todos los días: el pedido programado tiene todo el sentido.'},
+  {id:'ranillas', short:'Ranillas', go:20, name:'Punto CIERZO Ranillas', kind:'Partner · coworking', type:'partner', zone:'Zona Expo · Actur-Ranillas (oficinas)', x:402, y:168,
+   hours:{wk:[480,1080], sat:null, sun:null}, paso:6, app:2, prepares:true,
+   why:'Oficinas y empresas tecnológicas: pedidos de equipo y recogida a hora fija.'}
+];
+const DAYS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const fmt = m => String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+function slot(p, dow){ return dow===0 ? p.hours.sun : dow===6 ? p.hours.sat : p.hours.wk; }
+function status(p, d){
+  const dow=d.getDay(), min=d.getHours()*60+d.getMinutes(), s=slot(p,dow);
+  if(s && min>=s[0] && min<s[1]){
+    const h=d.getHours(); const f = (h>=8&&h<10)?1 : (h>=13&&h<15)?0.8 : (h>=10&&h<13)||(h>=17&&h<19)?0.6 : 0.4;
+    return {open:true, until:'Abierto hasta las '+fmt(s[1]), paso:Math.max(1,Math.round(p.paso*f)), app:Math.max(1,Math.round(p.app*f))};
+  }
+  for(let i=0;i<8;i++){
+    const dd=(dow+i)%7, ss=slot(p,dd); if(!ss) continue;
+    if(i===0 && min<ss[0]) return {open:false, until:'Cerrado · abre hoy a las '+fmt(ss[0])};
+    if(i>0) return {open:false, until:'Cerrado · abre '+(i===1?'mañana':'el '+DAYS[dd])+' a las '+fmt(ss[0])};
+  }
+  return {open:false, until:'Cerrado'};
+}
+function hoursText(p){
+  const t=s=>s?fmt(s[0])+'–'+fmt(s[1]):'cerrado';
+  return 'L–V '+t(p.hours.wk)+' · S '+t(p.hours.sat)+' · D '+t(p.hours.sun);
+}
+
+const BASE = `
+<rect x="-400" y="-300" width="1800" height="1300" fill="var(--map-land)"/>
+<ellipse cx="300" cy="150" rx="120" ry="55" fill="var(--map-park)"/>
+<ellipse cx="545" cy="672" rx="95" ry="42" fill="var(--map-park)"/>
+<path d="M-400,255 C-100,220 120,215 250,262 C360,300 450,232 560,292 C660,342 760,262 880,262 C1000,262 1150,300 1400,280" fill="none" stroke="var(--map-water)" stroke-width="30" stroke-linecap="round"/>
+<path d="M700,1000 C650,800 610,640 628,520 C636,470 650,440 660,420" fill="none" stroke="var(--map-water)" stroke-width="9" stroke-linecap="round"/>
+<g fill="none" stroke="var(--map-road-2)" stroke-width="4" stroke-linecap="round">
+  <path d="M60,560 C160,700 360,760 600,740 C820,720 900,560 900,420 C900,240 760,120 560,110 C360,100 120,170 60,330 Z"/>
+</g>
+<g fill="none" stroke="var(--map-road)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M120,436 L470,446"/>
+  <path d="M470,446 L605,418"/>
+  <path d="M605,418 L594,508"/>
+  <path d="M594,508 L606,640 L620,760"/>
+  <path d="M594,508 L505,600 L430,690"/>
+  <path d="M605,418 L548,316"/>
+  <path d="M605,418 C655,410 690,384 705,330"/>
+  <path d="M552,318 L536,214"/>
+  <path d="M536,214 L402,168 L260,120"/>
+  <path d="M705,330 L760,250"/>
+</g>
+<rect x="541" y="300" width="22" height="14" rx="2" fill="var(--map-landmark)"/>
+<g font-family="Work Sans, Arial, sans-serif" font-size="15" fill="var(--map-label)" font-weight="600" letter-spacing=".04em">
+  <text x="700" y="250" font-style="italic" fill="var(--map-water-label)">Ebro</text>
+  <text x="520" y="292">El Pilar</text>
+  <text x="650" y="470">CENTRO</text>
+  <text x="130" y="492">DELICIAS</text>
+  <text x="300" y="118">ACTUR · RANILLAS</text>
+  <text x="400" y="640">UNIVERSIDAD</text>
+  <text x="500" y="720" fill="var(--map-park-label)">Parque Grande</text>
+  <text x="250" y="210" fill="var(--map-park-label)">Parque del Agua</text>
+</g>
+<g font-family="Work Sans, Arial, sans-serif" font-size="12" fill="var(--map-street)">
+  <text x="398" y="432">Av. Madrid</text>
+  <text x="604" y="470" transform="rotate(-84 604 470)">P.º Independencia</text>
+  <text x="612" y="590" transform="rotate(84 612 590)">Gran Vía</text>
+</g>`;
+
+function mount(el, opts={}){
+  const ns='http://www.w3.org/2000/svg';
+  const full=opts.view||{x:70,y:80,w:780,h:600};
+  let vb={...full}, selected=opts.selected||null, now=opts.date||new Date();
+  el.innerHTML = `<div class="cmap" style="position:relative;height:100%;width:100%;overflow:hidden;border-radius:inherit;touch-action:none;background:var(--map-land)">
+    <svg viewBox="${vb.x} ${vb.y} ${vb.w} ${vb.h}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block;cursor:grab" role="img" aria-label="Plano esquemático de Zaragoza con los puntos CIERZO">${BASE}<g class="pins"></g></svg>
+    ${opts.controls===false?'':`<div style="position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px">
+      <button type="button" data-z="in" aria-label="Acercar" style="width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:20px;font-weight:600">+</button>
+      <button type="button" data-z="out" aria-label="Alejar" style="width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:20px;font-weight:600">−</button>
+      <button type="button" data-z="reset" aria-label="Ver toda la red" style="width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:12px;font-weight:700">Todo</button></div>`}
+    <div style="position:absolute;left:10px;bottom:8px;font-size:11px;color:var(--map-street);background:var(--map-land);padding:2px 6px;border-radius:6px;opacity:.9">Plano esquemático, no a escala</div>
+  </div>`;
+  const svg=el.querySelector('svg'), pins=el.querySelector('.pins');
+  const apply=()=>svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+  function draw(){
+    pins.innerHTML='';
+    POINTS.forEach(p=>{
+      const st=status(p,now), sel=p.id===selected, r=p.type==='store'?17:14;
+      const g=document.createElementNS(ns,'g'); g.setAttribute('transform',`translate(${p.x} ${p.y})`); g.style.cursor='pointer';
+      g.setAttribute('tabindex','0'); g.setAttribute('role','button'); g.setAttribute('aria-label',`${p.name}, ${st.open?'abierto':'cerrado'}`);
+      const fill = !st.open ? 'var(--map-closed)' : p.type==='store' ? 'var(--accent)' : 'var(--map-partner)';
+      g.innerHTML = `${sel?`<circle r="${r+10}" fill="${fill}" opacity=".22"/>`:''}
+        <circle r="${r}" fill="${fill}" stroke="var(--map-land)" stroke-width="4"/>
+        ${p.type==='store'?'<path d="M-8,-3 h10 a4,4 0 1 0 -4,-4 M-8,2 h15 M-8,7 h8" fill="none" stroke="#FFF" stroke-width="2.4" stroke-linecap="round"/>':'<circle r="4.5" fill="#FFF"/>'}
+        ${opts.short?`<g transform="translate(${r+6} 6)"><rect x="-4" y="-22" width="${Math.max(p.short.length,st.open?7:7)*13+14}" height="${st.open?50:30}" rx="8" fill="var(--card)" stroke="${sel?fill:'var(--line)'}" stroke-width="${sel?2.5:1}"/>
+          <text x="4" y="0" font-family="Work Sans, Arial, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">${p.short}</text>
+          ${st.open?`<text x="4" y="22" font-family="Work Sans, Arial, sans-serif" font-size="17" font-weight="600" fill="var(--muted)">${st.app} min</text>`:''}</g>`
+        :`<g transform="translate(${r+8} 5)"><rect x="-4" y="-17" width="${p.name.length*8.4+12}" height="${st.open?44:26}" rx="7" fill="var(--card)" stroke="var(--line)"/>
+        <text x="3" y="0" font-family="Work Sans, Arial, sans-serif" font-size="14" font-weight="700" fill="var(--ink)">${p.name}</text>
+        ${st.open?`<text x="3" y="19" font-family="Work Sans, Arial, sans-serif" font-size="12" fill="var(--muted)">App ${st.app} min · Paso ${st.paso} min</text>`:''}</g>`}`;
+      const pick=e=>{ e.stopPropagation(); selected=p.id; draw(); opts.onSelect && opts.onSelect(p, status(p,now)); };
+      g.addEventListener('click',pick); g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pick(e);} });
+      pins.appendChild(g);
+    });
+  }
+  if(opts.me){ const g=document.createElementNS(ns,'g'); g.setAttribute('transform',`translate(${opts.me.x} ${opts.me.y})`); g.setAttribute('aria-hidden','true');
+    g.innerHTML=`<circle r="22" fill="#378ADD" opacity=".18"/><circle r="9" fill="#378ADD" stroke="#FFF" stroke-width="3"/><text x="0" y="40" text-anchor="middle" font-family="Work Sans, Arial, sans-serif" font-size="17" font-weight="700" fill="var(--ink)">Tú</text>`;
+    svg.insertBefore(g, pins); }
+  function zoom(k, cx, cy){
+    const nw=Math.min(full.w*1.2, Math.max(260, vb.w*k)), nh=nw*full.h/full.w;
+    cx = cx ?? vb.x+vb.w/2; cy = cy ?? vb.y+vb.h/2;
+    vb.x = cx-(cx-vb.x)*nw/vb.w; vb.y = cy-(cy-vb.y)*nh/vb.h; vb.w=nw; vb.h=nh; apply();
+  }
+  function toSvg(e){ const r=svg.getBoundingClientRect(); const s=Math.max(vb.w/r.width, vb.h/r.height); return {x:vb.x+(e.clientX-r.left)*s - (r.width*s-vb.w)/2, y:vb.y+(e.clientY-r.top)*s-(r.height*s-vb.h)/2, s}; }
+  el.addEventListener('click',e=>{ const b=e.target.closest('[data-z]'); if(!b) return; const z=b.dataset.z; if(z==='in') zoom(.7); else if(z==='out') zoom(1.4); else { vb={...full}; apply(); } });
+  if(opts.interactive!==false){
+    let drag=null;
+    svg.addEventListener('pointerdown',e=>{ if(e.target.closest('.pins g')) return; drag={x:e.clientX,y:e.clientY,vx:vb.x,vy:vb.y}; svg.setPointerCapture(e.pointerId); svg.style.cursor='grabbing'; });
+    svg.addEventListener('pointermove',e=>{ if(!drag) return; const r=svg.getBoundingClientRect(); const s=Math.max(vb.w/r.width, vb.h/r.height); vb.x=drag.vx-(e.clientX-drag.x)*s; vb.y=drag.vy-(e.clientY-drag.y)*s; apply(); });
+    const end=()=>{ drag=null; svg.style.cursor='grab'; };
+    svg.addEventListener('pointerup',end); svg.addEventListener('pointercancel',end);
+    svg.addEventListener('wheel',e=>{ e.preventDefault(); const p=toSvg(e); zoom(e.deltaY<0?.85:1.18, p.x, p.y); },{passive:false});
+  }
+  draw();
+  return {
+    select(id,pan){ selected=id; draw(); const p=POINTS.find(q=>q.id===id); if(p&&pan&&vb.w<full.w){ vb.x=p.x-vb.w/2; vb.y=p.y-vb.h/2; apply(); } },
+    setDate(d){ now=d; draw(); }
+  };
+}
+window.CierzoMap = {POINTS, status, hoursText, mount};
+})();
+
+</script>
+<script>
+(function(){
+/* ---------- Datos ---------- */
+const MENU = [
+  {id:'espresso', cat:'cafe', name:'Espresso', desc:'Embajador espresso: chocolate y frutos secos', price:1.90, milk:false, ml:30, ratio:'Solo café', layers:[['#3B1F12',1]]},
+  {id:'americano', cat:'cafe', name:'Americano', desc:'Espresso alargado con agua caliente', price:2.20, milk:false, ml:200, ratio:'1:6 con agua', layers:[['#6B3E26',1]]},
+  {id:'cortado', cat:'cafe', name:'Cortado', desc:'Espresso con un toque de leche', price:2.10, milk:true, ml:60, ratio:'1:1', layers:[['#3B1F12',.5],['#E6D3B8',.5]]},
+  {id:'conleche', cat:'cafe', name:'Café con leche', desc:'El de cada mañana, bien hecho', price:2.50, milk:true, ml:220, ratio:'1:3', layers:[['#3B1F12',.3],['#E6D3B8',.6],['#F6EEE2',.1]]},
+  {id:'flatwhite', cat:'cafe', name:'Flat white', desc:'Doble espresso y leche sedosa', price:3.10, milk:true, ml:160, ratio:'Doble · 1:2', layers:[['#3B1F12',.4],['#E6D3B8',.5],['#F6EEE2',.1]]},
+  {id:'filtro', cat:'cafe', name:'Filtro del día', desc:'V60 con el Embajador de filtro', price:3.20, milk:false, ml:250, ratio:'V60 · 1:16', layers:[['#9A5A2E',1]]},
+  {id:'croissant', cat:'bolleria', name:'Croissant de mantequilla', desc:'Obrador artesano de Zaragoza', price:2.00, shape:'croissant'},
+  {id:'trenza', cat:'bolleria', name:'Trenza de Almudévar', desc:'Porción individual', price:2.80, shape:'trenza'},
+  {id:'salado', cat:'bolleria', name:'Salado del día', desc:'Pregunta en tienda qué toca hoy', price:2.60, shape:'salado'}
+];
+const MILKS = [{id:'entera',name:'Entera',add:0},{id:'sinlactosa',name:'Sin lactosa',add:0},{id:'avena',name:'Avena',add:0.30}];
+const REWARDS = [{id:'bolleria',name:'Bollería gratis',pts:60},{id:'cafe',name:'Café gratis',pts:100},{id:'exotico',name:'Filtro de edición exótica',pts:140}];
+const SCREENS = [
+  {id:'welcome', t:'Bienvenida', d:'Cómo funciona, registro en un toque y 20 %', mf:'MF2'},
+  {id:'home', t:'Inicio', d:'Pedir o repetir pedido, puntos y punto de recogida', mf:'MF3 · MF6'},
+  {id:'points', t:'¿Dónde recoges?', d:'Punto más rápido, lista o mapa', mf:'MF4'},
+  {id:'menu', t:'Carta', d:'Favoritos y personalización rápida', mf:'MF3', hot:true},
+  {id:'cart', t:'Pedido', d:'Recogida, venta cruzada y pago móvil', mf:'MF3', hot:true},
+  {id:'status', t:'Seguimiento', d:'Código de recogida y aviso "está listo"', mf:'MF4'},
+  {id:'club', t:'Club CIERZO', d:'QR personal, premios y niveles', mf:'MF6'},
+  {id:'profile', t:'Perfil', d:'Invita a un amigo y grano en fase 2', mf:'MF8 · MF9'}
+];
+const fresh = () => ({
+  screen:'welcome', registered:false, point:'centro', name:'Lucía', firstOrder:true,
+  points:70, lifetime:170, cart:[], menuCat:'cafe', pickup:'asap', pay:'apple',
+  order:null, last:{id:'flatwhite', milk:'avena', decaf:false},
+  notif:{ready:true, offers:true, news:false}, beanAlert:false,
+  history:[{t:'Flat white · avena',pts:10,d:'Ayer'},{t:'Café con leche',pts:10,d:'Lunes'},{t:'Bienvenida al club',pts:50,d:'Hace 2 semanas'}]
+});
+let S = fresh(), timers = [];
+
+/* ---------- Utilidades ---------- */
+const $ = s => document.querySelector(s);
+const eur = n => n.toFixed(2).replace('.', ',') + ' €';
+const item = id => MENU.find(m => m.id === id);
+const milkOf = l => MILKS.find(x=>x.id===l.milk) || MILKS[0];
+const lineName = l => { const m=item(l.id); let s=m.name; if(m.milk) s+=' · '+milkOf(l).name.toLowerCase(); if(l.decaf) s+=' · descafeinado'; return s; };
+const linePrice = l => item(l.id).price + (item(l.id).milk ? milkOf(l).add : 0);
+const cartCount = () => S.cart.reduce((a,l)=>a+l.qty,0);
+const subtotal = () => S.cart.reduce((a,l)=>a+linePrice(l)*l.qty,0);
+const discount = () => S.firstOrder ? Math.round(subtotal()*20)/100 : 0;
+const total = () => Math.max(0, subtotal()-discount());
+const earn = () => S.cart.reduce((a,l)=>a+(item(l.id).cat==='cafe'?10:5)*l.qty,0);
+const level = () => S.lifetime >= 300 ? 'Cierzo' : 'Brisa';
+const hhmm = d => d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+const greeting = () => { const h=new Date().getHours(); return h<13?'Buenos días':h<20?'Buenas tardes':'Buenas noches'; };
+const activeOrder = () => S.order && !S.order.collected ? S.order : null;
+
+const I = {
+  home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  cup:'<path d="M5 8h12l-1.5 12h-9z"/><path d="M4 5h14v3H4z"/>',
+  bag:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+  star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  qr:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h2"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>', minus:'<path d="M5 12h14"/>',
+  repeat:'<path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  check:'<path d="M5 12l5 5 9-10"/>', back:'<path d="M15 5l-7 7 7 7"/>', right:'<path d="M9 5l7 7-7 7"/>',
+  bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+  gift:'<rect x="3" y="9" width="18" height="12" rx="1"/><path d="M12 9v12M3 13h18"/><path d="M12 9c-2-4-6-4-6-1s6 1 6 1 6 2 6-1-4-3-6 1z"/>',
+  pin:'<path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+  wind:'<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16"/><path d="M3 16h9a3 3 0 1 1-3 3"/>',
+  bean:'<ellipse cx="12" cy="12" rx="6" ry="9" transform="rotate(30 12 12)"/><path d="M9 6c3 3 3 9 6 12"/>',
+  phone:'<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>'
+};
+const ic = (n,s=22,c='currentColor',w=1.8) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+const WIND = s => `<svg class="wind" width="${s}" height="${s*.8}" viewBox="0 0 40 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M3 8h22a5 5 0 1 0-5-5"/><path d="M3 16h30"/><path d="M3 24h18a5 5 0 1 1-5 5"/></svg>`;
+
+/* Ilustración: vaso para llevar con la proporción real de café, leche y espuma */
+function art(m, size=40){
+  if(m.cat==='cafe'){
+    const top=12, bot=44, h=bot-top; let y=bot, polys='';
+    const xl=yy=>9+3*(yy-top)/h, xr=yy=>31-3*(yy-top)/h;
+    m.layers.forEach(([c,f])=>{ const y2=y-h*f; polys+=`<polygon points="${xl(y2)},${y2} ${xr(y2)},${y2} ${xr(y)},${y} ${xl(y)},${y}" fill="${c}"/>`; y=y2; });
+    return `<svg width="${size}" height="${size*1.2}" viewBox="0 0 40 48" aria-hidden="true">${polys}<path d="M9 12h22l-3 32H12z" fill="none" stroke="#14212B" stroke-width="1.6" stroke-linejoin="round" opacity=".85"/><rect x="7" y="6" width="26" height="6" rx="2" fill="#14212B"/><rect x="11" y="3" width="18" height="4" rx="2" fill="#14212B"/></svg>`;
+  }
+  if(m.shape==='croissant') return `<svg width="${size}" height="${size}" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 26c3-12 27-12 30 0-4-2-7-2-9 1-2-4-10-4-12 0-2-3-5-3-9-1z" fill="#D49A52" stroke="#8A5524" stroke-width="1.4" stroke-linejoin="round"/><path d="M14 20l2 7M20 18v8M26 20l-2 7" stroke="#8A5524" stroke-width="1.3" stroke-linecap="round"/></svg>`;
+  if(m.shape==='trenza') return `<svg width="${size}" height="${size}" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="13" width="28" height="15" rx="7" fill="#E0B46E" stroke="#8A5524" stroke-width="1.4"/><path d="M11 16l5 9M18 16l5 9M25 16l5 9" stroke="#8A5524" stroke-width="1.3" stroke-linecap="round"/><path d="M9 12h22" stroke="#F3EFE8" stroke-width="2" stroke-linecap="round" opacity=".9"/></svg>`;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 27L20 9l14 18z" fill="#E8C98E" stroke="#8A5524" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 24h20" stroke="#5F8A4A" stroke-width="2.4" stroke-linecap="round"/><path d="M13 21h14" stroke="#C0563A" stroke-width="2" stroke-linecap="round"/></svg>`;
+}
+
+/* ---------- Piezas comunes ---------- */
+function topbar({title, back, logo}={}){
+  const left = back ? `<button class="iconbtn" type="button" data-go="${back}" aria-label="Volver">${ic('back',20)}</button>` : logo ? `<div class="logo">${ic('wind',22,'currentColor',2.2)}CIERZO</div>` : '<span class="spacer"></span>';
+  return `<div class="topbar">${left}${title?`<div class="title">${title}</div>`:''}${S.registered?`<button class="iconbtn" type="button" data-act="qr" aria-label="Mostrar mi QR">${ic('qr',20)}</button>`:'<span class="spacer"></span>'}</div>`;
+}
+function tabbar(){
+  const tabs=[['home','Inicio','home'],['menu','Carta','cup'],['cart','Pedido','bag'],['club','Club','star'],['profile','Perfil','user']];
+  const cur = S.screen==='status' ? 'cart' : S.screen;
+  return `<nav class="tabbar" aria-label="Navegación principal">${tabs.map(([id,l,i])=>{
+    const b = id==='cart' ? (cartCount() || (activeOrder()?'1':'')) : '';
+    return `<button type="button" data-go="${id}" ${cur===id?'aria-current="page"':''}>${ic(i)}${l}${b?`<span class="badge">${cartCount()||'•'}</span>`:''}</button>`;}).join('')}</nav>`;
+}
+function orderBanner(){
+  const o=activeOrder(); if(!o) return '';
+  const label = o.step>=2 ? 'Listo en el mostrador app' : o.step===1 ? 'Preparando tu pedido' : 'Pedido recibido';
+  return `<button class="banner" type="button" data-go="status"><span class="live" aria-hidden="true"></span><span><span style="font-weight:600;display:block">${label}</span><span class="small muted">Pedido #${o.num} · recogida ${o.time}</span></span>${ic('right',18)}</button>`;
+}
+
+/* ---------- Pantallas ---------- */
+function vWelcome(){
+  return `<div class="welcome">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div class="logo" style="font-size:20px">${ic('wind',26,'currentColor',2.2)}CIERZO</div>
+      <div class="stack" style="gap:10px">
+        <h1 class="h-xl" style="font-size:36px">Café para cafeteros. Sin colas.</h1>
+        <p class="muted">Especialidad para llevar en Zaragoza, pedida desde el móvil.</p>
+      </div>
+      <ol class="how">
+        <li><span class="num">1</span><span><b>Pide desde el móvil</b><br><span class="small muted">o repite tu último pedido en un toque</span></span></li>
+        <li><span class="num">2</span><span><b>Recoge sin hacer cola</b><br><span class="small muted">en el mostrador app, a la hora que elijas</span></span></li>
+        <li><span class="num">3</span><span><b>Suma 10 puntos por café</b><br><span class="small muted">y canjéalos por cafés y bollería</span></span></li>
+      </ol>
+      <div class="offer">${ic('gift',26,'#FFFFFF')}<div><div style="font-weight:700">20 % en tu primer pedido</div><div class="small" style="opacity:.9">Se aplica solo al pagar en la app</div></div></div>
+    </div>
+    <div class="stack" style="gap:10px">
+      <button class="btn primary" type="button" data-act="register">Continuar con Apple</button>
+      <button class="btn line" type="button" data-act="register">Continuar con Google</button>
+      <button class="btn line" type="button" data-act="register">Continuar con email</button>
+      <button class="linkbtn" type="button" data-act="browse" style="color:#F3EFE8">Ver la carta sin registrarme</button>
+    </div>
+  </div>`;
+}
+
+const SIMS=[['now','Ahora'],['mon','Lunes 8:30'],['wed','Miércoles 13:30'],['sat','Sábado 11:00']];
+function nowD(){ const k=S.sim||'now'; if(k==='now') return new Date(); const [dow,h,m]={mon:[1,8,30],wed:[3,13,30],sat:[6,11,0]}[k]; const d=new Date(); d.setDate(d.getDate()+((dow-d.getDay()+7)%7)); d.setHours(h,m,0,0); return d; }
+const curPoint = () => CierzoMap.POINTS.find(p=>p.id===S.point);
+const ranked = () => { const d=nowD(); const all=CierzoMap.POINTS.map(p=>{const st=CierzoMap.status(p,d); return {p,st,eta:st.open?Math.max(p.go,st.app):999};}); const open=all.filter(x=>x.st.open).sort((a,b)=>a.eta-b.eta||a.st.app-b.st.app); return {open, closed:all.filter(x=>!x.st.open)}; };
+function pointCard(where){
+  const p=curPoint(), st=CierzoMap.status(p,nowD());
+  return `<section class="card stack" aria-label="Punto de recogida" style="gap:6px">
+    <div class="row"><div style="min-width:0"><div class="eyebrow">Recoges en</div><div class="h-md">${p.name}</div></div>
+      <button class="chip" type="button" data-go="points">Cambiar</button></div>
+    <div class="small muted" style="display:flex;gap:6px;align-items:center">${ic('pin',16)}${p.zone}</div>
+    ${st.open?`<div class="waits"><div>Tu café, listo en<b>${st.app} min</b></div><div>Llegas en<b>${p.go} min</b></div></div><div class="small muted">En la cola de paso esperarías ${st.paso} min.</div>`:`<div class="small" style="color:var(--accent);font-weight:600">${st.until}. Elige otro punto para pedir ahora.</div>`}
+  </section>`;
+}
+function vPoints(){
+  const {open,closed}=ranked(), draft=S.pointDraft||S.point, view=S.pointsView||'list';
+  const card=(x,i)=>{ const p=x.p, st=x.st, sel=draft===p.id;
+    return `<button class="pcard" type="button" data-point="${p.id}" aria-pressed="${sel}">
+      <span class="pc-top"><span class="pc-name">${p.name}</span>${i===0?'<span class="tag best">Más rápido ahora</span>':''}${p.id===S.point&&i!==0?'<span class="tag">Tu punto</span>':''}</span>
+      <span class="small muted pc-sub">${p.kind.replace('Partner · ','Punto partner · ')}</span>
+      <span class="pc-times"><span><span class="small muted">Tu café, listo en</span><b>${st.app} min</b></span><span><span class="small muted">Llegas en</span><b>${p.go} min</b></span><span class="save">Ahorras ${st.paso-st.app} min de cola</span></span>
+    </button>`; };
+  return topbar({title:'¿Dónde recoges?', back:S.pointBack||'home'}) + `<div class="screen">
+    <div class="small muted" style="display:flex;gap:6px;align-items:center">${ic('pin',16)}Estás en plaza de Aragón (simulado). Ordenados por cuándo tendrías tu café.</div>
+    <div class="segment" role="group" aria-label="Vista"><button type="button" data-pview="list" aria-pressed="${view==='list'}">Lista</button><button type="button" data-pview="map" aria-pressed="${view==='map'}">Mapa</button></div>
+    ${view==='map'?`<div class="mapbox tall" id="appmap"></div>${open.filter(x=>x.p.id===draft).map(x=>card(x,open.indexOf(x))).join('')}`:''}
+    ${view==='list'?`<div class="stack" style="gap:10px">${open.map(card).join('')||'<div class="card small muted">Ahora no hay ningún punto abierto.</div>'}</div>`:''}
+    ${view==='list'&&closed.length?`<div class="stack" style="gap:8px"><div class="eyebrow">Cerrados ahora</div>${closed.map(x=>`<div class="pclosed"><span><span style="font-weight:600;display:block">${x.p.name}</span><span class="small muted">${x.st.until}</span></span><span class="pill off">Cerrado</span></div>`).join('')}</div>`:''}
+    <p class="small muted">Mismo café y mismas recetas en todos los puntos. Red simulada para el prototipo.</p>
+  </div>`;
+}
+function vHome(){
+  const prog = S.points % 100, cafes = Math.ceil((100-prog)/10);
+  const last = S.last, m = item(last.id);
+  return topbar({logo:true}) + `<div class="screen">
+    <div><div class="eyebrow">${greeting()}</div><h1 class="h-xl">${S.name}, hoy sopla fuerte.</h1></div>
+    ${orderBanner()}
+    <section class="hero" aria-label="Pedir">
+      ${WIND(150)}
+      <div class="row"><span class="eyebrow">Mostrador app</span><span class="small" style="display:flex;gap:6px;align-items:center">${ic('clock',16)}listo en ~4 min</span></div>
+      <h2 class="h-lg" style="font-size:24px">Pide ahora y recoge sin cola</h2>
+      <button class="btn primary" type="button" data-go="menu">Pedir</button>
+      <button class="btn line split" type="button" data-act="repeat">
+        <span style="display:flex;gap:10px;align-items:center;min-width:0">${ic('repeat',18)}<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Repetir: ${lineName(last)}</span></span><span class="price">${eur(linePrice(last))}</span>
+      </button>
+    </section>
+    <section class="card stack" style="gap:12px" aria-label="Club CIERZO">
+      <div class="row"><div><div class="eyebrow">Club CIERZO · ${level()}</div><div><span class="price" style="font-size:26px">${S.points}</span> <span class="muted">puntos</span></div></div>
+        <button class="chip" type="button" data-act="qr" style="display:flex;gap:6px;align-items:center">${ic('qr',18)}Mi QR</button></div>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${prog}" aria-label="Progreso hacia el café gratis"><span style="width:${prog}%"></span></div>
+      <div class="small muted">${S.points>=100?'Tienes un café gratis esperando en el Club.':`${cafes} ${cafes===1?'café':'cafés'} más y el siguiente es gratis.`}</div>
+    </section>
+    ${pointCard('home')}
+    <section class="card" style="display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center" aria-label="Edición exótica">
+      <span class="tile">${art(item('filtro'),34)}</span>
+      <div style="min-width:0"><div class="eyebrow">Edición exótica</div><div style="font-weight:600">Etiopía natural en filtro</div><div class="small muted">Arándano y jazmín · esta semana</div></div>
+      <button class="chip" type="button" data-open="filtro">Probar</button>
+    </section>
+  </div>`;
+}
+
+function vMenu(){
+  const list = MENU.filter(m=>m.cat===S.menuCat);
+  const favs = ['flatwhite','conleche','croissant'].map(item);
+  return topbar({title:'Carta', back:S.registered?null:'welcome'}) + `<div class="screen">
+    ${orderBanner()}
+    ${S.registered?(()=>{const p=curPoint(), st=CierzoMap.status(p,nowD()); return `<button class="banner" type="button" data-go="points" style="border-color:var(--line)">${ic('pin',18)}<span><span style="font-weight:600;display:block">Recoges en ${p.short}</span><span class="small muted">${st.open?'Tu café, listo en '+st.app+' min':st.until}</span></span><span class="small" style="font-weight:600;color:var(--accent)">Cambiar</span></button>`;})():''}
+    ${S.registered?`<div class="stack"><div class="h-md">Tus habituales</div><div class="hscroll">${favs.map(m=>`<button class="fav" type="button" data-open="${m.id}"><span class="tile" style="width:48px;height:48px">${art(m,30)}</span><span style="font-weight:600;font-size:14px">${m.name}</span><span class="price small">${eur(m.price)}</span></button>`).join('')}</div></div>`:''}
+    <div class="segment" role="group" aria-label="Categoría">
+      <button type="button" data-cat="cafe" aria-pressed="${S.menuCat==='cafe'}">Cafés</button>
+      <button type="button" data-cat="bolleria" aria-pressed="${S.menuCat==='bolleria'}">Bollería</button>
+    </div>
+    <div class="stack" style="gap:10px">
+    ${list.map(m=>`<button class="item" type="button" data-open="${m.id}">
+      <span class="tile">${art(m,m.cat==='cafe'?36:40)}</span>
+      <span style="min-width:0"><span class="name">${m.name}</span><span class="desc">${m.desc}</span>${m.cat==='cafe'?`<span class="meta"><span>${m.ml} ml</span><span>${m.ratio}</span></span>`:''}</span>
+      <span class="price">${eur(m.price)}</span>
+    </button>`).join('')}
+    </div>
+    <p class="small muted">${S.menuCat==='cafe'?'Solo cafés de especialidad. Leche entera, sin lactosa (sin coste) o avena.':'Pocas piezas, de obrador artesano local, cada mañana.'}</p>
+  </div>`;
+}
+
+function vCart(){
+  if(!S.cart.length){
+    return topbar({title:'Tu pedido'}) + `<div class="screen" style="align-items:center;text-align:center;padding-top:56px;gap:16px">
+      <span class="tile" style="width:76px;height:76px;border-radius:20px">${ic('bag',34)}</span>
+      <div class="h-lg">Tu pedido está vacío</div>
+      <p class="muted" style="max-width:30ch">Elige tu café o repite el último y recógelo sin cola.</p>
+      <button class="btn primary" type="button" data-go="menu" style="max-width:260px">Ver la carta</button>
+      <button class="btn line" type="button" data-act="repeat" style="max-width:260px">Repetir ${item(S.last.id).name.toLowerCase()}</button>
+    </div>`;
+  }
+  const hasBake = S.cart.some(l=>item(l.id).cat==='bolleria');
+  const now = new Date(); const slot = k => k==='asap' ? 'Lo antes posible' : hhmm(new Date(now.getTime()+Number(k)*60000));
+  const pays=[['apple','Apple Pay'],['google','Google Pay'],['card','Tarjeta ···· 4242']];
+  return topbar({title:'Tu pedido', back:'menu'}) + `<div class="screen">
+    <div class="stack" style="gap:10px">
+    ${S.cart.map((l,i)=>`<div class="card" style="display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px">
+      <span class="tile" style="width:48px;height:48px">${art(item(l.id),30)}</span>
+      <div style="min-width:0"><div style="font-weight:600">${lineName(l)}</div><div class="small muted price" style="font-weight:500">${eur(linePrice(l)*l.qty)}</div></div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <button class="iconbtn" type="button" data-qty="${i}:-1" aria-label="Quitar uno">${ic('minus',18)}</button>
+        <span class="price" style="min-width:16px;text-align:center">${l.qty}</span>
+        <button class="iconbtn" type="button" data-qty="${i}:1" aria-label="Añadir uno">${ic('plus',18)}</button>
+      </div></div>`).join('')}
+    </div>
+    ${hasBake?'':`<div class="card" style="display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:12px;align-items:center;border-style:dashed;padding:10px 12px">
+      <span class="tile" style="width:48px;height:48px">${art(item('croissant'),32)}</span>
+      <div><div style="font-weight:600">¿Con un croissant?</div><div class="small muted">Recién llegado del obrador · 2,00 €</div></div>
+      <button class="chip" type="button" data-addquick="croissant">Añadir</button></div>`}
+    ${pointCard('cart')}
+    <div class="stack"><div class="h-md">¿Cuándo lo recoges?</div>
+      <div class="grid2" role="group" aria-label="Hora de recogida">${['asap','10','20','30'].map(k=>`<button class="chip" type="button" data-pickup="${k}" aria-pressed="${S.pickup===k}">${slot(k)}</button>`).join('')}</div>
+      <div class="small muted">${S.pickup==='asap'?'Listo en ~4 minutos en el mostrador app.':'Lo preparamos para que esté recién hecho a esa hora.'}</div></div>
+    <div class="stack"><div class="h-md">Pago</div>
+      <div class="chips" role="group" aria-label="Forma de pago">${pays.map(([k,l])=>`<button class="chip" type="button" data-pay="${k}" aria-pressed="${S.pay===k}">${l}</button>`).join('')}</div></div>
+    <div class="card stack" style="font-variant-numeric:tabular-nums">
+      <div class="row"><span class="muted">Subtotal</span><span>${eur(subtotal())}</span></div>
+      ${S.firstOrder?`<div class="row" style="color:var(--ok)"><span>Bienvenida −20 %</span><span>−${eur(discount())}</span></div>`:''}
+      <div class="row"><span class="muted">Puntos que ganas</span><span>+${earn()}</span></div>
+    </div>
+  </div>`;
+}
+
+function vStatus(){
+  const o=S.order; if(!o) return vCart();
+  const labels=['Recibido','Preparando','Listo'];
+  return topbar({title:'Seguimiento'}) + `<div class="screen">
+    <section class="hero" aria-label="Estado del pedido">
+      ${WIND(150)}
+      <div class="row"><span class="eyebrow">Pedido #${o.num}</span><span class="small" style="display:flex;gap:6px;align-items:center">${o.step<2?'<span class="live" aria-hidden="true"></span>':''}${o.step>=2?'Listo':'Recogida '+o.time}</span></div>
+      <h1 class="h-xl" style="font-size:26px">${o.step>=2?'Ya puedes recogerlo':o.step===1?'El barista está con tu café':'Hemos recibido tu pedido'}</h1>
+      <div class="track" aria-label="Progreso: ${labels[o.step]}">${labels.map((_,i)=>`<span class="seg ${o.step>=i?'on':''}"></span>`).join('')}</div>
+      <div class="row small"><span>Recibido</span><span>Preparando</span><span>Listo</span></div>
+    </section>
+    <section class="card stack" style="align-items:center;text-align:center;gap:6px" aria-label="Código de recogida">
+      <div class="eyebrow">Mostrador app · ${curPoint().name}</div>
+      <div class="pickup">${S.name.toUpperCase()} · ${o.num}</div>
+      <div class="small muted">${o.lines.map(l=>(l.qty>1?l.qty+' × ':'')+lineName(l)).join(' · ')}</div>
+    </section>
+    <div class="card row"><span class="muted">Puntos sumados sin escanear</span><span class="price" style="color:var(--ok)">+${o.pts}</span></div>
+    ${o.step>=2?`<section class="card stack" aria-label="Valoración">
+      <div class="h-md">¿Llegó a su hora?</div>
+      <div class="stars" role="group" aria-label="Valora tu pedido">${[1,2,3,4,5].map(n=>`<button type="button" data-rate="${n}" aria-label="${n} de 5">${ic('star',28,n<=o.rated?'var(--accent)':'var(--muted)').replace('fill="none"', n<=o.rated?'fill="var(--accent)"':'fill="none"')}</button>`).join('')}</div>
+      ${o.rated?'<div class="small" style="color:var(--ok)">Gracias. Así mantenemos el mostrador app puntual.</div>':''}
+    </section>`:''}
+  </div>`;
+}
+
+function vClub(){
+  const toNext = Math.max(0, 300 - S.lifetime);
+  return topbar({title:'Club CIERZO'}) + `<div class="screen">
+    <section class="hero" aria-label="Tus puntos">
+      ${WIND(150)}
+      <div class="row"><div><div class="eyebrow">Tus puntos</div><div class="price" style="font-size:34px">${S.points}</div></div><span class="pill" style="background:var(--hero-line);color:var(--hero-ink)">Nivel ${level()}</span></div>
+      <div class="bar" aria-hidden="true"><span style="width:${Math.min(100,S.lifetime/3)}%"></span></div>
+      <div class="small muted">${toNext?`${toNext} puntos para el nivel Cierzo: catas y ediciones exóticas antes que nadie.`:'Nivel Cierzo: catas y ediciones exóticas antes que nadie.'}</div>
+    </section>
+    <section class="card" style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center" aria-label="Tu QR">
+      <div class="qrwrap"><canvas id="qrsmall" width="29" height="29" style="width:104px;height:104px" aria-label="Código QR personal"></canvas></div>
+      <div class="stack">
+        <div class="h-md">Suma en caja</div>
+        <div class="small muted">Enseña tu QR al pagar. Los pedidos de la app suman solos.</div>
+        <button class="chip" type="button" data-act="scan">Simular escaneo</button>
+      </div>
+    </section>
+    <div class="stack"><div class="h-md">Canjea tus puntos</div>
+    ${REWARDS.map(r=>`<div class="card row" style="padding:12px 14px"><div><div style="font-weight:600">${r.name}</div><div class="small muted">${r.pts} puntos</div></div>
+      <button class="chip" type="button" data-redeem="${r.id}" ${S.points<r.pts?'disabled':''}>${S.points<r.pts?'Faltan '+(r.pts-S.points):'Canjear'}</button></div>`).join('')}
+    </div>
+    <div class="stack"><div class="h-md">Movimientos</div>
+      <div class="card stack" style="gap:10px">${S.history.slice(0,5).map(h=>`<div class="row small"><span>${h.t}<span class="muted"> · ${h.d}</span></span><span class="price" style="color:${h.pts<0?'var(--accent)':'var(--ok)'}">${h.pts>0?'+':''}${h.pts}</span></div>`).join('')}</div>
+    </div>
+    <p class="small muted">10 puntos por café y 5 por bollería.</p>
+  </div>`;
+}
+
+function vProfile(){
+  const sw=(k,l,d)=>`<div class="row"><div><div style="font-weight:600">${l}</div><div class="small muted">${d}</div></div><button class="switch" type="button" role="switch" aria-checked="${S.notif[k]}" aria-label="${l}" data-notif="${k}"></button></div>`;
+  return topbar({title:'Perfil'}) + `<div class="screen">
+    <div class="row" style="justify-content:flex-start;gap:14px"><span class="tile" style="border-radius:50%">${ic('user',28)}</span><div><div class="h-lg">${S.name}</div><div class="small muted">Club CIERZO · nivel ${level()}</div></div></div>
+    <section class="card stack" style="gap:12px" aria-label="Invita a un amigo">
+      <div class="h-md">Invita a un amigo</div>
+      <div class="small muted">Cuando haga su primer pedido, los dos tenéis un café gratis.</div>
+      <div class="row" style="background:var(--chip);border-radius:12px;padding:8px 8px 8px 14px"><span class="price" style="letter-spacing:.12em" id="refcode">LUCIA-CIERZO</span><button class="chip" type="button" data-act="copy">Copiar</button></div>
+    </section>
+    <section class="card stack" style="gap:14px" aria-label="Avisos">
+      <div class="h-md">Avisos</div>
+      ${sw('ready','Pedido listo','Justo cuando puedes recogerlo')}
+      ${sw('offers','Puntos y premios','Cuando te falte poco para un café gratis')}
+      ${sw('news','Novedades','Ediciones exóticas y catas')}
+    </section>
+    <section class="card" style="display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center;border-style:dashed" aria-label="Grano CIERZO">
+      <span class="tile">${ic('bean',26)}</span>
+      <div style="min-width:0"><div class="eyebrow">Fase 2 · próximamente</div><div style="font-weight:600">Grano CIERZO en casa</div><div class="small muted">Avísame cuando llegue</div></div>
+      <button class="switch" type="button" role="switch" aria-checked="${S.beanAlert}" aria-label="Avisarme del grano" data-act="bean"></button>
+    </section>
+    <div class="stack" style="gap:6px"><span class="small muted">Hora de la demo (aperturas y esperas)</span><div class="simrow" role="group" aria-label="Hora simulada">${SIMS.map(([k,l])=>`<button type="button" data-sim="${k}" aria-pressed="${(S.sim||'now')===k}">${l}</button>`).join('')}</div></div>
+    <button class="btn line" type="button" data-act="reset">Reiniciar la demo</button>
+  </div>`;
+}
+
+/* Barra de acción fija: lo que se hace a continuación siempre está a un toque */
+function actionbar(){
+  if(S.screen==='menu' && !S.registered){
+    return `<div class="actionbar"><button class="btn primary" type="button" data-act="register">${S.cart.length?'Regístrate y paga tu pedido':'Regístrate para pedir'} · 20 % de bienvenida</button></div>`;
+  }
+  if(S.screen==='menu' && S.cart.length){
+    return `<div class="actionbar"><button class="btn dark split" type="button" data-go="cart"><span>Ver pedido · ${cartCount()} ${cartCount()===1?'producto':'productos'}</span><span class="price">${eur(total())}</span></button></div>`;
+  }
+  if(S.screen==='points'){
+    const d=nowD(), p=CierzoMap.POINTS.find(q=>q.id===(S.pointDraft||S.point)), st=CierzoMap.status(p,d);
+    return `<div class="actionbar"><button class="btn primary split" type="button" data-act="choosePoint" ${st.open?'':'disabled'}><span>${st.open?'Recoger en '+p.short:'Elige un punto abierto'}</span><span>${st.open?'listo en '+st.app+' min':''}</span></button></div>`;
+  }
+  if(S.screen==='cart' && S.cart.length){
+    const label = S.pay==='card' ? 'Pagar' : 'Pagar con '+(S.pay==='apple'?'Apple Pay':'Google Pay');
+    const closed=!CierzoMap.status(curPoint(),nowD()).open;
+    return `<div class="actionbar"><button class="btn dark split" type="button" data-act="pay" ${closed?'disabled':''}><span>${closed?'Punto cerrado: elige otro':label}</span><span class="price">${eur(total())}</span></button></div>`;
+  }
+  if(S.screen==='status' && S.order && S.order.step>=2 && !S.order.collected){
+    return `<div class="actionbar"><button class="btn primary" type="button" data-act="collected">Ya lo tengo</button></div>`;
+  }
+  return '';
+}
+
+/* ---------- Capas ---------- */
+function sheetProduct(id){
+  const m=item(id); const sel={milk:'entera', decaf:false, qty:1};
+  const draw=()=>{
+    const price=(m.price+(m.milk?milkOf(sel).add:0))*sel.qty;
+    $('#layer').innerHTML=`<div class="scrim" data-close="1"><div class="sheet" role="dialog" aria-modal="true" aria-label="${m.name}">
+      <div class="grab"></div>
+      <div style="display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:center">
+        <span class="tile" style="width:76px;height:76px;border-radius:18px">${art(m,m.cat==='cafe'?48:54)}</span>
+        <div><div class="h-lg">${m.name}</div><div class="small muted">${m.desc}</div>${m.cat==='cafe'?`<div class="meta"><span>${m.ml} ml</span><span>${m.ratio}</span></div>`:''}</div>
+      </div>
+      ${m.milk?`<div class="stack"><div class="eyebrow">Leche</div><div class="chips">${MILKS.map(x=>`<button class="chip" type="button" data-milk="${x.id}" aria-pressed="${sel.milk===x.id}">${x.name}${x.add?' +'+eur(x.add):''}</button>`).join('')}</div></div>`:''}
+      ${m.cat==='cafe'?`<div class="stack"><div class="eyebrow">Café</div><div class="chips"><button class="chip" type="button" data-decaf="0" aria-pressed="${!sel.decaf}">Normal</button><button class="chip" type="button" data-decaf="1" aria-pressed="${sel.decaf}">Descafeinado</button></div></div>`:''}
+      <div class="row"><span class="eyebrow">Cantidad</span><div style="display:flex;align-items:center;gap:10px"><button class="iconbtn" type="button" data-sq="-1" aria-label="Menos">${ic('minus',18)}</button><span class="price">${sel.qty}</span><button class="iconbtn" type="button" data-sq="1" aria-label="Más">${ic('plus',18)}</button></div></div>
+      <button class="btn primary split" type="button" data-addsel="1"><span>Añadir al pedido</span><span class="price">${eur(price)}</span></button>
+    </div></div>`;
+  };
+  draw();
+  $('#layer').onclick=e=>{
+    if(e.target.dataset && e.target.dataset.close){ closeLayer(); return; }
+    const t=e.target.closest('button'); if(!t) return;
+    if(t.dataset.milk){sel.milk=t.dataset.milk;draw();}
+    else if(t.dataset.decaf){sel.decaf=t.dataset.decaf==='1';draw();}
+    else if(t.dataset.sq){sel.qty=Math.max(1,sel.qty+Number(t.dataset.sq));draw();}
+    else if(t.dataset.addsel){ addLine({id, milk:m.milk?sel.milk:'entera', decaf:sel.decaf, qty:sel.qty}); closeLayer(); if(S.screen!=='menu'&&S.screen!=='cart'){S.screen='menu';} render(); toast('bag','Añadido al pedido', `${sel.qty} × ${m.name}`); }
+  };
+}
+function sheetQR(){
+  $('#layer').innerHTML=`<div class="scrim" data-close="1"><div class="sheet" role="dialog" aria-modal="true" aria-label="Mi QR">
+    <div class="grab"></div>
+    <div style="text-align:center" class="stack"><div class="h-lg">Tu QR del Club</div><div class="small muted">Enséñalo al pagar en caja y el barista suma tus puntos.</div></div>
+    <div class="qrwrap"><canvas id="qr" width="29" height="29" style="width:200px;height:200px" aria-label="Código QR personal"></canvas><div class="code">CZ-7Q4L-2026</div></div>
+    <button class="btn dark" type="button" data-scan="1">Simular escaneo en caja (+10 puntos)</button>
+    <button class="btn line" type="button" data-closebtn="1">Cerrar</button>
+  </div></div>`;
+  drawQR($('#qr'));
+  $('#layer').onclick=e=>{
+    if(e.target.dataset && e.target.dataset.close){ closeLayer(); return; }
+    const t=e.target.closest('button'); if(!t) return;
+    if(t.dataset.closebtn) closeLayer();
+    else if(t.dataset.scan){ closeLayer(); scan(); }
+  };
+}
+function closeLayer(){ $('#layer').innerHTML=''; $('#layer').onclick=null; }
+function toast(icon,title,body){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const el=document.createElement('div'); el.className='toast'; el.setAttribute('role','status');
+  el.innerHTML=`<span class="ic">${ic(icon,20,'#F3EFE8')}</span><div><div style="font-weight:600">${title}</div><div class="small muted">${body}</div></div>`;
+  $('#app').appendChild(el); setTimeout(()=>el.remove(),2800);
+}
+function drawQR(c){
+  if(!c) return; const n=29, x=c.getContext('2d'); x.fillStyle='#FFFFFF'; x.fillRect(0,0,n,n); x.fillStyle='#14212B';
+  let seed=20261003; const rnd=()=>(seed=(seed*1103515245+12345)%2147483648)/2147483648;
+  const inF=(i,j)=>(i<8&&j<8)||(i>n-9&&j<8)||(i<8&&j>n-9);
+  for(let i=0;i<n;i++)for(let j=0;j<n;j++){ if(!inF(i,j) && rnd()>.52) x.fillRect(i,j,1,1); }
+  const finder=(ox,oy)=>{for(let i=0;i<7;i++)for(let j=0;j<7;j++){ if(i===0||i===6||j===0||j===6||(i>=2&&i<=4&&j>=2&&j<=4)) x.fillRect(ox+i,oy+j,1,1);}};
+  finder(0,0); finder(n-7,0); finder(0,n-7);
+}
+
+/* ---------- Acciones ---------- */
+function addLine(l){ const same=S.cart.find(c=>c.id===l.id&&c.milk===l.milk&&c.decaf===l.decaf); if(same) same.qty+=l.qty; else S.cart.push(l); }
+function addPoints(p,t){ S.points+=p; if(p>0) S.lifetime+=p; S.history.unshift({t,pts:p,d:'Ahora'}); }
+function scan(){ addPoints(10,'Café en tienda (QR)'); render(); toast('star','+10 puntos', `Escaneado en caja. Llevas ${S.points} puntos.`); }
+function pay(){
+  const mins = S.pickup==='asap' ? 4 : Number(S.pickup);
+  const o={num:String(Math.floor(100+Math.random()*800)), lines:S.cart.map(l=>({...l})), pts:earn(), step:0, rated:0, collected:false, time:hhmm(new Date(Date.now()+mins*60000))};
+  const c=S.cart.find(l=>item(l.id).cat==='cafe'); if(c) S.last={id:c.id,milk:c.milk,decaf:c.decaf};
+  addPoints(o.pts,'Pedido app #'+o.num);
+  S.order=o; S.cart=[]; S.firstOrder=false; S.screen='status'; render();
+  timers.forEach(clearTimeout); timers=[];
+  timers.push(setTimeout(()=>{ if(S.order===o){o.step=1; render();} },2200));
+  timers.push(setTimeout(()=>{ if(S.order===o){o.step=2; render(); if(S.notif.ready) toast('bell','Tu pedido está listo', `Mostrador app · di "${S.name} · ${o.num}".`);} },5200));
+}
+function go(screen){
+  if(screen==='cart' && !S.cart.length && activeOrder()) screen='status';
+  if(screen==='status' && !S.order){ S.registered=true; addLine({id:'flatwhite',milk:'avena',decaf:false,qty:1}); pay(); return; }
+  if(screen!=='welcome' && screen!=='menu') S.registered = true;
+  if(screen==='points' && S.screen!=='points'){ S.pointBack=S.screen; S.pointDraft=S.point; S.pointsView='list'; }
+  S.screen=screen; closeLayer(); render();
+  const sc=$('#scroller'); if(sc) sc.scrollTop=0;
+}
+
+/* ---------- Render ---------- */
+function render(){
+  const v=$('#view'), scrollTop = $('#scroller') ? $('#scroller').scrollTop : 0, same = v.dataset.screen===S.screen;
+  if(S.screen==='welcome'){ v.innerHTML=vWelcome(); }
+  else {
+    const body = {home:vHome, points:vPoints, menu:vMenu, cart:vCart, status:vStatus, club:vClub, profile:vProfile}[S.screen]();
+    v.innerHTML=`<div class="scroll" id="scroller">${body}</div>${actionbar()}${S.registered?tabbar():''}`;
+    if(same) $('#scroller').scrollTop = scrollTop;
+  }
+  v.dataset.screen=S.screen;
+  if(S.screen==='club') drawQR($('#qrsmall'));
+  if(S.screen==='points' && $('#appmap')){ CierzoMap.mount($('#appmap'),{selected:S.pointDraft||S.point, short:true, controls:false, date:nowD(), me:{x:594,y:508}, view:{x:110,y:130,w:690,h:520}, onSelect:(p,st)=>{ if(!st.open){ toast('clock',p.short+' está cerrado',st.until); return; } S.pointDraft=p.id; render(); }}); }
+  const sim=$('#sim'); if(sim) sim.innerHTML=SIMS.map(([k,l])=>`<button type="button" data-sim="${k}" aria-pressed="${(S.sim||'now')===k}">${l}</button>`).join('');
+  $('#steps').innerHTML=SCREENS.map((s,i)=>`<li><button type="button" data-jump="${s.id}" aria-current="${S.screen===s.id}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${s.t}<span class="d">${s.d}</span></span><span class="mf ${s.hot?'hot':''}">${s.mf}</span></button></li>`).join('');
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b || b.closest('#layer') || b.id==='reset') return;
+  const d=b.dataset;
+  if(d.jump){ S.registered = d.jump!=='welcome'; go(d.jump); return; }
+  if(d.go){ go(d.go); return; }
+  if(d.point){ S.pointDraft=d.point; render(); return; }
+  if(d.pview){ S.pointsView=d.pview; render(); return; }
+  if(d.sim){ S.sim=d.sim; render(); return; }
+  if(d.cat){ S.menuCat=d.cat; render(); return; }
+  if(d.open){ sheetProduct(d.open); return; }
+  if(d.qty){ const [i,dl]=d.qty.split(':').map(Number); S.cart[i].qty+=dl; if(S.cart[i].qty<=0) S.cart.splice(i,1); render(); return; }
+  if(d.addquick){ addLine({id:d.addquick,milk:'entera',decaf:false,qty:1}); render(); return; }
+  if(d.pickup){ S.pickup=d.pickup; render(); return; }
+  if(d.pay){ S.pay=d.pay; render(); return; }
+  if(d.rate && S.order){ S.order.rated=Number(d.rate); render(); return; }
+  if(d.notif){ S.notif[d.notif]=!S.notif[d.notif]; render(); return; }
+  if(d.redeem){ const r=REWARDS.find(x=>x.id===d.redeem); if(S.points>=r.pts){ addPoints(-r.pts,'Canje: '+r.name); render(); toast('gift','Premio canjeado', r.name+'. Enséñalo en caja hoy.'); } return; }
+  switch(d.act){
+    case 'register': S.registered=true; go(S.cart.length?'cart':'home'); toast('gift','Bienvenida, '+S.name, 'Tu 20 % se aplica al pagar el primer pedido.'); break;
+    case 'browse': S.registered=false; go('menu'); break;
+    case 'qr': sheetQR(); break;
+    case 'scan': scan(); break;
+    case 'repeat': addLine({...S.last, qty:1}); go('cart'); break;
+    case 'pay': if(CierzoMap.status(curPoint(),nowD()).open) pay(); break;
+    case 'choosePoint': { const back=S.pointBack; S.point=S.pointDraft||S.point; const p=curPoint(); go(back==='cart'?'cart':'menu'); toast('pin','Recogerás en '+p.short, back==='cart'?'Ya puedes pagar tu pedido.':'Elige tu café.'); break; }
+    case 'collected': S.order.collected=true; go('home'); toast('check','¡Que lo disfrutes!','Tus puntos ya están en el Club.'); break;
+    case 'bean': S.beanAlert=!S.beanAlert; render(); if(S.beanAlert) toast('bean','Te avisaremos','Serás de los primeros en probar el grano CIERZO.'); break;
+    case 'copy': {
+      const done=()=>toast('check','Código copiado','Compártelo con quien quieras.');
+      const sel=()=>{ const el=$('#refcode'); const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); };
+      try{ navigator.clipboard.writeText('LUCIA-CIERZO').then(done).catch(sel); }catch(_){ sel(); }
+      break; }
+    case 'reset': reset(); break;
+  }
+});
+function reset(){ timers.forEach(clearTimeout); timers=[]; S=fresh(); closeLayer(); document.querySelectorAll('.toast').forEach(t=>t.remove()); render(); }
+$('#reset').addEventListener('click',reset);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape' && $('#layer').innerHTML) closeLayer(); });
+render();
+})();
+</script>
+
+</body></html>
