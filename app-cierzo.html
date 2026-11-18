@@ -1,8 +1,24 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>CIERZO App</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Work+Sans:wght@400;500;600&display=swap">
+<!doctype html><html lang="es-ES"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Prototipo de la app de CIERZO: pide café sin colas | Carlos Osuna</title>
+<meta name="description" content="Prototipo navegable de la app de CIERZO: pre-pedido de café de especialidad sin colas en Zaragoza, puntos de recogida, seguimiento del pedido y Club de puntos.">
+<meta name="author" content="Carlos Osuna">
+<link rel="canonical" href="https://cosuna-22.github.io/carlos-portfolio/app-cierzo.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Prototipo de la app de CIERZO | Carlos Osuna">
+<meta property="og:description" content="Pide café sin colas, recoge en el mostrador app y suma puntos. Prototipo funcional del proyecto CIERZO.">
+<meta property="og:url" content="https://cosuna-22.github.io/carlos-portfolio/app-cierzo.html">
+<meta property="og:image" content="https://cosuna-22.github.io/carlos-portfolio/img/og/og-cierzo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
+@font-face{font-family:'Archivo';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/archivo-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:800;font-display:swap;src:url(assets/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Work Sans';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/work-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Work Sans';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/work-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Work Sans';font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/work-sans-latin-600-normal.woff2) format('woff2')}
+
 /* Layout: desktop = guía de la demo + móvil enmarcado; móvil = la app a pantalla completa. Vista de app: scroll + barra de acción fija + tabbar */
 :root{
   --night:#14212B; --cream:#F3EFE8; --clay:#9A4A22; --sky:#6FA8CF;
@@ -184,6 +200,7 @@ p{margin:0}
 .offer{background:#9A4A22;color:#FFF;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:center}
 .linkbtn{background:none;border:0;text-decoration:underline;text-underline-offset:3px;padding:10px;min-height:44px}
 </style>
+</head><body>
 
 <div class="stage">
   <aside class="guide" aria-label="Guía de la demo">
@@ -197,13 +214,15 @@ p{margin:0}
     <div class="stack" style="gap:6px"><span class="small" style="color:var(--muted)">Hora de la demo (aperturas y esperas)</span><div class="simrow" id="sim" role="group" aria-label="Hora simulada"></div></div>
     <button class="ghost" id="reset" type="button">Reiniciar demo</button>
     <p class="small">Prototipo para clase: registro, pagos, avisos y QR están simulados.</p>
+    <a class="ghost" href="cierzo.html" style="text-decoration:none;color:inherit">← Volver al caso CIERZO</a>
+    <p class="small">Diseño y estrategia: <a href="index.html" style="color:inherit">Carlos Osuna</a></p>
   </aside>
 
   <div class="phone">
-    <div class="app" id="app">
+    <main class="app" id="app" aria-label="Prototipo de la app de CIERZO">
       <div id="view"></div>
       <div id="layer"></div>
-    </div>
+    </main>
   </div>
 </div>
 
