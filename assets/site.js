@@ -222,3 +222,19 @@
 
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 })();
+
+/* Burbuja ESIC: abrir / cerrar el aviso */
+(function () {
+  var fab = document.getElementById('esicFab'); if (!fab) return;
+  var pop = document.getElementById('esicPop'), btn = fab.querySelector('.esic-btn'), tip = fab.querySelector('.esic-tip'), close = fab.querySelector('.esic-pop__close'), dot = fab.querySelector('.esic-btn__dot');
+  function set(open) {
+    pop.hidden = !open; btn.setAttribute('aria-expanded', open);
+    if (tip) tip.hidden = open;
+    if (open) { if (dot) dot.remove(); dot = null; close.focus(); }
+  }
+  btn.addEventListener('click', function () { set(pop.hidden); });
+  if (tip) tip.addEventListener('click', function () { set(true); });
+  close.addEventListener('click', function () { set(false); btn.focus(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) { set(false); btn.focus(); } });
+  document.addEventListener('click', function (e) { if (!pop.hidden && !fab.contains(e.target)) set(false); });
+})();
