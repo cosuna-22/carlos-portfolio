@@ -25,6 +25,7 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
+picture{display:contents}
 a{color:inherit}
 button,input{font-family:inherit}
 .visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -167,6 +168,10 @@ button,input{font-family:inherit}
 .edu-pdp__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,60px);align-items:start}
 .edu-pdp__gallery{position:sticky;top:96px}
 .edu-pdp__price{display:flex;align-items:baseline;gap:6px}
+.edu-pdp__thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.edu-pdp__thumb{padding:0;border:1px solid var(--edu-line);border-radius:10px;overflow:hidden;background:var(--edu-cream);cursor:pointer;aspect-ratio:1/1}
+.edu-pdp__thumb[aria-current="true"]{border:2px solid var(--edu-ink)}
+.edu-pdp__thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .edu-pdp__perks{list-style:none;padding:0;margin:22px 0;display:grid;gap:8px}
 .edu-pdp__perks li{padding-left:28px;position:relative;line-height:1.45}
 .edu-pdp__perks li::before{content:"✓";position:absolute;left:0;color:var(--edu-red);font-weight:800}
@@ -270,7 +275,7 @@ main:focus{outline:none}
 <header class="header" id="hdr">
   <div class="page-width header__row">
     <button class="icon-btn burger" type="button" aria-label="Abrir menú" id="burger"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 3.5H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M1 10.5H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-    <a class="header__logo" href="#/" aria-label="KFC Eduardo Drop, inicio"><img src="https://cdn.shopify.com/s/files/1/1088/9451/9636/files/kfc-logo-rojo.png?v=1792960927&amp;width=262" srcset="https://cdn.shopify.com/s/files/1/1088/9451/9636/files/kfc-logo-rojo.png?v=1792960927&amp;width=262 1x, https://cdn.shopify.com/s/files/1/1088/9451/9636/files/kfc-logo-rojo.png?v=1792960927&amp;width=524 2x" alt="KFC" width="131" height="40"></a>
+    <a class="header__logo" href="#/" aria-label="KFC Eduardo Drop, inicio"><img src="img/shop/kfc-lettermark-red.svg" alt="KFC" width="117" height="40"></a>
     <nav aria-label="Menú principal">
       <ul class="menu" id="menu">
         <li><a href="#/">Inicio</a></li>
@@ -345,6 +350,13 @@ main:focus{outline:none}
   'use strict';
   var CDN = 'https://cdn.shopify.com/s/files/1/1088/9451/9636/files/';
   function cdn(file, v, w) { return CDN + file + '?v=' + v + '&width=' + w; }
+  /* Imágenes alojadas en el portfolio (img/shop): WebP en varios anchos + JPG de respaldo */
+  var LW = { 'tira-salsa-cielo': [800, 1400, 2400], 'cubo-cielo': [800, 1400, 2400], 'packaging': [800, 1400, 1920], 'burger': [450, 900], 'tira-crujiente': [450, 900], 'finger-lickin': [450, 900], 'eduardo-beats-1': [300, 600, 1024], 'eduardo-beats-2': [300, 600, 1024], 'eduardo-beats-3': [300, 600, 1024] };
+  function loc(name, alt, sizes, extra) {
+    var set = LW[name].map(function (w) { return 'img/shop/' + name + '-' + w + '.webp ' + w + 'w'; }).join(', ');
+    return '<picture><source type="image/webp" srcset="' + set + '" sizes="' + sizes + '"><img src="img/shop/' + name + '.jpg" alt="' + alt + '"' + (extra || '') + '></picture>';
+  }
+  function pimg(p, sizes, ws, extra) { return p.loc ? loc(p.loc, p.alt, sizes, extra) : img(p.img[0], p.img[1], p.alt, sizes, ws, extra, p.local); }
   function img(file, v, alt, sizes, ws, extra, local) {
     var set = ws.map(function (w) { return cdn(file, v, w) + ' ' + w + 'w'; }).join(', ');
     var fb = local ? ' data-local="' + local + '"' : '';
@@ -353,7 +365,7 @@ main:focus{outline:none}
 
   /* ---------- Datos de la tienda (Admin API) ---------- */
   var P = {
-    'eduardo-beats-2026': { title: 'Eduardo Beats · Edición Navidad 2026', img: ['EDUARDO_BEATS_ALTAVOZ_BLUETOOTH.jpg', '1793814108'], local: 'img/eduardo-beats.jpg',
+    'eduardo-beats-2026': { title: 'Eduardo Beats · Edición Navidad 2026', loc: 'eduardo-beats-1', gallery: ['eduardo-beats-1', 'eduardo-beats-2', 'eduardo-beats-3'],
       alt: 'Eduardo Beats, mini altavoz Bluetooth con forma de Eduardo, edición Navidad 2026', price: 3.99, stock: 3412, archive: false,
       desc: '<p><strong>El Eduardo de este año suena.</strong> Mini altavoz Bluetooth con la forma de Eduardo en su edición de Navidad 2026.</p><ul><li>Bluetooth 5.3 y 5 W de potencia</li><li>Hasta 8 horas de autonomía, carga USB-C</li><li>Luz LED roja que late con la música</li><li>Número de serie grabado, del 1 al 5.000</li></ul><p>Tiraje limitado de 5.000 unidades. Solo para quien hace su primer pedido en KFC.es o es socio del Club #PolloPollo. Una unidad por cliente.</p>' },
     'eduardo-gt-2025': { title: 'Eduardo GT · Edición 2025', img: ['eduardo-gt-2025.jpg', '1793053255'], local: 'img/eduardo-gt.jpg', alt: 'Eduardo GT, coche teledirigido edición 2025', price: 3.99, stock: 0, archive: true,
@@ -396,7 +408,7 @@ main:focus{outline:none}
       '<div class="edu-stock__bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + TOTAL + '" aria-valuenow="' + left + '" aria-label="Unidades disponibles"><div class="edu-stock__fill" style="width:' + pct + '%"></div></div></div>' +
       '<div class="edu-hero__ctas">' + ctas + '</div>' +
       '<p class="edu-note edu-hero__fine">1 unidad por cliente. Necesitas el código de tu primer pedido en KFC.es o ser socio del Club #PolloPollo.</p>' +
-      '</div><div class="edu-hero__visual"><div class="edu-media">' + img(p.img[0], p.img[1], p.alt, '(min-width: 750px) 50vw, 260px', [600, 900, 1200], ' fetchpriority="high"', p.local) + '</div></div></div></section>';
+      '</div><div class="edu-hero__visual"><div class="edu-media">' + pimg(p, '(min-width: 750px) 50vw, 260px', [600, 900, 1200], ' fetchpriority="high"') + '</div></div></div></section>';
   }
   var STEPS = [['Pide en KFC.es o en la app', 'Tu primer pedido en el canal propio de KFC genera un código único para el drop.'],
     ['Desbloquea el drop', 'Introduce el código aquí o entra con tu cuenta del Club #PolloPollo.'],
@@ -412,17 +424,17 @@ main:focus{outline:none}
     var tag = o.h1 ? 'h1' : 'h2';
     var cta = o.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '';
     return '<section class="edu edu-banner' + (o.right ? ' edu-banner--right' : '') + '" style="--h:' + o.h + 'px"><div class="edu-banner__media">' +
-      img(o.img[0], o.img[1], o.alt, '100vw', [800, 1400, 2400], ' style="object-position:' + o.focus + '" loading="' + (o.eager ? 'eager' : 'lazy') + '"') + '</div>' +
+      loc(o.img, o.alt, '100vw', ' style="object-position:' + o.focus + '" loading="' + (o.eager ? 'eager' : 'lazy') + '"') + '</div>' +
       '<div class="edu-wrap edu-banner__inner"><div class="edu-banner__box"><span class="edu-eyebrow">' + o.eyebrow + '</span><' + tag + ' class="edu-h2">' + o.title + '</' + tag + '>' +
       '<p class="edu-banner__text">' + o.text + '</p><a class="edu-btn" href="' + o.href + '"' + cta + '>' + o.cta + '</a></div></div></section>';
   }
   function gallery() {
-    var G = [['kfc-burger.jpg', 'Burgers', 'Pide tu favorita en KFC.es y recibe tu código EDU26.'],
-      ['kfc-tira-crujiente.jpg', 'Tiras Originales', 'El crujiente de siempre, ahora con puntos del club.'],
-      ['kfc-finger-lickin.jpg', 'Salsas y picante', 'Combina, pide directo y suma puntos dobles de madrugada.']];
+    var G = [['burger', 'Burgers', 'Pide tu favorita en KFC.es y recibe tu código EDU26.'],
+      ['tira-crujiente', 'Tiras Originales', 'El crujiente de siempre, ahora con puntos del club.'],
+      ['finger-lickin', 'Salsas y picante', 'Combina, pide directo y suma puntos dobles de madrugada.']];
     return '<section class="edu edu-gallery"><div class="edu-wrap"><span class="edu-eyebrow">Tu primer pedido</span><h2 class="edu-h2">Pide lo de siempre, desbloquea lo de este año</h2>' +
       '<p class="edu-lead">Cualquier pedido en la web o la app de KFC sirve como llave del drop.</p><div class="edu-gallery__grid">' +
-      G.map(function (g) { return '<a class="edu-gallery__item" href="https://www.kfc.es" target="_blank" rel="noopener"><div class="edu-media">' + img(g[0], '1792960968', g[1], '(min-width: 750px) 33vw, 80vw', [450, 900], ' loading="lazy"') + '</div><h3>' + g[1] + '</h3><p class="edu-note">' + g[2] + '</p></a>'; }).join('') +
+      G.map(function (g) { return '<a class="edu-gallery__item" href="https://www.kfc.es" target="_blank" rel="noopener"><div class="edu-media">' + loc(g[0], g[1], '(min-width: 750px) 33vw, 80vw', ' loading="lazy"') + '</div><h3>' + g[1] + '</h3><p class="edu-note">' + g[2] + '</p></a>'; }).join('') +
       '</div></div></section>';
   }
   function club() {
@@ -443,7 +455,7 @@ main:focus{outline:none}
   function archive() {
     return '<section class="edu edu-archive"><div class="edu-wrap"><span class="edu-eyebrow">Archivo Eduardo</span><h2 class="edu-h2">Todas se agotaron en horas</h2>' +
       '<p class="edu-lead">Desde 2020, cada Navidad Eduardo vuelve en edición limitada. Esta es su historia.</p><div class="edu-archive__grid">' +
-      ARCHIVE.map(function (h) { var p = P[h]; return '<a class="edu-archive__item" href="#/products/' + h + '"><div class="edu-media">' + img(p.img[0], p.img[1], p.alt, '(min-width: 750px) 25vw, 50vw', [300, 600], ' loading="lazy"', p.local) + '</div><h3>' + p.title + '</h3></a>'; }).join('') +
+      ARCHIVE.map(function (h) { var p = P[h]; return '<a class="edu-archive__item" href="#/products/' + h + '"><div class="edu-media">' + pimg(p, '(min-width: 750px) 25vw, 50vw', [300, 600], ' loading="lazy"') + '</div><h3>' + p.title + '</h3></a>'; }).join('') +
       '</div><div class="edu-card edu-archive__wait"><div><h3>¿Llegas tarde? Que no te vuelva a pasar</h3><p class="edu-note">Apúntate y te avisamos del próximo drop antes de abrirlo.</p></div>' +
       waitForm('', 'Avisarme', 'Hecho: te avisaremos antes que a nadie.') + '</div></div></section>';
   }
@@ -470,8 +482,9 @@ main:focus{outline:none}
       ['¿Y si se agota mientras pago?', 'Tu unidad se confirma al completar el pago. Si se agotara justo en ese momento, no se te cobra nada y te apuntamos a la lista del próximo drop.'],
       ['Si cancelo mi primer pedido en KFC.es, ¿mantengo el acceso?', 'No. El código depende de un primer pedido válido: si el pedido se cancela, el código queda anulado.'],
       ['¿Puedo comprarlo en Glovo, Uber Eats o Just Eat?', 'No. El Eduardo Drop es exclusivo del canal propio de KFC: la web, la app y el Club #PolloPollo.']];
-    var html = '<section class="edu edu-pdp"><div class="edu-wrap edu-pdp__grid"><div class="edu-pdp__gallery"><div class="edu-media">' +
-      img(p.img[0], p.img[1], p.alt, '(min-width: 750px) 55vw, 100vw', [600, 1000, 1400], ' fetchpriority="high"', p.local) + '</div></div><div class="edu-pdp__info">' +
+    var thumbs = p.gallery ? '<div class="edu-pdp__thumbs">' + p.gallery.map(function (g, i) { return '<button type="button" class="edu-pdp__thumb" data-thumb="' + g + '" aria-label="Ver imagen ' + (i + 1) + '"' + (i === 0 ? ' aria-current="true"' : '') + '><img src="img/shop/' + g + '-300.webp" alt="" width="150" height="150" loading="lazy"></button>'; }).join('') + '</div>' : '';
+    var html = '<section class="edu edu-pdp"><div class="edu-wrap edu-pdp__grid"><div class="edu-pdp__gallery"><div class="edu-media" data-edu-main>' +
+      pimg(p, '(min-width: 750px) 55vw, 100vw', [600, 1000, 1400], ' fetchpriority="high"') + '</div>' + thumbs + '</div><div class="edu-pdp__info">' +
       '<span class="edu-eyebrow">' + (p.archive ? 'Archivo Eduardo · Edición agotada' : 'Edición limitada · Navidad 2026') + '</span>' +
       '<h1 class="edu-h1" style="font-size:clamp(30px,4.5vw,46px);">' + p.title + '</h1><div class="edu-pdp__price"><span class="edu-price">' + eur(p.price) + '</span></div>' +
       (p.archive ? '' : '<p class="edu-note">IVA incluido. Sumas 39 puntos del Club #PolloPollo.</p><div class="edu-stock"><div class="edu-stock__row"><span>Quedan ' + thousands(left) + ' de ' + thousands(TOTAL) + '</span><span>Edición numerada</span></div><div class="edu-stock__bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + TOTAL + '" aria-valuenow="' + left + '" aria-label="Unidades disponibles"><div class="edu-stock__fill" style="width:' + pct + '%"></div></div></div>') +
@@ -493,19 +506,19 @@ main:focus{outline:none}
     return '<section class="edu edu-unlock"><div class="edu-wrap edu-unlock__grid"><div><span class="edu-eyebrow">Paso 2 de 3</span><h1 class="edu-h2">Desbloquea el Eduardo Drop</h1>' +
       '<p class="edu-lead">El drop es solo para quien pide en casa. Introduce el código de tu primer pedido en KFC.es y entra.</p>' + body + '</div>' +
       '<ol class="edu-unlock__steps"><li><strong>Pide en KFC.es o en la app.</strong> Tu primer pedido en el canal propio genera un código único.</li><li><strong>Desbloquea aquí</strong> con ese código o entrando con tu cuenta del Club #PolloPollo.</li><li><strong>Consigue tu Eduardo a 3,99 €.</strong> Uno por persona, hasta agotar el tiraje.</li></ol></div></section>' +
-      banner({ img: ['kfc-cubo-cielo.png', '1792960968'], alt: 'Cubo gigante de KFC sobre el cielo al atardecer', focus: 'center', h: 560, right: true, eyebrow: 'Paso 1', title: 'Tu primer pedido en KFC.es es la llave', text: 'Pide en la web o en la app de KFC y recibirás tu código EDU26 en el email de confirmación y en el ticket.', cta: 'Ir a KFC.es', href: 'https://www.kfc.es' });
+      banner({ img: 'cubo-cielo', alt: 'Cubo gigante de KFC sobre el cielo al atardecer', focus: 'center', h: 560, right: true, eyebrow: 'Paso 1', title: 'Tu primer pedido en KFC.es es la llave', text: 'Pide en la web o en la app de KFC y recibirás tu código EDU26 en el email de confirmación y en el ticket.', cta: 'Ir a KFC.es', href: 'https://www.kfc.es' });
   }
   function collection() {
     return '<section class="coll"><div class="page-width"><h1>Archivo Eduardo</h1><p class="coll__meta">4 productos</p><div class="coll__grid">' +
-      ARCHIVE.map(function (h) { var p = P[h]; return '<a class="pcard" href="#/products/' + h + '"><div class="pcard__media">' + img(p.img[0], p.img[1], p.alt, '(min-width: 750px) 25vw, 50vw', [300, 600], ' loading="lazy"', p.local) + '<span class="badge">Agotado</span></div><h2>' + p.title + '</h2><p>' + eur(p.price) + '</p></a>'; }).join('') +
+      ARCHIVE.map(function (h) { var p = P[h]; return '<a class="pcard" href="#/products/' + h + '"><div class="pcard__media">' + pimg(p, '(min-width: 750px) 25vw, 50vw', [300, 600], ' loading="lazy"') + '<span class="badge">Agotado</span></div><h2>' + p.title + '</h2><p>' + eur(p.price) + '</p></a>'; }).join('') +
       '</div></div></section>';
   }
   function notFound() { return '<section class="coll"><div class="page-width"><h1>Página no encontrada</h1><p class="coll__meta"><a href="#/">Volver al inicio de la tienda</a></p></div></section>'; }
 
   var ROUTES = {
-    '/': function () { return hero() + how() + banner({ img: ['kfc-tira-salsa-cielo.jpg', '1792960968'], alt: 'Chica mordiendo una tira de pollo con salsa al aire libre', focus: 'center 35%', h: 600, eyebrow: 'Pide directo', title: 'Pide directo y gana más', text: 'Menos incidencias, puntos del Club #PolloPollo en cada pedido y envío rebajado para socios. Y tu primer pedido desbloquea el Eduardo Drop.', cta: 'Pedir en KFC.es', href: 'https://www.kfc.es' }) + gallery() + club() + archive(); },
+    '/': function () { return hero() + how() + banner({ img: 'tira-salsa-cielo', alt: 'Chica mordiendo una tira de pollo con salsa al aire libre', focus: 'center 35%', h: 600, eyebrow: 'Pide directo', title: 'Pide directo y gana más', text: 'Menos incidencias, puntos del Club #PolloPollo en cada pedido y envío rebajado para socios. Y tu primer pedido desbloquea el Eduardo Drop.', cta: 'Pedir en KFC.es', href: 'https://www.kfc.es' }) + gallery() + club() + archive(); },
     '/pages/desbloquear': unlock,
-    '/pages/club-pollopollo': function () { return banner({ img: ['kfc-packaging.png', '1792960968'], alt: 'Cubo de pollo KFC con el packaging de la marca', focus: 'center', h: 560, h1: true, eager: true, eyebrow: 'Club #PolloPollo', title: 'Los puntos se suman en casa', text: 'App, web, quiosco, restaurante y KFC Auto. Los pedidos en agregadores no suman: así cada recompensa te trae de vuelta a KFC.', cta: 'Hazte socio gratis', href: '#/pages/club-pollopollo' }) + club() + how(); },
+    '/pages/club-pollopollo': function () { return banner({ img: 'packaging', alt: 'Cubo de pollo KFC con el packaging de la marca', focus: 'center', h: 560, h1: true, eager: true, eyebrow: 'Club #PolloPollo', title: 'Los puntos se suman en casa', text: 'App, web, quiosco, restaurante y KFC Auto. Los pedidos en agregadores no suman: así cada recompensa te trae de vuelta a KFC.', cta: 'Hazte socio gratis', href: '#/pages/club-pollopollo' }) + club() + how(); },
     '/collections/archivo-eduardo': collection
   };
   var TITLES = { '/': 'KFC Eduardo Drop', '/pages/desbloquear': 'Desbloquear', '/pages/club-pollopollo': 'Club #PolloPollo', '/collections/archivo-eduardo': 'Archivo Eduardo' };
@@ -577,6 +590,17 @@ main:focus{outline:none}
       bar.querySelector('[data-slot]').appendChild(c);
       if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { var show = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; bar.classList.toggle('is-visible', show); bar.inert = !show; }).observe(src);
     }
+    /* Miniaturas de la ficha (edu-drop-product) */
+    var mainBox = main.querySelector('[data-edu-main]');
+    main.querySelectorAll('[data-thumb]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var src = mainBox.querySelector('source'), im = mainBox.querySelector('img'), n = b.dataset.thumb;
+        if (src) src.srcset = LW[n].map(function (w) { return 'img/shop/' + n + '-' + w + '.webp ' + w + 'w'; }).join(', ');
+        im.src = 'img/shop/' + n + '.jpg';
+        main.querySelectorAll('[data-thumb]').forEach(function (x) { x.removeAttribute('aria-current'); });
+        b.setAttribute('aria-current', 'true');
+      });
+    });
     /* Imágenes: si el CDN de Shopify no responde, usa la copia local del portfolio */
     main.querySelectorAll('img[data-local]').forEach(function (im) { im.addEventListener('error', function () { im.removeAttribute('srcset'); im.src = im.dataset.local; }, { once: true }); });
   }
@@ -587,7 +611,7 @@ main:focus{outline:none}
     document.getElementById('cartCount').hidden = !st.cart;
     var p = P['eduardo-beats-2026'];
     if (st.cart) {
-      cartItems.innerHTML = '<div class="item">' + img(p.img[0], p.img[1], '', '72px', [144], ' width="72" height="72"', p.local) + '<div><b>' + p.title + '</b><small>Cantidad: 1 · máx. 1 por cliente</small></div><strong>3,99 €</strong></div>' +
+      cartItems.innerHTML = '<div class="item">' + loc(p.loc, '', '72px', ' width="72" height="72"') + '<div><b>' + p.title + '</b><small>Cantidad: 1 · máx. 1 por cliente</small></div><strong>3,99 €</strong></div>' +
         '<p style="margin:16px 0 0"><button class="linkish" type="button" id="rm">Eliminar</button></p>';
       cartFoot.innerHTML = '<div class="sub"><span>Subtotal</span><span>3,99 €</span></div><p class="edu-note" style="margin:0;color:#5c5c5c;font-size:13px">Envío gratis. Impuestos incluidos.</p><button class="edu-btn" type="button" id="goCheckout" style="font-family:inherit">Finalizar compra</button>';
       document.getElementById('rm').addEventListener('click', function () { st.cart = false; save(); syncCart(); render(false); });
