@@ -264,6 +264,17 @@ dialog.demo::backdrop{background:rgba(0,0,0,.45)}
 dialog.demo h2{margin:0 0 8px;font-size:22px;font-weight:800}
 dialog.demo p{margin:0 0 18px;color:#5c5c5c;line-height:1.5}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;background:#1a1a1a;color:#fff;padding:14px 20px;border-radius:999px;font:600 14px/1.3 Inter,system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center}
+/* Aviso flotante: trabajo académico no oficial */
+.esic-badge{position:fixed;left:16px;bottom:16px;z-index:85;max-width:min(420px,calc(100vw - 32px));background:#141413;color:#F7F6EF;border:1.5px solid #D4F23A;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:13.5px;line-height:1.4;transition:bottom .25s ease}
+.esic-badge summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;font-weight:700;min-height:44px}
+.esic-badge summary::-webkit-details-marker{display:none}
+.esic-badge summary::after{content:"+";margin-left:auto;padding-left:6px;font-size:18px;line-height:1;color:#D4F23A}
+.esic-badge[open] summary::after{content:"–"}
+.esic-badge__logo{display:flex;flex:none;background:#fff;border-radius:8px;padding:4px 7px}.esic-badge__logo img{display:block;height:24px;width:auto}
+.esic-badge p{margin:0;padding:0 14px 14px;color:#D9D8D0}
+.esic-badge summary:focus-visible{outline:3px solid #D4F23A;outline-offset:2px;border-radius:16px}
+.is-embedded .esic-badge{display:none}
+@media (max-width:749px){body.sticky-on .esic-badge{bottom:84px}}
 main:focus{outline:none}
 </style>
 </head>
@@ -345,9 +356,15 @@ main:focus{outline:none}
   <button class="edu-btn" type="button" id="demoClose" style="font-family:inherit">Entendido</button>
 </dialog>
 
+<details class="esic-badge">
+  <summary><span class="esic-badge__logo"><img src="img/esic-logo.png" alt="ESIC University" width="41" height="24"></span>Trabajo académico · Máster · No oficial</summary>
+  <p>Caso del Máster en Marketing Digital de ESIC (grupo 3). No es una tienda oficial de KFC ni está afiliada a KFC España, y no acepta pedidos ni pagos. Marcas, logotipos e imágenes © KFC / Yum! Brands, usados solo para ilustrar el proyecto.</p>
+</details>
+
 <script>
 (function () {
   'use strict';
+  try { if (window.self !== window.top) document.documentElement.classList.add('is-embedded'); } catch (e) { document.documentElement.classList.add('is-embedded'); }
   var CDN = 'https://cdn.shopify.com/s/files/1/1088/9451/9636/files/';
   function cdn(file, v, w) { return CDN + file + '?v=' + v + '&width=' + w; }
   /* Imágenes alojadas en el portfolio (img/shop): WebP en varios anchos + JPG de respaldo */
@@ -531,6 +548,7 @@ main:focus{outline:none}
     else if (ROUTES[path]) { html = ROUTES[path](); t = TITLES[path]; }
     else { html = notFound(); t = 'Página no encontrada'; }
     main.innerHTML = html;
+    document.body.classList.remove('sticky-on');
     document.title = t + ' · Eduardo Drop (réplica) | Carlos Osuna';
     document.querySelectorAll('.menu a, .drawer-menu nav a').forEach(function (a) {
       if (a.getAttribute('href') === '#' + path) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
@@ -588,7 +606,7 @@ main:focus{outline:none}
       if (c.tagName === 'BUTTON') { if (c.hasAttribute('data-add')) c.textContent = 'Comprar · 3,99 €'; c.addEventListener('click', function () { src.click(); }); }
       else c.textContent = 'Desbloquear';
       bar.querySelector('[data-slot]').appendChild(c);
-      if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { var show = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; bar.classList.toggle('is-visible', show); bar.inert = !show; }).observe(src);
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { var show = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; bar.classList.toggle('is-visible', show); bar.inert = !show; document.body.classList.toggle('sticky-on', show); }).observe(src);
     }
     /* Miniaturas de la ficha (edu-drop-product) */
     var mainBox = main.querySelector('[data-edu-main]');

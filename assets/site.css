@@ -535,3 +535,15 @@ dialog.lb p{color:#F7F6EF;text-align:center;font-weight:600;margin:12px 0 0}
 .shop-frame{display:block;width:100%;height:780px;border:0;background:#fff}
 .shop-hint{margin:0;align-self:center;color:var(--ink-2)}
 @media (max-width:620px){.shop-frame{height:640px}.browser .bar span{display:none}}
+
+/* Aviso flotante: trabajo académico no oficial (caso KFC) */
+.esic-badge{position:fixed;left:16px;bottom:16px;z-index:45;max-width:min(420px,calc(100vw - 92px));background:#141413;color:#F7F6EF;border:1.5px solid #D4F23A;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:13.5px;line-height:1.4}
+.esic-badge summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;font-weight:700;min-height:44px}
+.esic-badge summary::-webkit-details-marker{display:none}
+.esic-badge summary::after{content:"+";margin-left:auto;padding-left:6px;font-size:18px;line-height:1;color:#D4F23A}
+.esic-badge[open] summary::after{content:"–"}
+.esic-badge__logo{display:flex;flex:none;background:#fff;border-radius:8px;padding:4px 7px}
+.esic-badge__logo img{display:block;height:24px;width:auto}
+.esic-badge p{margin:0;padding:0 14px 14px;color:#D9D8D0}
+.esic-badge summary:focus-visible{outline:3px solid #D4F23A;outline-offset:2px;border-radius:16px}
+@media print{.esic-badge{display:none}}
