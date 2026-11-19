@@ -300,6 +300,7 @@ dialog.demo p{margin:0 0 18px;color:#5c5c5c;line-height:1.5}
 
 .esic-fab{font-family:Inter,system-ui,sans-serif}
 @media (max-width:749px){body.sticky-on .esic-fab{bottom:84px}}
+.esic-tip{transition:opacity .35s ease,transform .35s ease}.esic-tip.gone{animation:none;opacity:0;transform:translateX(10px);pointer-events:none}
 main:focus{outline:none}
 </style>
 </head>
@@ -710,7 +711,7 @@ main:focus{outline:none}
   var pop = document.getElementById('esicPop'), btn = fab.querySelector('.esic-btn'), tip = fab.querySelector('.esic-tip'), close = fab.querySelector('.esic-pop__close'), dot = fab.querySelector('.esic-btn__dot');
   function set(open) {
     pop.hidden = !open; btn.setAttribute('aria-expanded', open);
-    if (tip) tip.hidden = open;
+    if (tip) { tip.hidden = open; if (!open) tip.classList.add('gone'); }
     if (open) { if (dot) dot.remove(); dot = null; close.focus(); }
   }
   btn.addEventListener('click', function () { set(pop.hidden); });
@@ -718,6 +719,15 @@ main:focus{outline:none}
   close.addEventListener('click', function () { set(false); btn.focus(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) { set(false); btn.focus(); } });
   document.addEventListener('click', function (e) { if (!pop.hidden && !fab.contains(e.target)) set(false); });
+
+  /* La etiqueta se recoge a los pocos segundos o al hacer scroll; el botón sigue siempre visible */
+  if (tip) {
+    var fold = function () { if (pop.hidden) tip.classList.add('gone'); };
+    var tt = setTimeout(fold, 6000);
+    window.addEventListener('scroll', function () { if (window.scrollY > 240) { clearTimeout(tt); fold(); } }, { passive: true });
+    btn.addEventListener('mouseenter', function () { tip.classList.remove('gone'); });
+    fab.addEventListener('mouseleave', function () { if (pop.hidden) tip.classList.add('gone'); });
+  }
 })();
 </script>
 </body>

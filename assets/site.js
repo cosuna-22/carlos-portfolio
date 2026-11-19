@@ -76,7 +76,7 @@
   }
 
   /* ---- Contadores ---- */
-  function fmt(v, dec) { return v.toLocaleString('es-ES', { minimumFractionDigits: dec, maximumFractionDigits: dec }); }
+  function fmt(v, dec) { return v.toLocaleString('es-ES', { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: 'always' }).replace(/^(\d)(\d{3})$/, '$1.$2'); }
   function count(el) {
     if (el.dataset.done) return; el.dataset.done = 1;
     var end = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec || 0, 10);
@@ -177,6 +177,7 @@
         a.setAttribute('href', 'https://www.linkedin.com/in/carlos-osuna-274a30227/');
         a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener');
         var lbl = a.querySelector('[data-cv-label]'); if (lbl) lbl.textContent = lbl.dataset.cvLabel;
+        var ic = a.querySelector('svg'); if (ic) ic.outerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>';
       });
     }).catch(function () {});
   }
@@ -229,7 +230,7 @@
   var pop = document.getElementById('esicPop'), btn = fab.querySelector('.esic-btn'), tip = fab.querySelector('.esic-tip'), close = fab.querySelector('.esic-pop__close'), dot = fab.querySelector('.esic-btn__dot');
   function set(open) {
     pop.hidden = !open; btn.setAttribute('aria-expanded', open);
-    if (tip) tip.hidden = open;
+    if (tip) { tip.hidden = open; if (!open) tip.classList.add('gone'); }
     if (open) { if (dot) dot.remove(); dot = null; close.focus(); }
   }
   btn.addEventListener('click', function () { set(pop.hidden); });
@@ -237,6 +238,15 @@
   close.addEventListener('click', function () { set(false); btn.focus(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) { set(false); btn.focus(); } });
   document.addEventListener('click', function (e) { if (!pop.hidden && !fab.contains(e.target)) set(false); });
+
+  /* La etiqueta se recoge a los pocos segundos o al hacer scroll; el botón sigue siempre visible */
+  if (tip) {
+    var fold = function () { if (pop.hidden) tip.classList.add('gone'); };
+    var tt = setTimeout(fold, 6000);
+    window.addEventListener('scroll', function () { if (window.scrollY > 240) { clearTimeout(tt); fold(); } }, { passive: true });
+    btn.addEventListener('mouseenter', function () { tip.classList.remove('gone'); });
+    fab.addEventListener('mouseleave', function () { if (pop.hidden) tip.classList.add('gone'); });
+  }
 })();
 
 /* ---- Movimiento v4: carpeta, relieve 3D, botones magnéticos, titulares y filtros animados ---- */
@@ -255,7 +265,7 @@
       stage.classList.toggle('open', open);
       fbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       fbtn.querySelector('.folder-label').textContent = open ? 'Cerrar la carpeta' : 'Abrir la carpeta';
-      if (hint) hint.textContent = open ? 'Elige un caso' : 'Pulsa la carpeta';
+      if (hint) hint.textContent = open ? 'Elige un caso, o baja para verlos uno a uno ↓' : 'Pulsa la carpeta para ver los casos, o baja para verlos uno a uno ↓';
       papers.forEach(function (p) { if (open) p.removeAttribute('tabindex'); else p.setAttribute('tabindex', '-1'); });
     };
     setOpen(false);
