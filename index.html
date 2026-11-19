@@ -232,19 +232,22 @@
 
 
   <div class="folder-stage reveal" id="folderStage">
-    <p class="folder-hint hand" id="folderHint" aria-hidden="true">Pulsa la carpeta</p>
     <div class="folder" id="folder">
-      <div class="folder-back"><span class="folder-tab">PROYECTOS · 2026</span></div>
+      <div class="folder-back" aria-hidden="true"><span class="folder-tab">Proyectos · 2026</span></div>
       <nav class="papers" id="papers" aria-label="Casos del portfolio">
-        <a class="paper" href="kfc.html" style="--x:-2;--k:0;--c:#E4002B"><span class="paper-k">01 · Omnicanalidad</span><span><b>KFC</b><small>Del agregador al canal propio</small></span></a>
-        <a class="paper" href="playstation.html" style="--x:-1;--k:1;--c:#0070D1"><span class="paper-k">02 · Paid media</span><span><b>PlayStation</b><small>Plan de medios de Spider-Man 2</small></span></a>
-        <a class="paper" href="cierzo.html" style="--x:0;--k:2;--c:#D4F23A"><span class="paper-k">03 · Marca y app</span><span><b>CIERZO</b><small>Café de especialidad sin colas</small></span></a>
-        <a class="paper" href="bmw.html" style="--x:1;--k:3;--c:#2A64AC"><span class="paper-k">04 · Web y app</span><span><b>BMW</b><small>Unique Connect, movilidad premium</small></span></a>
-        <a class="paper" href="moeve.html" style="--x:2;--k:4;--c:#00A27A"><span class="paper-k">05 · Estrategia</span><span><b>Moeve</b><small>De petrolera a movilidad sostenible</small></span></a>
+        <a class="paper" href="kfc.html" style="--x:-2;--k:0;--c:#E4002B"><span class="paper-img"><img src="img/kfc-cover-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async" style="object-position:center"></span><span class="paper-k">01 · Omnicanalidad</span><b>KFC</b><small>Del agregador al canal propio</small><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
+        <a class="paper" href="playstation.html" style="--x:-1;--k:1;--c:#0070D1"><span class="paper-img"><img src="img/ps-thumb-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async" style="object-position:center"></span><span class="paper-k">02 · Paid media</span><b>PlayStation</b><small>Plan de medios de Spider‑Man 2</small><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
+        <a class="paper" href="cierzo.html" style="--x:0;--k:2;--c:#D4F23A"><span class="paper-img"><img src="img/cierzo-02-inicio-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async" style="object-position:top"></span><span class="paper-k">03 · Marca y app</span><b>CIERZO</b><small>Café de especialidad sin colas</small><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
+        <a class="paper" href="bmw.html" style="--x:1;--k:3;--c:#2A64AC"><span class="paper-img"><img src="img/bmw-01-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async" style="object-position:center"></span><span class="paper-k">04 · Web y app</span><b>BMW</b><small>Unique Connect, movilidad premium</small><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
+        <a class="paper" href="moeve.html" style="--x:2;--k:4;--c:#00A27A"><span class="paper-img"><img src="img/moeve-04-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async" style="object-position:center"></span><span class="paper-k">05 · Estrategia</span><b>Moeve</b><small>De petrolera a movilidad sostenible</small><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
       </nav>
-      <button type="button" class="folder-front" id="folderBtn" aria-expanded="false" aria-controls="papers"><span class="hand">Carlos Osuna</span><span class="folder-label">Abrir la carpeta</span></button>
+      <button type="button" class="folder-front" id="folderBtn" aria-expanded="false" aria-controls="papers">
+        <span class="folder-sticker"><small>Portfolio</small><span class="hand">Carlos Osuna</span><small>5 casos · Máster ESIC</small></span>
+        <span class="folder-label">Abrir la carpeta</span>
+      </button>
     </div>
   </div>
+  <p class="folder-hint" id="folderHint">Pulsa la carpeta para ver los casos, o baja para verlos uno a uno ↓</p>
 
   <div class="filters reveal" role="group" aria-label="Filtrar proyectos por área">
     <button class="filter" type="button" data-filter="all" aria-pressed="true">Todos<span class="n">5</span></button>
@@ -262,7 +265,7 @@
         <p class="desc">KFC vende 74 M€ al año en delivery, pero el 85,2 % de los pedidos pasa por Glovo, Uber Eats y Just Eat. Plan omnicanal para que los agregadores capten y KFC.es retenga.</p>
       </div>
       <a class="media" href="kfc.html" tabindex="-1" aria-hidden="true"><picture><source type="image/webp" srcset="img/kfc-cover-480.webp 480w, img/kfc-cover-640.webp 640w, img/kfc-cover-960.webp 960w, img/kfc-cover.webp 1440w" sizes="(max-width: 980px) calc(100vw - 112px), 520px"><img src="img/kfc-cover.jpg" alt="Portada de la presentación del caso KFC: Todos los caminos llevan a casa" width="1440" height="810" loading="lazy" decoding="async"></picture></a>
-      <div class="kpi"><b><span data-count="14.8" data-dec="1">14,8</span> % → <span data-count="20">20</span> %</b><small>de pedidos en el canal propio · plan de 4 M€</small></div>
+      <div class="kpi"><b><span class="nw"><span data-count="14.8" data-dec="1">14,8</span> %</span> → <span class="nw"><span data-count="20">20</span> %</span></b><small>de pedidos en el canal propio · plan de 4 M€</small></div>
       <p class="role"><strong>Mi papel:</strong> en equipo, desarrollo del ecommerce en Shopify (Eduardo Drop) y redacción del plan.</p>
       <div class="cta-row" style="margin-top:0">
         <a href="kfc.html" class="more">Ver el caso KFC <span class="arr" aria-hidden="true">→</span></a>
@@ -277,11 +280,12 @@
         <h3><a href="playstation.html" style="text-decoration:none">PlayStation: plan de medios para el lanzamiento de Spider-Man 2</a></h3>
         <p class="desc">Plan de medios completo para el lanzamiento de Marvel’s Spider-Man 2, con un reparto claramente orientado a digital.</p>
       </div>
+      <a class="media" href="playstation.html" tabindex="-1" aria-hidden="true"><picture><source type="image/webp" srcset="img/ps-cover-480.webp 480w, img/ps-cover-640.webp 640w, img/ps-cover-960.webp 960w, img/ps-cover.webp 1200w" sizes="(max-width: 980px) calc(100vw - 112px), 520px"><img src="img/ps-cover.jpg" alt="Portada del caso PlayStation: plan de medios de Spider-Man 2" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
       <div class="split">
         <p>Reparto del plan</p>
         <div class="bar" role="img" aria-label="70 % digital y 30 % tradicional">
           <div class="dig"><span data-count="70">70</span>% digital</div>
-          <div class="trad">30% tradicional</div>
+          <div class="trad">30% trad<span class="hide-sm">icional</span><span class="show-sm">.</span></div>
         </div>
       </div>
       <p class="role"><strong>Mi papel:</strong> responsable del bloque de Display y RTB (compra programática).</p>
