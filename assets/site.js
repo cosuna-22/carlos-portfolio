@@ -122,7 +122,7 @@
         c.classList.toggle('is-hidden', !show);
         if (show) {
           activate(c);
-          if (!reduce && c.animate) c.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.2,.7,.2,1)' });
+          if (!reduce && c.animate && !document.startViewTransition) c.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.2,.7,.2,1)' });
         }
       });
       $$('#projects [data-wide]').forEach(function (c) { c.classList.toggle('wide', f === 'all'); });
@@ -237,4 +237,96 @@
   close.addEventListener('click', function () { set(false); btn.focus(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) { set(false); btn.focus(); } });
   document.addEventListener('click', function (e) { if (!pop.hidden && !fab.contains(e.target)) set(false); });
+})();
+
+/* ---- Movimiento v4: carpeta, relieve 3D, botones magnéticos, titulares y filtros animados ---- */
+(function () {
+  'use strict';
+  var root = document.documentElement; root.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* Carpeta de proyectos */
+  var stage = document.getElementById('folderStage'), fbtn = document.getElementById('folderBtn'), hint = document.getElementById('folderHint');
+  if (stage && fbtn) {
+    var papers = $$('.paper', stage);
+    var setOpen = function (open) {
+      stage.classList.toggle('open', open);
+      fbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      fbtn.querySelector('.folder-label').textContent = open ? 'Cerrar la carpeta' : 'Abrir la carpeta';
+      if (hint) hint.textContent = open ? 'Elige un caso' : 'Pulsa la carpeta';
+      papers.forEach(function (p) { if (open) p.removeAttribute('tabindex'); else p.setAttribute('tabindex', '-1'); });
+    };
+    setOpen(false);
+    fbtn.addEventListener('click', function () { setOpen(!stage.classList.contains('open')); });
+    var opened = false;
+    var openOnce = function () { if (!opened) { opened = true; setTimeout(function () { setOpen(true); }, reduce ? 0 : 350); } };
+    if ('IntersectionObserver' in window) {
+      var fo = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { fo.disconnect(); openOnce(); } }, { threshold: 0.6 });
+      fo.observe(stage);
+    } else setOpen(true);
+    $$('a[href="#proyectos"]').forEach(function (a) { a.addEventListener('click', function () { setTimeout(openOnce, reduce ? 0 : 500); }); });
+  }
+
+  /* Relieve 3D que sigue al cursor */
+  if (!reduce) $$('#projects .card, .case-nav a').forEach(function (el) {
+    el.classList.add('tilt-on');
+    el.addEventListener('pointermove', function (e) {
+      if (!fine.matches) return;
+      var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.classList.add('tilting');
+      el.style.setProperty('--ry', ((x - 0.5) * 7) + 'deg'); el.style.setProperty('--rx', ((0.5 - y) * 6) + 'deg');
+      el.style.setProperty('--mx', (x * 100) + '%'); el.style.setProperty('--my', (y * 100) + '%');
+    });
+    el.addEventListener('pointerleave', function () { el.classList.remove('tilting'); el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
+  });
+
+  /* Botones magnéticos (llamadas a la acción principales) */
+  if (!reduce) $$('.hero .cta-row .btn, .case-cta .btn, .c-link.primary').forEach(function (b) {
+    b.classList.add('mag');
+    b.addEventListener('pointermove', function (e) {
+      if (!fine.matches) return;
+      var r = b.getBoundingClientRect();
+      b.classList.add('mag-live');
+      b.style.setProperty('--tx', ((e.clientX - (r.left + r.width / 2)) * 0.22) + 'px');
+      b.style.setProperty('--ty', ((e.clientY - (r.top + r.height / 2)) * 0.3) + 'px');
+    });
+    b.addEventListener('pointerleave', function () { b.classList.remove('mag-live'); b.style.setProperty('--tx', '0px'); b.style.setProperty('--ty', '0px'); });
+  });
+
+  /* Titular de cada caso: entra letra a letra (el lector de pantalla lee la frase completa) */
+  var h = document.querySelector('.case-hero h1');
+  if (h && !reduce) {
+    h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+    var i = 0;
+    var walk = function (node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
+            for (var k = 0; k < part.length; k++) { var c = document.createElement('span'); c.className = 'ch'; c.style.setProperty('--i', i++); c.textContent = part[k]; w.appendChild(c); }
+            frag.appendChild(w);
+          });
+          n.parentNode.replaceChild(frag, n);
+        } else if (n.nodeType === 1) walk(n);
+      });
+    };
+    walk(h); h.classList.add('split-h');
+  }
+
+  /* Filtros de proyectos: las tarjetas se deslizan a su sitio (View Transitions) */
+  var pcards = $$('#projects .card');
+  pcards.forEach(function (c, k) { c.style.viewTransitionName = 'pcard-' + (k + 1); });
+  $$('.filter').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      if (reduce || !document.startViewTransition || btn.dataset.vt === '1') return;
+      e.stopImmediatePropagation();
+      btn.dataset.vt = '1';
+      document.startViewTransition(function () { btn.click(); }).finished.then(function () { btn.dataset.vt = ''; }, function () { btn.dataset.vt = ''; });
+    }, true);
+  });
 })();
