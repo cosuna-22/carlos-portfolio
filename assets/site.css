@@ -188,10 +188,10 @@ section.block{padding-top:104px}
 .split.on .bar .dig{width:70%}
 
 /* Fases (CIERZO) */
-.phases{background:#F7F6EF;border:1.5px solid #141413;border-radius:16px;padding:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
+.phases{background:#F7F6EF;color:#141413;border:1.5px solid #141413;border-radius:16px;padding:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
 .phase p{margin:0}
 .phase .k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.phase .k i{width:22px;height:22px;border-radius:50%;border:1.5px solid #141413;display:inline-grid;place-items:center;font-style:normal;font-size:11px;background:#fff;transition:background .4s}
+.phase .k i{color:#141413;width:22px;height:22px;border-radius:50%;border:1.5px solid #141413;display:inline-grid;place-items:center;font-style:normal;font-size:11px;background:#fff;transition:background .4s}
 .phase.on .k i{background:#141413;color:var(--lime)}
 .phase .v{margin-top:6px;font-weight:700;line-height:1.3}
 @media (max-width:560px){.phases{grid-template-columns:1fr}}
@@ -584,7 +584,7 @@ body:has(.esic-fab) .to-top{bottom:96px}
 .swatches span:first-child,.swatches span:last-child{color:#F2F2F2}
 
 /* ---------- Carpeta de proyectos (home) ---------- */
-.folder-stage{--pw:min(190px,calc((100vw - 120px) / 5.3));--ph:calc(var(--pw) * 1.38);--spread:calc(var(--pw) + 10px);--lift:calc(-1 * max(var(--ph) * .94, 214px));--fold:#C7E22E;--fold-dk:#B2CC22;--edge:#141413;position:relative;height:calc(60px + max(var(--ph) * .94, 214px) + var(--ph));display:grid;place-items:end center;perspective:1700px;perspective-origin:50% 20%;margin:6px 0 0}
+.folder-stage{--pw:min(176px,calc((100vw - 110px) / 6.5));--ph:calc(var(--pw) * 1.38);--spread:calc(var(--pw) + 10px);--lift:calc(-1 * max(var(--ph) * .94, 214px));--fold:#C7E22E;--fold-dk:#B2CC22;--edge:#141413;position:relative;height:calc(60px + max(var(--ph) * .94, 214px) + var(--ph));display:grid;place-items:end center;perspective:1700px;perspective-origin:50% 20%;margin:6px 0 0}
 .folder{position:relative;width:min(660px,94%);height:276px;margin-bottom:10px}
 .folder-back{position:absolute;inset:0;isolation:isolate;background:linear-gradient(180deg,var(--fold) 0%,var(--fold-dk) 100%);border:1.5px solid var(--edge);border-radius:10px 22px 22px 22px;box-shadow:6px 6px 0 var(--line)}
 .folder-back::before{content:"";position:absolute;left:-1.5px;top:-38px;width:42%;height:40px;background:var(--fold);border:1.5px solid var(--edge);border-bottom:0;border-radius:14px 26px 0 0}
@@ -685,13 +685,15 @@ html:not(.js) .folder-stage .paper{transform:translate(calc(var(--x) * var(--spr
   .folder-stage.open .paper:nth-child(1){transform:translate(-116px,-296px) rotate(-4deg)}
   .folder-stage.open .paper:nth-child(2){transform:translate(0,-304px) rotate(0deg)}
   .folder-stage.open .paper:nth-child(3){transform:translate(116px,-296px) rotate(4deg)}
-  .folder-stage.open .paper:nth-child(4){transform:translate(-60px,-170px) rotate(-3deg)}
-  .folder-stage.open .paper:nth-child(5){transform:translate(60px,-170px) rotate(3deg)}
+  .folder-stage.open .paper:nth-child(4){transform:translate(-116px,-170px) rotate(-3deg)}
+  .folder-stage.open .paper:nth-child(5){transform:translate(0,-176px) rotate(0deg)}
+  .folder-stage.open .paper:nth-child(6){transform:translate(116px,-170px) rotate(3deg)}
   html:not(.js) .folder-stage .paper:nth-child(1){transform:translate(-116px,-296px)}
   html:not(.js) .folder-stage .paper:nth-child(2){transform:translate(0,-304px)}
   html:not(.js) .folder-stage .paper:nth-child(3){transform:translate(116px,-296px)}
-  html:not(.js) .folder-stage .paper:nth-child(4){transform:translate(-60px,-170px)}
-  html:not(.js) .folder-stage .paper:nth-child(5){transform:translate(60px,-170px)}
+  html:not(.js) .folder-stage .paper:nth-child(4){transform:translate(-116px,-170px)}
+  html:not(.js) .folder-stage .paper:nth-child(5){transform:translate(0,-176px)}
+  html:not(.js) .folder-stage .paper:nth-child(6){transform:translate(116px,-170px)}
   .folder-stage.open .paper:focus-visible{z-index:3}
 }
 .esic-tip{transition:opacity .35s ease,transform .35s ease}.esic-tip.gone{animation:none;opacity:0;transform:translateX(10px);pointer-events:none}
