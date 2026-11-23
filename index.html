@@ -224,8 +224,8 @@
 
 <section class="stats" aria-label="Datos rápidos">
   <div class="wrap stats-grid">
-    <div class="stat reveal"><b><span data-count="6">6</span> proyectos</b><p>FOREO, PlayStation, KFC, BMW, Moeve y CIERZO</p></div>
-    <div class="stat reveal d1"><b><span data-count="3">3</span> prácticas</b><p>Eventos, social media y CRM</p></div>
+    <a class="stat stat-link reveal" href="#proyectos"><b><span data-count="6">6</span> proyectos <span class="arr" aria-hidden="true">↓</span></b><p>FOREO, PlayStation, KFC, BMW, Moeve y CIERZO</p></a>
+    <a class="stat stat-link reveal d1" href="#experiencia"><b><span data-count="3">3</span> prácticas <span class="arr" aria-hidden="true">↓</span></b><p>Eventos, social media y CRM</p></a>
     <div class="stat reveal d2"><b>Máster ESIC</b><p>Marketing Digital · promoción 2026</p></div>
     <div class="stat reveal d3"><b>Erasmus Roma</b><p>LUMSA Università · inglés B2</p></div>
   </div>
@@ -235,164 +235,177 @@
 <section id="proyectos" class="wrap block" aria-labelledby="h-proy">
   <div class="sec-head reveal">
     <h2 class="display" id="h-proy">Proyectos <span class="hl">destacados</span></h2>
-    <p>Casos de marcas reales trabajados en el máster y un proyecto propio. Lanza cada campaña para ver su resultado clave, o baja para verlos uno a uno.</p>
+    <p>Casos de marcas reales trabajados en el máster y un proyecto propio. Cada uno es una campaña: lánzala para ver su resultado y abre los detalles para saber qué hice.</p>
   </div>
 
 
   <div class="campaigns reveal" id="campaigns">
     <div class="camp-bar">
       <div class="camp-title"><span class="camp-live" aria-hidden="true"></span><b>Panel de campañas</b><span class="camp-count"><span id="campOn">0</span> de 6 en antena</span></div>
+      <div class="camp-filters" role="group" aria-label="Filtrar campañas por área"><button class="cfilter" type="button" data-filter="all" aria-pressed="true">Todos<span class="n">6</span></button><button class="cfilter" type="button" data-filter="ecommerce" aria-pressed="false">Ecommerce<span class="n">3</span></button><button class="cfilter" type="button" data-filter="paid" aria-pressed="false">Paid media<span class="n">2</span></button><button class="cfilter" type="button" data-filter="estrategia" aria-pressed="false">Estrategia<span class="n">5</span></button><button class="cfilter" type="button" data-filter="research" aria-pressed="false">Research<span class="n">2</span></button></div>
       <button type="button" class="btn btn-lime" id="campAll">Lanzar todas</button>
     </div>
     <ul class="camp-list" aria-label="Casos del portfolio como campañas">
-      <li class="camp" data-id="foreo" style="--c:#E6007E">
-        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña FOREO</span></button>
-        <a class="camp-img" href="foreo.html" tabindex="-1" aria-hidden="true" data-cover="foreo"><img src="img/cover-foreo-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
-        <div class="camp-name"><span class="camp-k">01 · SEO y SEM</span><b>FOREO</b></div>
-        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
-        <p class="camp-kpi"><b data-v="5.44" data-dec="2" data-suf="x">5,44x</b><small>ROAS SEM en el escenario base</small></p>
-        <a class="camp-go" href="foreo.html">Ver caso <span aria-hidden="true">→</span></a>
+      <li class="camp" id="camp-foreo" data-id="foreo" data-cat="paid estrategia research" style="--c:#E6007E">
+        <div class="camp-row">
+          <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña FOREO</span></button>
+          <a class="camp-img" href="foreo.html" tabindex="-1" aria-hidden="true" data-cover="foreo"><img src="img/cover-foreo-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+          <div class="camp-name"><span class="camp-k">01 · SEO y SEM</span><b>FOREO</b></div>
+          <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+          <p class="camp-kpi"><b data-v="5.44" data-dec="2" data-suf="x">5,44x</b><small>ROAS SEM en el escenario base</small></p>
+          <button type="button" class="camp-more" aria-expanded="false" aria-controls="det-foreo"><span class="t">Detalles</span><span class="ic" aria-hidden="true"></span><span class="sr-only"> del caso FOREO</span></button>
+        </div>
+        <div class="camp-det" id="det-foreo" hidden>
+          <div class="camp-det-in">
+            <a class="camp-det-img" href="foreo.html" tabindex="-1" aria-hidden="true" data-cover="foreo"><picture><source type="image/webp" srcset="img/cover-foreo-480.webp 480w, img/cover-foreo-640.webp 640w, img/cover-foreo-960.webp 960w, img/cover-foreo.webp 1200w" sizes="(max-width: 760px) calc(100vw - 64px), 420px"><img src="img/cover-foreo.jpg" alt="Portada del caso FOREO" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
+            <div class="camp-det-txt">
+              <span class="pill">Máster ESIC · SEO y SEM</span>
+              <h3><a href="foreo.html">FOREO: SEO y SEM para que la máscara LED se encuentre</a></h3>
+              <p class="desc">El 88 % del tráfico orgánico dependía de la marca y el pago tapaba la caída. Estrategia de 550.000 € con auditoría técnica, linkbuilding y campañas full-funnel.</p>
+              <p class="camp-det-kpi"><b>5,44x</b> ROAS SEM en el escenario base · 290.000 €</p>
+              <p class="role"><strong>Mi papel:</strong> formé parte del equipo que desarrolló la estrategia.</p>
+              <div class="cta-row"><a href="foreo.html" class="more">Ver el caso FOREO <span class="arr" aria-hidden="true">→</span></a></div>
+              <div class="tags"><span class="tag">SEO técnico</span><span class="tag">Keyword research</span><span class="tag">Linkbuilding</span><span class="tag">Google Ads</span></div>
+            </div>
+          </div>
+        </div>
       </li>
-      <li class="camp" data-id="playstation" style="--c:#0070D1">
-        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña PlayStation</span></button>
-        <a class="camp-img" href="playstation.html" tabindex="-1" aria-hidden="true" data-cover="playstation"><img src="img/cover-playstation-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
-        <div class="camp-name"><span class="camp-k">02 · Paid media</span><b>PlayStation</b></div>
-        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
-        <p class="camp-kpi"><b data-v="70" data-dec="0" data-suf=" %">70 %</b><small>del plan de medios en digital</small></p>
-        <a class="camp-go" href="playstation.html">Ver caso <span aria-hidden="true">→</span></a>
+      <li class="camp" id="camp-playstation" data-id="playstation" data-cat="paid" style="--c:#0070D1">
+        <div class="camp-row">
+          <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña PlayStation</span></button>
+          <a class="camp-img" href="playstation.html" tabindex="-1" aria-hidden="true" data-cover="playstation"><img src="img/cover-playstation-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+          <div class="camp-name"><span class="camp-k">02 · Paid media</span><b>PlayStation</b></div>
+          <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+          <p class="camp-kpi"><b data-v="70" data-dec="0" data-suf=" %">70 %</b><small>del plan de medios en digital</small></p>
+          <button type="button" class="camp-more" aria-expanded="false" aria-controls="det-playstation"><span class="t">Detalles</span><span class="ic" aria-hidden="true"></span><span class="sr-only"> del caso PlayStation</span></button>
+        </div>
+        <div class="camp-det" id="det-playstation" hidden>
+          <div class="camp-det-in">
+            <a class="camp-det-img" href="playstation.html" tabindex="-1" aria-hidden="true" data-cover="playstation"><picture><source type="image/webp" srcset="img/cover-playstation-480.webp 480w, img/cover-playstation-640.webp 640w, img/cover-playstation-960.webp 960w, img/cover-playstation.webp 1200w" sizes="(max-width: 760px) calc(100vw - 64px), 420px"><img src="img/cover-playstation.jpg" alt="Portada del caso PlayStation" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
+            <div class="camp-det-txt">
+              <span class="pill">Máster ESIC · Tráfico digital</span>
+              <h3><a href="playstation.html">PlayStation: plan de medios para el lanzamiento de Spider‑Man 2</a></h3>
+              <p class="desc">Plan de medios completo para el lanzamiento de Marvel’s Spider-Man 2, con un reparto claramente orientado a digital.</p>
+              <p class="camp-det-kpi"><b>70 %</b> del plan de medios en digital · 30 % tradicional</p>
+              <p class="role"><strong>Mi papel:</strong> responsable del bloque de Display y RTB (compra programática).</p>
+              <div class="cta-row"><a href="playstation.html" class="more">Ver el caso PlayStation <span class="arr" aria-hidden="true">→</span></a></div>
+              <div class="tags"><span class="tag">Plan de medios</span><span class="tag">Display</span><span class="tag">RTB / Programática</span><span class="tag">Paid media</span></div>
+            </div>
+          </div>
+        </div>
       </li>
-      <li class="camp" data-id="kfc" style="--c:#E4002B">
-        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña KFC</span></button>
-        <a class="camp-img" href="kfc.html" tabindex="-1" aria-hidden="true" data-cover="kfc"><img src="img/cover-kfc-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
-        <div class="camp-name"><span class="camp-k">03 · Omnicanalidad</span><b>KFC</b></div>
-        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
-        <p class="camp-kpi"><b data-v="20" data-dec="0" data-suf=" %">20 %</b><small>de pedidos en canal propio (desde 14,8 %)</small></p>
-        <a class="camp-go" href="kfc.html">Ver caso <span aria-hidden="true">→</span></a>
+      <li class="camp" id="camp-kfc" data-id="kfc" data-cat="ecommerce estrategia" style="--c:#E4002B">
+        <div class="camp-row">
+          <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña KFC</span></button>
+          <a class="camp-img" href="kfc.html" tabindex="-1" aria-hidden="true" data-cover="kfc"><img src="img/cover-kfc-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+          <div class="camp-name"><span class="camp-k">03 · Omnicanalidad</span><b>KFC</b></div>
+          <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+          <p class="camp-kpi"><b data-v="20" data-dec="0" data-suf=" %">20 %</b><small>de pedidos en canal propio (desde 14,8 %)</small></p>
+          <button type="button" class="camp-more" aria-expanded="false" aria-controls="det-kfc"><span class="t">Detalles</span><span class="ic" aria-hidden="true"></span><span class="sr-only"> del caso KFC</span></button>
+        </div>
+        <div class="camp-det" id="det-kfc" hidden>
+          <div class="camp-det-in">
+            <a class="camp-det-img" href="kfc.html" tabindex="-1" aria-hidden="true" data-cover="kfc"><picture><source type="image/webp" srcset="img/cover-kfc-480.webp 480w, img/cover-kfc-640.webp 640w, img/cover-kfc-960.webp 960w, img/cover-kfc.webp 1200w" sizes="(max-width: 760px) calc(100vw - 64px), 420px"><img src="img/cover-kfc.jpg" alt="Portada del caso KFC" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
+            <div class="camp-det-txt">
+              <span class="pill">Máster ESIC · Ecommerce y omnicanalidad</span>
+              <h3><a href="kfc.html">KFC: todos los caminos llevan a casa</a></h3>
+              <p class="desc">KFC vende 74 M€ al año en delivery, pero el 85,2 % de los pedidos pasa por Glovo, Uber Eats y Just Eat. Plan omnicanal para que los agregadores capten y KFC.es retenga.</p>
+              <p class="camp-det-kpi"><b>20 %</b> de pedidos en el canal propio (desde 14,8 %) · plan de 4 M€</p>
+              <p class="role"><strong>Mi papel:</strong> en equipo, desarrollo del ecommerce en Shopify (Eduardo Drop) y redacción del plan.</p>
+              <div class="cta-row"><a href="kfc.html" class="more">Ver el caso KFC <span class="arr" aria-hidden="true">→</span></a><a href="eduardo-drop.html" class="more" target="_blank" rel="noopener">Ver la tienda Shopify ↗</a></div>
+              <div class="tags"><span class="tag">Omnicanalidad</span><span class="tag">Ecommerce</span><span class="tag">Shopify</span><span class="tag">Fidelización</span></div>
+            </div>
+          </div>
+        </div>
       </li>
-      <li class="camp" data-id="bmw" style="--c:#2A64AC">
-        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña BMW</span></button>
-        <a class="camp-img" href="bmw.html" tabindex="-1" aria-hidden="true" data-cover="bmw"><img src="img/cover-bmw-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
-        <div class="camp-name"><span class="camp-k">04 · Web y app</span><b>BMW</b></div>
-        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
-        <p class="camp-kpi"><b data-v="1" data-dec="0" data-suf=" objetivo">1 objetivo</b><small>captar solicitudes de acceso cualificadas</small></p>
-        <a class="camp-go" href="bmw.html">Ver caso <span aria-hidden="true">→</span></a>
+      <li class="camp" id="camp-bmw" data-id="bmw" data-cat="estrategia ecommerce" style="--c:#2A64AC">
+        <div class="camp-row">
+          <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña BMW</span></button>
+          <a class="camp-img" href="bmw.html" tabindex="-1" aria-hidden="true" data-cover="bmw"><img src="img/cover-bmw-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+          <div class="camp-name"><span class="camp-k">04 · Web y app</span><b>BMW</b></div>
+          <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+          <p class="camp-kpi"><b data-v="1" data-dec="0" data-suf=" objetivo">1 objetivo</b><small>captar solicitudes de acceso cualificadas</small></p>
+          <button type="button" class="camp-more" aria-expanded="false" aria-controls="det-bmw"><span class="t">Detalles</span><span class="ic" aria-hidden="true"></span><span class="sr-only"> del caso BMW</span></button>
+        </div>
+        <div class="camp-det" id="det-bmw" hidden>
+          <div class="camp-det-in">
+            <a class="camp-det-img" href="bmw.html" tabindex="-1" aria-hidden="true" data-cover="bmw"><picture><source type="image/webp" srcset="img/cover-bmw-480.webp 480w, img/cover-bmw-640.webp 640w, img/cover-bmw-960.webp 960w, img/cover-bmw.webp 1200w" sizes="(max-width: 760px) calc(100vw - 64px), 420px"><img src="img/cover-bmw.jpg" alt="Portada del caso BMW Unique Connect" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
+            <div class="camp-det-txt">
+              <span class="pill">Máster ESIC · Proyecto web</span>
+              <h3><a href="bmw.html">BMW Unique Connect: movilidad ultra‑premium</a></h3>
+              <p class="desc">Marca, web y app para un servicio de movilidad de BMW dirigido a directivos sin tiempo: cada pantalla con un único objetivo, captar la solicitud correcta.</p>
+              <p class="camp-det-kpi"><b>1 objetivo</b> captar solicitudes de acceso cualificadas</p>
+              <p class="role"><strong>Mi papel:</strong> formé parte del equipo que hizo el proyecto.</p>
+              <div class="cta-row"><a href="bmw.html" class="more">Ver el caso BMW <span class="arr" aria-hidden="true">→</span></a></div>
+              <div class="tags"><span class="tag">Branding</span><span class="tag">UX web</span><span class="tag">App</span><span class="tag">KPIs</span></div>
+            </div>
+          </div>
+        </div>
       </li>
-      <li class="camp" data-id="moeve" style="--c:#00A27A">
-        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña Moeve</span></button>
-        <a class="camp-img" href="moeve.html" tabindex="-1" aria-hidden="true" data-cover="moeve"><img src="img/cover-moeve-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
-        <div class="camp-name"><span class="camp-k">05 · Estrategia</span><b>Moeve</b></div>
-        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
-        <p class="camp-kpi"><b data-v="1900" data-dec="0" data-suf=" leads">1.900 leads</b><small>objetivo del dashboard · NPS 70</small></p>
-        <a class="camp-go" href="moeve.html">Ver caso <span aria-hidden="true">→</span></a>
+      <li class="camp" id="camp-moeve" data-id="moeve" data-cat="estrategia research" style="--c:#00A27A">
+        <div class="camp-row">
+          <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña Moeve</span></button>
+          <a class="camp-img" href="moeve.html" tabindex="-1" aria-hidden="true" data-cover="moeve"><img src="img/cover-moeve-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+          <div class="camp-name"><span class="camp-k">05 · Estrategia</span><b>Moeve</b></div>
+          <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+          <p class="camp-kpi"><b data-v="1900" data-dec="0" data-suf=" leads">1.900 leads</b><small>objetivo del dashboard · NPS 70</small></p>
+          <button type="button" class="camp-more" aria-expanded="false" aria-controls="det-moeve"><span class="t">Detalles</span><span class="ic" aria-hidden="true"></span><span class="sr-only"> del caso Moeve</span></button>
+        </div>
+        <div class="camp-det" id="det-moeve" hidden>
+          <div class="camp-det-in">
+            <a class="camp-det-img" href="moeve.html" tabindex="-1" aria-hidden="true" data-cover="moeve"><picture><source type="image/webp" srcset="img/cover-moeve-480.webp 480w, img/cover-moeve-640.webp 640w, img/cover-moeve-960.webp 960w, img/cover-moeve.webp 1200w" sizes="(max-width: 760px) calc(100vw - 64px), 420px"><img src="img/cover-moeve.jpg" alt="Portada del caso Moeve" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
+            <div class="camp-det-txt">
+              <span class="pill">Máster ESIC · Estrategia digital</span>
+              <h3><a href="moeve.html">Moeve: de petrolera a movilidad sostenible</a></h3>
+              <p class="desc">Hoja de ruta digital para que el nuevo posicionamiento de la antigua Cepsa sea creíble: modelo de negocio, plan de marketing digital e investigación con la Generación Z.</p>
+              <p class="camp-det-kpi"><b>1.900 leads</b> objetivos del dashboard de KPIs · NPS 70</p>
+              <p class="role"><strong>Mi papel:</strong> formé parte del equipo de cuatro que hizo el trabajo.</p>
+              <div class="cta-row"><a href="moeve.html" class="more">Ver el caso Moeve <span class="arr" aria-hidden="true">→</span></a></div>
+              <div class="tags"><span class="tag">Estrategia</span><span class="tag">Focus group</span><span class="tag">Social listening</span><span class="tag">KPIs</span></div>
+            </div>
+          </div>
+        </div>
       </li>
-      <li class="camp" data-id="cierzo" style="--c:#9DB81F">
-        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña CIERZO</span></button>
-        <a class="camp-img" href="cierzo.html" tabindex="-1" aria-hidden="true" data-cover="cierzo"><img src="img/cover-cierzo-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
-        <div class="camp-name"><span class="camp-k">06 · Marca y app</span><b>CIERZO</b></div>
-        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
-        <p class="camp-kpi"><b data-v="10000" data-dec="0" data-suf=" €">10.000 €</b><small>de marketing en un trimestre</small></p>
-        <a class="camp-go" href="cierzo.html">Ver caso <span aria-hidden="true">→</span></a>
+      <li class="camp" id="camp-cierzo" data-id="cierzo" data-cat="estrategia ecommerce" style="--c:#9DB81F">
+        <div class="camp-row">
+          <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña CIERZO</span></button>
+          <a class="camp-img" href="cierzo.html" tabindex="-1" aria-hidden="true" data-cover="cierzo"><img src="img/cover-cierzo-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+          <div class="camp-name"><span class="camp-k">06 · Marca y app</span><b>CIERZO</b></div>
+          <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+          <p class="camp-kpi"><b data-v="10000" data-dec="0" data-suf=" €">10.000 €</b><small>de marketing en un trimestre</small></p>
+          <button type="button" class="camp-more" aria-expanded="false" aria-controls="det-cierzo"><span class="t">Detalles</span><span class="ic" aria-hidden="true"></span><span class="sr-only"> del caso CIERZO</span></button>
+        </div>
+        <div class="camp-det" id="det-cierzo" hidden>
+          <div class="camp-det-in">
+            <a class="camp-det-img" href="cierzo.html" tabindex="-1" aria-hidden="true" data-cover="cierzo"><picture><source type="image/webp" srcset="img/cover-cierzo-480.webp 480w, img/cover-cierzo-640.webp 640w, img/cover-cierzo-960.webp 960w, img/cover-cierzo.webp 1200w" sizes="(max-width: 760px) calc(100vw - 64px), 420px"><img src="img/cover-cierzo.jpg" alt="Portada del caso CIERZO" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
+            <div class="camp-det-txt">
+              <span class="pill">Proyecto propio · En desarrollo</span>
+              <h3><a href="cierzo.html">CIERZO: café para cafeteros</a></h3>
+              <p class="desc">Marca de café de especialidad para llevar en Zaragoza: app de pre-pedido sin colas, Club de puntos y una red de recogida con partners.</p>
+              <p class="camp-det-kpi"><b>10.000 €</b> de marketing en un trimestre · redes y QR → landing → app</p>
+              <p class="role"><strong>Mi papel:</strong> estrategia de marca, buyer persona, propuesta de valor, prototipo de la app y plan de lanzamiento.</p>
+              <div class="cta-row"><a href="cierzo.html" class="more">Ver el caso CIERZO <span class="arr" aria-hidden="true">→</span></a><a href="app-cierzo.html" class="more" target="_blank" rel="noopener">Probar la app ↗</a></div>
+              <div class="tags"><span class="tag">Branding</span><span class="tag">App y fidelización</span><span class="tag">Go-to-market</span><span class="tag">Podcast y RRSS</span></div>
+            </div>
+          </div>
+        </div>
       </li>
     </ul>
-  </div>
-  <p class="folder-hint" id="campHint">Activa una campaña para ver su resultado, o baja para ver cada caso en detalle ↓</p>
-
-  <div class="filters reveal" role="group" aria-label="Filtrar proyectos por área">
-    <button class="filter" type="button" data-filter="all" aria-pressed="true">Todos<span class="n">6</span></button>
-    <button class="filter" type="button" data-filter="ecommerce" aria-pressed="false">Ecommerce</button>
-    <button class="filter" type="button" data-filter="paid" aria-pressed="false">Paid media</button>
-    <button class="filter" type="button" data-filter="estrategia" aria-pressed="false">Estrategia</button>
-    <button class="filter" type="button" data-filter="research" aria-pressed="false">Research</button>
-  </div>
-
-  <div class="projects" id="projects">
-    <article class="card  reveal" data-cat="paid estrategia research">
-      <a class="media" href="foreo.html" tabindex="-1" aria-hidden="true" data-cover="foreo"><picture><source type="image/webp" srcset="img/cover-foreo-480.webp 480w, img/cover-foreo-640.webp 640w, img/cover-foreo-960.webp 960w, img/cover-foreo.webp 1200w" sizes="(max-width: 980px) calc(100vw - 112px), 560px"><img src="img/cover-foreo.jpg" alt="Portada del caso FOREO" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
-      <div class="card-top"><span class="num">01</span><span class="pill">Máster ESIC · SEO y SEM</span></div>
-      <div>
-        <h3><a href="foreo.html" style="text-decoration:none">FOREO: SEO y SEM para que la máscara LED se encuentre</a></h3>
-        <p class="desc">El 88 % del tráfico orgánico dependía de la marca y el pago tapaba la caída. Estrategia de 550.000 € con auditoría técnica, linkbuilding y campañas full-funnel.</p>
-      </div>
-      <div class="kpi"><b><span data-count="5.44" data-dec="2">5,44</span>x</b><small>ROAS SEM en el escenario base · 290.000 €</small></div>
-      <p class="role"><strong>Mi papel:</strong> formé parte del equipo que desarrolló la estrategia.</p>
-      <div class="cta-row" style="margin-top:0"><a href="foreo.html" class="more">Ver el caso FOREO <span class="arr" aria-hidden="true">→</span></a></div>
-      <div class="tags"><span class="tag">SEO técnico</span><span class="tag">Keyword research</span><span class="tag">Linkbuilding</span><span class="tag">Google Ads</span></div>
-    </article>
-    <article class="card dark reveal" data-cat="paid">
-      <a class="media" href="playstation.html" tabindex="-1" aria-hidden="true" data-cover="playstation"><picture><source type="image/webp" srcset="img/cover-playstation-480.webp 480w, img/cover-playstation-640.webp 640w, img/cover-playstation-960.webp 960w, img/cover-playstation.webp 1200w" sizes="(max-width: 980px) calc(100vw - 112px), 560px"><img src="img/cover-playstation.jpg" alt="Portada del caso PlayStation" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
-      <div class="card-top"><span class="num">02</span><span class="pill">Máster ESIC · Tráfico digital</span></div>
-      <div>
-        <h3><a href="playstation.html" style="text-decoration:none">PlayStation: plan de medios para el lanzamiento de Spider‑Man 2</a></h3>
-        <p class="desc">Plan de medios completo para el lanzamiento de Marvel’s Spider-Man 2, con un reparto claramente orientado a digital.</p>
-      </div>
-      <div class="kpi"><b><span data-count="70">70</span> % digital</b><small>del plan de medios · 30 % tradicional</small></div>
-      <p class="role"><strong>Mi papel:</strong> responsable del bloque de Display y RTB (compra programática).</p>
-      <div class="cta-row" style="margin-top:0"><a href="playstation.html" class="more">Ver el caso PlayStation <span class="arr" aria-hidden="true">→</span></a></div>
-      <div class="tags"><span class="tag">Plan de medios</span><span class="tag">Display</span><span class="tag">RTB / Programática</span><span class="tag">Paid media</span></div>
-    </article>
-    <article class="card dark reveal" data-cat="ecommerce estrategia">
-      <a class="media" href="kfc.html" tabindex="-1" aria-hidden="true" data-cover="kfc"><picture><source type="image/webp" srcset="img/cover-kfc-480.webp 480w, img/cover-kfc-640.webp 640w, img/cover-kfc-960.webp 960w, img/cover-kfc.webp 1200w" sizes="(max-width: 980px) calc(100vw - 112px), 560px"><img src="img/cover-kfc.jpg" alt="Portada del caso KFC" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
-      <div class="card-top"><span class="num">03</span><span class="pill">Máster ESIC · Ecommerce y omnicanalidad</span></div>
-      <div>
-        <h3><a href="kfc.html" style="text-decoration:none">KFC: todos los caminos llevan a casa</a></h3>
-        <p class="desc">KFC vende 74 M€ al año en delivery, pero el 85,2 % de los pedidos pasa por Glovo, Uber Eats y Just Eat. Plan omnicanal para que los agregadores capten y KFC.es retenga.</p>
-      </div>
-      <div class="kpi"><b><span class="nw"><span data-count="14.8" data-dec="1">14,8</span> %</span> → <span class="nw"><span data-count="20">20</span> %</span></b><small>de pedidos en el canal propio · plan de 4 M€</small></div>
-      <p class="role"><strong>Mi papel:</strong> en equipo, desarrollo del ecommerce en Shopify (Eduardo Drop) y redacción del plan.</p>
-      <div class="cta-row" style="margin-top:0"><a href="kfc.html" class="more">Ver el caso KFC <span class="arr" aria-hidden="true">→</span></a><a href="eduardo-drop.html" class="more" target="_blank" rel="noopener">Ver la tienda Shopify ↗</a></div>
-      <div class="tags"><span class="tag">Omnicanalidad</span><span class="tag">Ecommerce</span><span class="tag">Shopify</span><span class="tag">Fidelización</span></div>
-    </article>
-    <article class="card  reveal" data-cat="estrategia ecommerce">
-      <a class="media" href="bmw.html" tabindex="-1" aria-hidden="true" data-cover="bmw"><picture><source type="image/webp" srcset="img/cover-bmw-480.webp 480w, img/cover-bmw-640.webp 640w, img/cover-bmw-960.webp 960w, img/cover-bmw.webp 1200w" sizes="(max-width: 980px) calc(100vw - 112px), 560px"><img src="img/cover-bmw.jpg" alt="Portada del caso BMW Unique Connect" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
-      <div class="card-top"><span class="num">04</span><span class="pill">Máster ESIC · Proyecto web</span></div>
-      <div>
-        <h3><a href="bmw.html" style="text-decoration:none">BMW Unique Connect: movilidad ultra‑premium</a></h3>
-        <p class="desc">Marca, web y app para un servicio de movilidad de BMW dirigido a directivos sin tiempo: cada pantalla con un único objetivo, captar la solicitud correcta.</p>
-      </div>
-      <div class="kpi"><b>1 objetivo</b><small>captar solicitudes de acceso cualificadas</small></div>
-      <p class="role"><strong>Mi papel:</strong> formé parte del equipo que hizo el proyecto.</p>
-      <div class="cta-row" style="margin-top:0"><a href="bmw.html" class="more">Ver el caso BMW <span class="arr" aria-hidden="true">→</span></a></div>
-      <div class="tags"><span class="tag">Branding</span><span class="tag">UX web</span><span class="tag">App</span><span class="tag">KPIs</span></div>
-    </article>
-    <article class="card  reveal" data-cat="estrategia research">
-      <a class="media" href="moeve.html" tabindex="-1" aria-hidden="true" data-cover="moeve"><picture><source type="image/webp" srcset="img/cover-moeve-480.webp 480w, img/cover-moeve-640.webp 640w, img/cover-moeve-960.webp 960w, img/cover-moeve.webp 1200w" sizes="(max-width: 980px) calc(100vw - 112px), 560px"><img src="img/cover-moeve.jpg" alt="Portada del caso Moeve" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
-      <div class="card-top"><span class="num">05</span><span class="pill">Máster ESIC · Estrategia digital</span></div>
-      <div>
-        <h3><a href="moeve.html" style="text-decoration:none">Moeve: de petrolera a movilidad sostenible</a></h3>
-        <p class="desc">Hoja de ruta digital para que el nuevo posicionamiento de la antigua Cepsa sea creíble: modelo de negocio, plan de marketing digital e investigación con la Generación Z.</p>
-      </div>
-      <div class="kpi"><b><span data-count="1900">1.900</span> leads · NPS <span data-count="70">70</span></b><small>objetivos del dashboard de KPIs</small></div>
-      <p class="role"><strong>Mi papel:</strong> formé parte del equipo de cuatro que hizo el trabajo.</p>
-      <div class="cta-row" style="margin-top:0"><a href="moeve.html" class="more">Ver el caso Moeve <span class="arr" aria-hidden="true">→</span></a></div>
-      <div class="tags"><span class="tag">Estrategia</span><span class="tag">Focus group</span><span class="tag">Social listening</span><span class="tag">KPIs</span></div>
-    </article>
-    <article class="card lime reveal" data-cat="estrategia ecommerce">
-      <a class="media" href="cierzo.html" tabindex="-1" aria-hidden="true" data-cover="cierzo"><picture><source type="image/webp" srcset="img/cover-cierzo-480.webp 480w, img/cover-cierzo-640.webp 640w, img/cover-cierzo-960.webp 960w, img/cover-cierzo.webp 1200w" sizes="(max-width: 980px) calc(100vw - 112px), 560px"><img src="img/cover-cierzo.jpg" alt="Portada del caso CIERZO" width="1200" height="675" loading="lazy" decoding="async"></picture></a>
-      <div class="card-top"><span class="num">06</span><span class="pill">Proyecto propio · En desarrollo</span></div>
-      <div>
-        <h3><a href="cierzo.html" style="text-decoration:none">CIERZO: café para cafeteros</a></h3>
-        <p class="desc">Marca de café de especialidad para llevar en Zaragoza: app de pre-pedido sin colas, Club de puntos y una red de recogida con partners.</p>
-      </div>
-      <div class="kpi"><b><span data-count="10000">10.000</span> €</b><small>de marketing en un trimestre · redes y QR → landing → app</small></div>
-      <p class="role"><strong>Mi papel:</strong> estrategia de marca, buyer persona, propuesta de valor, prototipo de la app y plan de lanzamiento.</p>
-      <div class="cta-row" style="margin-top:0"><a href="cierzo.html" class="more">Ver el caso CIERZO <span class="arr" aria-hidden="true">→</span></a><a href="app-cierzo.html" class="more" target="_blank" rel="noopener">Probar la app ↗</a></div>
-      <div class="tags"><span class="tag">Branding</span><span class="tag">App y fidelización</span><span class="tag">Go-to-market</span><span class="tag">Podcast y RRSS</span></div>
-    </article>
   </div>
 </section>
 
 <!-- ============ MÉTODO ============ -->
-<section id="metodo" class="wrap block" aria-labelledby="h-met">
-  <div class="sec-head reveal">
-    <h2 class="display" id="h-met">Cómo <span class="hl">trabajo</span></h2>
-    <p>El mismo método en cada proyecto: primero entender, después decidir y al final medir.</p>
+<section id="metodo" class="method-band" aria-labelledby="h-met">
+  <div class="wrap block">
+    <div class="sec-head reveal">
+      <h2 class="display" id="h-met">Cómo <span class="hl-ink">trabajo</span></h2>
+      <p>El mismo embudo en cada proyecto: primero entender, después decidir, activar y al final medir.</p>
+    </div>
+    <div class="mfunnel" id="funnel">
+      <div class="mfunnel-track" aria-hidden="true"><span class="mfunnel-fill"></span></div>
+      <ol class="process"><li class="step"><span class="sn">01</span><h3>Investigar</h3><p>Datos de mercado, buyer persona e insights antes de abrir ninguna herramienta.</p><p class="ex">Lo verás en: <a href="#camp-moeve" data-camp="moeve">Moeve</a> · <a href="#camp-cierzo" data-camp="cierzo">CIERZO</a></p></li><li class="step"><span class="sn">02</span><h3>Estrategia</h3><p>Propuesta de valor, objetivos y el papel de cada canal dentro del funnel.</p><p class="ex">Lo verás en: <a href="#camp-kfc" data-camp="kfc">KFC</a> · <a href="#camp-bmw" data-camp="bmw">BMW</a></p></li><li class="step"><span class="sn">03</span><h3>Activar</h3><p>Plan de medios, paid, contenido y activaciones con un presupuesto definido.</p><p class="ex">Lo verás en: <a href="#camp-playstation" data-camp="playstation">PlayStation</a> · <a href="#experiencia">Podoactiva</a></p></li><li class="step"><span class="sn">04</span><h3>Medir</h3><p>KPIs desde el primer día para saber qué funciona y optimizar con datos.</p><p class="ex">Lo verás en: <a href="#camp-foreo" data-camp="foreo">FOREO</a> · <a href="#camp-kfc" data-camp="kfc">KFC</a></p></li></ol>
+    </div>
   </div>
-  <ol class="process reveal" style="list-style:none;margin:0;padding:0">
-    <li class="step"><span class="sn">01</span><h3>Investigar</h3><p>Datos de mercado, buyer persona e insights antes de abrir ninguna herramienta.</p><p class="ex">Ej.: Moeve · CIERZO</p></li>
-    <li class="step"><span class="sn">02</span><h3>Estrategia</h3><p>Propuesta de valor, objetivos y el papel de cada canal dentro del funnel.</p><p class="ex">Ej.: KFC · BMW</p></li>
-    <li class="step"><span class="sn">03</span><h3>Activar</h3><p>Plan de medios, paid, contenido y activaciones con un presupuesto definido.</p><p class="ex">Ej.: PlayStation · Podoactiva</p></li>
-    <li class="step"><span class="sn">04</span><h3>Medir</h3><p>KPIs desde el primer día para saber qué funciona y optimizar con datos.</p><p class="ex">Ej.: FOREO · KFC</p></li>
-  </ol>
 </section>
 
 <!-- ============ EXPERIENCIA ============ -->
@@ -403,9 +416,14 @@
   </div>
   <div class="trust reveal">
     <p class="eyebrow">He trabajado y me he formado en</p>
-    <ul aria-label="Empresas e instituciones">
-      <li>Podoactiva</li><li>Grupodispo</li><li>Fundación Ibercaja</li><li>ESIC</li><li>Universidad de Zaragoza</li><li>LUMSA Roma</li>
-    </ul>
+    <div class="trust-run">
+      <ul aria-label="Empresas e instituciones">
+        <li>Podoactiva</li><li>Grupodispo</li><li>Fundación Ibercaja</li><li>ESIC</li><li>Universidad de Zaragoza</li><li>LUMSA Roma</li>
+      </ul>
+      <ul aria-hidden="true">
+        <li>Podoactiva</li><li>Grupodispo</li><li>Fundación Ibercaja</li><li>ESIC</li><li>Universidad de Zaragoza</li><li>LUMSA Roma</li>
+      </ul>
+    </div>
   </div>
   <div class="timeline" id="timeline">
     <div class="fill" id="tlFill" aria-hidden="true"></div>
@@ -441,8 +459,8 @@
   <div class="duo">
     <div class="panel reveal">
       <h2 class="display">Toolkit</h2>
-      <div class="tk-group"><h3>Social y paid</h3><div class="chips"><span class="chip">Meta Business Suite</span><span class="chip">Instagram</span></div></div>
-      <div class="tk-group"><h3>Ecommerce y CRM</h3><div class="chips"><span class="chip">Shopify</span><span class="chip">Microsoft Dynamics 365</span></div></div>
+      <div class="tk-group"><h3>Social y paid</h3><div class="chips"><span class="chip has-use" tabindex="0">Meta Business Suite<span class="use"><span class="sr-only">, </span>Usado en Grupodispo</span></span><span class="chip has-use" tabindex="0">Instagram<span class="use"><span class="sr-only">, </span>Usado en Grupodispo</span></span></div></div>
+      <div class="tk-group"><h3>Ecommerce y CRM</h3><div class="chips"><span class="chip has-use" tabindex="0">Shopify<span class="use"><span class="sr-only">, </span>Usado en KFC · Eduardo Drop</span></span><span class="chip has-use" tabindex="0">Microsoft Dynamics 365<span class="use"><span class="sr-only">, </span>Usado en Fundación Ibercaja</span></span></div></div>
       <div class="tk-group"><h3>Data e investigación</h3><div class="chips"><span class="chip">SPSS</span><span class="chip">R Studio</span><span class="chip">Microsoft 365</span></div></div>
       <div class="tk-group"><h3>Diseño y colaboración</h3><div class="chips"><span class="chip">Figma</span><span class="chip">Canva</span><span class="chip">Miro</span></div></div>
       <div class="next"><span class="hl">Siguiente objetivo</span><span>Certificaciones de Google Ads, Meta Ads y GA4.</span></div>

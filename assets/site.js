@@ -405,7 +405,7 @@
   /* Paso de la home a un caso: la portada pulsada se convierte en la cabecera del caso */
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href$=".html"]'); if (!a || reduce) return;
-    var src = (a.closest('.paper') && a.closest('.paper').querySelector('.paper-img')) || (a.closest('.card') && a.closest('.card').querySelector('.media'));
+    var cp = a.closest('.camp'); var src = (a.closest('.paper') && a.closest('.paper').querySelector('.paper-img')) || (a.closest('.card') && a.closest('.card').querySelector('.media')) || (cp && (cp.classList.contains('open') ? cp.querySelector('.camp-det-img') : cp.querySelector('.camp-img')));
     if (!src) return;
     $$('[data-vt-cover]').forEach(function (n) { n.style.viewTransitionName = ''; n.removeAttribute('data-vt-cover'); });
     src.style.viewTransitionName = 'case-cover'; src.setAttribute('data-vt-cover', '');
@@ -451,4 +451,109 @@
     var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); launch(); } }, { threshold: 0.35 });
     io.observe(panel);
   } else launch();
+})();
+
+
+/* ---- v7 · Detalles del panel, filtros, embudo del método y cursor ---- */
+(function () {
+  'use strict';
+  var $$ = function (q, r) { return Array.prototype.slice.call((r || document).querySelectorAll(q)); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Detalles desplegables de cada campaña */
+  var toggle = function (li, open) {
+    var btn = li.querySelector('.camp-more'), det = li.querySelector('.camp-det');
+    if (!btn || !det) return;
+    if (open === undefined) open = !li.classList.contains('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.querySelector('.t').textContent = open ? 'Cerrar' : 'Detalles';
+    if (open) {
+      det.hidden = false;
+      requestAnimationFrame(function () { requestAnimationFrame(function () { li.classList.add('open'); }); });
+    } else {
+      li.classList.remove('open');
+      setTimeout(function () { if (!li.classList.contains('open')) det.hidden = true; }, reduce ? 0 : 560);
+    }
+  };
+  $$('.camp').forEach(function (li) {
+    var b = li.querySelector('.camp-more'); if (b) b.addEventListener('click', function () { toggle(li); });
+  });
+
+  /* Filtros dentro de la barra del panel */
+  var fl = $$('.cfilter'), rows = $$('.camp');
+  fl.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = btn.dataset.filter;
+      var run = function () {
+        fl.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        rows.forEach(function (r) { r.classList.toggle('is-out', f !== 'all' && r.dataset.cat.split(' ').indexOf(f) < 0); });
+      };
+      if (!reduce && document.startViewTransition) {
+        rows.forEach(function (r, k) { r.style.viewTransitionName = 'camp-' + k; });
+        document.startViewTransition(run).finished.then(function () { rows.forEach(function (r) { r.style.viewTransitionName = ''; }); });
+      } else run();
+    });
+  });
+
+  /* Enlaces «Lo verás en»: llevan a la campaña, la abren y la lanzan */
+  $$('[data-camp]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var li = document.getElementById('camp-' + a.dataset.camp); if (!li) return;
+      e.preventDefault();
+      fl.forEach(function (b) { if (b.dataset.filter === 'all' && b.getAttribute('aria-pressed') !== 'true') b.click(); });
+      li.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      setTimeout(function () {
+        if (!li.classList.contains('on')) li.querySelector('.camp-sw').click();
+        if (!li.classList.contains('open')) toggle(li, true);
+        li.querySelector('.camp-more').focus({ preventScroll: true });
+      }, reduce ? 0 : 500);
+    });
+  });
+
+  /* Embudo del método: los pasos se iluminan en orden */
+  var funnel = document.getElementById('funnel');
+  if (funnel) {
+    var steps = $$('.step', funnel), fill = funnel.querySelector('.mfunnel-fill');
+    var light = function () {
+      steps.forEach(function (st, k) {
+        setTimeout(function () { st.classList.add('lit'); if (fill) fill.style.setProperty('--p', k / (steps.length - 1)); }, reduce ? 0 : 250 + k * 420);
+      });
+    };
+    if (reduce || !('IntersectionObserver' in window)) light();
+    else {
+      var fio = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { fio.disconnect(); light(); } }, { threshold: 0.4 });
+      fio.observe(funnel);
+    }
+  }
+
+  /* Cursor propio: una C, con un anillo que reacciona a lo que tocas */
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (fine && !reduce) {
+    document.documentElement.classList.add('c-cursor');
+    var ring = document.createElement('div'); ring.className = 'cur-ring'; ring.setAttribute('aria-hidden', 'true');
+    ring.innerHTML = '<span></span>'; document.body.appendChild(ring);
+    var lab = ring.firstChild, x = -100, y = -100, rx = -100, ry = -100, raf = 0;
+    var loop = function () {
+      rx += (x - rx) * 0.2; ry += (y - ry) * 0.2;
+      ring.style.transform = 'translate(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px)';
+      raf = (Math.abs(x - rx) + Math.abs(y - ry) > 0.3) ? requestAnimationFrame(loop) : 0;
+    };
+    var labelFor = function (t) {
+      if (t.closest('.camp-sw')) return t.closest('.camp').classList.contains('on') ? 'Pausar' : 'Lanzar';
+      if (t.closest('.camp-more')) return t.closest('.camp').classList.contains('open') ? 'Cerrar' : 'Abrir';
+      if (t.closest('.camp-img, .camp-det-img, .media, .zoom, .shot')) return 'Ver';
+      if (t.closest('#campAll')) return 'Todas';
+      return '';
+    };
+    document.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      x = e.clientX; y = e.clientY; ring.classList.add('on');
+      var t = e.target, l = t && t.closest ? labelFor(t) : '';
+      lab.textContent = l; ring.classList.toggle('big', !!l);
+      ring.classList.toggle('dark', !!(t.closest && t.closest('.stats, .camp-bar, .contact, footer, .card.dark, .inv')));
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+    document.addEventListener('pointerleave', function () { ring.classList.remove('on'); });
+    window.addEventListener('blur', function () { ring.classList.remove('on'); });
+  }
 })();
