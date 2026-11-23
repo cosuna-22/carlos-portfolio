@@ -944,3 +944,7 @@ html.c-cursor a,html.c-cursor button,html.c-cursor [role="button"],html.c-cursor
 .cur-ring.big.dark{background:var(--lime)}.cur-ring.big.dark span{color:#141413}
 @media (prefers-reduced-motion:reduce){.trust-run ul{animation:none}.trust{flex-wrap:wrap}.trust-run{-webkit-mask-image:none;mask-image:none}.trust-run ul[aria-hidden]{display:none}.trust-run ul{flex-wrap:wrap}
  .method-band .step::before{transform:none}.method-band .step h3,.method-band .step p{opacity:1}.live-tag i{animation:none}.camp-det,.camp-det-in>*{transition:none}}
+
+/* Botón de idioma */
+.lang-btn{font:700 13px/1 var(--body,inherit);letter-spacing:.04em;text-decoration:none;color:inherit}
+.lang-btn:hover{background:var(--lime);color:#141413}
