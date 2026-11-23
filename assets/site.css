@@ -779,3 +779,49 @@ dialog.lb.swap img{opacity:0}
   .hero-media img{animation:none}
 }
 .esic-pop{position:absolute;right:0;bottom:calc(100% + 12px)}
+
+/* ============ v6 · PANEL DE CAMPAÑAS (sustituye a la carpeta) ============ */
+.campaigns{margin:8px 0 0;background:var(--surface);border:2px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.camp-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;padding:18px 22px;background:var(--inv-bg);color:var(--inv-ink)}
+.camp-title{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.camp-title b{font:400 clamp(18px,2vw,22px)/1.1 var(--display)}
+.camp-count{color:var(--inv-muted);font-size:14px}
+.camp-count span{font-family:var(--display);color:var(--lime);font-size:18px}
+.camp-live{width:10px;height:10px;border-radius:50%;background:#55554F;transition:background .4s}
+.campaigns.has-on .camp-live{background:var(--lime);animation:campPulse 1.8s ease-out infinite}
+@keyframes campPulse{0%{box-shadow:0 0 0 0 rgb(212 242 58 / .6)}100%{box-shadow:0 0 0 10px rgb(212 242 58 / 0)}}
+.camp-list{list-style:none;margin:0;padding:0}
+.camp{display:grid;grid-template-columns:auto 132px minmax(0,1.1fr) 118px minmax(0,1.5fr) auto;align-items:center;gap:18px;padding:14px 22px;border-top:1.5px solid var(--chip);position:relative;transition:background .5s}
+.camp:first-child{border-top:0}
+.camp::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s var(--spring,ease)}
+.camp.on::before{transform:none}
+.camp.on{background:color-mix(in srgb,var(--lime) 9%,var(--surface))}
+.camp-sw{position:relative;width:58px;height:32px;border-radius:999px;border:2px solid var(--line);background:var(--chip);cursor:pointer;padding:0;flex:none;transition:background .3s}
+.camp-sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--ink);transition:transform .45s var(--spring,ease)}
+.camp.on .camp-sw{background:var(--lime)}
+.camp.on .camp-sw::after{transform:translateX(26px);background:#141413}
+.camp-sw:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.camp-img{display:block;aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:1.5px solid var(--line)}
+.camp-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(.9) brightness(1.05);opacity:.55;transition:filter .8s,opacity .8s,transform .8s var(--ease-out,ease);transform:scale(1.06)}
+.camp.on .camp-img img{filter:none;opacity:1;transform:none}
+.camp-name{display:flex;flex-direction:column;gap:2px}
+.camp-k{font-size:12.5px;font-weight:600;color:var(--muted)}
+.camp-name b{font:400 22px/1.05 var(--display)}
+.camp-st{display:flex;align-items:center;gap:8px;margin:0;font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap}
+.camp-st i{width:9px;height:9px;border-radius:50%;background:#B9B8AF;transition:background .4s}
+.camp.on .camp-st{color:var(--ink)}
+.camp.on .camp-st i{background:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 25%,transparent)}
+.camp-kpi{margin:0}
+.camp-kpi b{display:block;font:400 clamp(24px,2.6vw,32px)/1 var(--display);white-space:nowrap;color:var(--muted);transition:color .6s}
+.camp.on .camp-kpi b{opacity:1;color:var(--ink)}
+.camp-kpi small{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+.camp-go{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--line);font-weight:600;font-size:14px;color:var(--ink);text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s}
+.camp-go:hover{background:var(--lime);color:#141413;transform:translateY(-2px)}
+#campHint{margin-top:18px}
+@media (max-width:980px){.camp{grid-template-columns:auto 112px minmax(0,1fr) auto;grid-template-areas:"sw img name go" "sw img kpi st"}
+ .camp-sw{grid-area:sw}.camp-img{grid-area:img}.camp-name{grid-area:name}.camp-go{grid-area:go}.camp-kpi{grid-area:kpi}.camp-st{grid-area:st}}
+@media (max-width:620px){.camp{grid-template-columns:92px minmax(0,1fr) auto;grid-template-areas:"img name sw" "kpi kpi go";gap:12px 14px;padding:14px 16px}
+ .camp-st{display:none}.camp-img{border-radius:8px}.camp-bar{padding:16px}.camp-name b{font-size:19px}.camp-kpi b{font-size:24px}}
+@media (prefers-reduced-motion:reduce){.camp,.camp *,.camp::before{transition:none!important;animation:none!important}.campaigns.has-on .camp-live{animation:none}}
+.camp-k{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+[data-theme="dark"] .camp.on{background:color-mix(in srgb,var(--lime) 4%,var(--surface))}

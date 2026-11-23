@@ -235,28 +235,67 @@
 <section id="proyectos" class="wrap block" aria-labelledby="h-proy">
   <div class="sec-head reveal">
     <h2 class="display" id="h-proy">Proyectos <span class="hl">destacados</span></h2>
-    <p>Casos de marcas reales trabajados en el máster y un proyecto propio. Abre la carpeta o baja para verlos uno a uno.</p>
+    <p>Casos de marcas reales trabajados en el máster y un proyecto propio. Lanza cada campaña para ver su resultado clave, o baja para verlos uno a uno.</p>
   </div>
 
 
-  <div class="folder-stage reveal" id="folderStage">
-    <div class="folder" id="folder">
-      <div class="folder-back" aria-hidden="true"><span class="folder-tab">Proyectos · 6 casos</span></div>
-      <nav class="papers" id="papers" aria-label="Casos del portfolio">
-        <a class="paper" href="foreo.html" data-cover="foreo" style="--x:-2.5;--k:0;--c:#E6007E"><span class="paper-img"><img src="img/cover-foreo-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></span><span class="paper-k">01 · SEO y SEM</span><b>FOREO</b><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
-        <a class="paper" href="playstation.html" data-cover="playstation" style="--x:-1.5;--k:1;--c:#0070D1"><span class="paper-img"><img src="img/cover-playstation-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></span><span class="paper-k">02 · Paid media</span><b>PlayStation</b><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
-        <a class="paper" href="kfc.html" data-cover="kfc" style="--x:-0.5;--k:2;--c:#E4002B"><span class="paper-img"><img src="img/cover-kfc-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></span><span class="paper-k">03 · Omnicanalidad</span><b>KFC</b><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
-        <a class="paper" href="bmw.html" data-cover="bmw" style="--x:0.5;--k:3;--c:#2A64AC"><span class="paper-img"><img src="img/cover-bmw-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></span><span class="paper-k">04 · Web y app</span><b>BMW</b><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
-        <a class="paper" href="moeve.html" data-cover="moeve" style="--x:1.5;--k:4;--c:#00A27A"><span class="paper-img"><img src="img/cover-moeve-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></span><span class="paper-k">05 · Estrategia</span><b>Moeve</b><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
-        <a class="paper" href="cierzo.html" data-cover="cierzo" style="--x:2.5;--k:5;--c:#D4F23A"><span class="paper-img"><img src="img/cover-cierzo-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></span><span class="paper-k">06 · Marca y app</span><b>CIERZO</b><span class="paper-go">Ver caso <span aria-hidden="true">→</span></span></a>
-      </nav>
-      <button type="button" class="folder-front" id="folderBtn" aria-expanded="false" aria-controls="papers">
-        <span class="folder-sticker"><small>Portfolio</small><span class="hand">Carlos Osuna</span><small>Máster ESIC · 2026</small></span>
-        <span class="folder-label">Abrir la carpeta</span>
-      </button>
+  <div class="campaigns reveal" id="campaigns">
+    <div class="camp-bar">
+      <div class="camp-title"><span class="camp-live" aria-hidden="true"></span><b>Panel de campañas</b><span class="camp-count"><span id="campOn">0</span> de 6 en antena</span></div>
+      <button type="button" class="btn btn-lime" id="campAll">Lanzar todas</button>
     </div>
+    <ul class="camp-list" aria-label="Casos del portfolio como campañas">
+      <li class="camp" data-id="foreo" style="--c:#E6007E">
+        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña FOREO</span></button>
+        <a class="camp-img" href="foreo.html" tabindex="-1" aria-hidden="true" data-cover="foreo"><img src="img/cover-foreo-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+        <div class="camp-name"><span class="camp-k">01 · SEO y SEM</span><b>FOREO</b></div>
+        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+        <p class="camp-kpi"><b data-v="5.44" data-dec="2" data-suf="x">5,44x</b><small>ROAS SEM en el escenario base</small></p>
+        <a class="camp-go" href="foreo.html">Ver caso <span aria-hidden="true">→</span></a>
+      </li>
+      <li class="camp" data-id="playstation" style="--c:#0070D1">
+        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña PlayStation</span></button>
+        <a class="camp-img" href="playstation.html" tabindex="-1" aria-hidden="true" data-cover="playstation"><img src="img/cover-playstation-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+        <div class="camp-name"><span class="camp-k">02 · Paid media</span><b>PlayStation</b></div>
+        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+        <p class="camp-kpi"><b data-v="70" data-dec="0" data-suf=" %">70 %</b><small>del plan de medios en digital</small></p>
+        <a class="camp-go" href="playstation.html">Ver caso <span aria-hidden="true">→</span></a>
+      </li>
+      <li class="camp" data-id="kfc" style="--c:#E4002B">
+        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña KFC</span></button>
+        <a class="camp-img" href="kfc.html" tabindex="-1" aria-hidden="true" data-cover="kfc"><img src="img/cover-kfc-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+        <div class="camp-name"><span class="camp-k">03 · Omnicanalidad</span><b>KFC</b></div>
+        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+        <p class="camp-kpi"><b data-v="20" data-dec="0" data-suf=" %">20 %</b><small>de pedidos en canal propio (desde 14,8 %)</small></p>
+        <a class="camp-go" href="kfc.html">Ver caso <span aria-hidden="true">→</span></a>
+      </li>
+      <li class="camp" data-id="bmw" style="--c:#2A64AC">
+        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña BMW</span></button>
+        <a class="camp-img" href="bmw.html" tabindex="-1" aria-hidden="true" data-cover="bmw"><img src="img/cover-bmw-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+        <div class="camp-name"><span class="camp-k">04 · Web y app</span><b>BMW</b></div>
+        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+        <p class="camp-kpi"><b data-v="1" data-dec="0" data-suf=" objetivo">1 objetivo</b><small>captar solicitudes de acceso cualificadas</small></p>
+        <a class="camp-go" href="bmw.html">Ver caso <span aria-hidden="true">→</span></a>
+      </li>
+      <li class="camp" data-id="moeve" style="--c:#00A27A">
+        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña Moeve</span></button>
+        <a class="camp-img" href="moeve.html" tabindex="-1" aria-hidden="true" data-cover="moeve"><img src="img/cover-moeve-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+        <div class="camp-name"><span class="camp-k">05 · Estrategia</span><b>Moeve</b></div>
+        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+        <p class="camp-kpi"><b data-v="1900" data-dec="0" data-suf=" leads">1.900 leads</b><small>objetivo del dashboard · NPS 70</small></p>
+        <a class="camp-go" href="moeve.html">Ver caso <span aria-hidden="true">→</span></a>
+      </li>
+      <li class="camp" data-id="cierzo" style="--c:#9DB81F">
+        <button type="button" class="camp-sw" aria-pressed="false"><span class="sr-only">Lanzar la campaña CIERZO</span></button>
+        <a class="camp-img" href="cierzo.html" tabindex="-1" aria-hidden="true" data-cover="cierzo"><img src="img/cover-cierzo-480.webp" alt="" width="480" height="270" loading="lazy" decoding="async"></a>
+        <div class="camp-name"><span class="camp-k">06 · Marca y app</span><b>CIERZO</b></div>
+        <p class="camp-st"><i aria-hidden="true"></i><span>En pausa</span></p>
+        <p class="camp-kpi"><b data-v="10000" data-dec="0" data-suf=" €">10.000 €</b><small>de marketing en un trimestre</small></p>
+        <a class="camp-go" href="cierzo.html">Ver caso <span aria-hidden="true">→</span></a>
+      </li>
+    </ul>
   </div>
-  <p class="folder-hint" id="folderHint">Pulsa la carpeta para ver los casos, o baja para verlos uno a uno ↓</p>
+  <p class="folder-hint" id="campHint">Activa una campaña para ver su resultado, o baja para ver cada caso en detalle ↓</p>
 
   <div class="filters reveal" role="group" aria-label="Filtrar proyectos por área">
     <button class="filter" type="button" data-filter="all" aria-pressed="true">Todos<span class="n">6</span></button>

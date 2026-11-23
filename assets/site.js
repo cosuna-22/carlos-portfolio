@@ -412,3 +412,43 @@
   }, true);
   window.addEventListener('pageshow', function () { $$('[data-vt-cover]').forEach(function (n) { n.style.viewTransitionName = ''; n.removeAttribute('data-vt-cover'); }); });
 })();
+
+/* ---- v6 · Panel de campañas: lanzar cada caso y ver su resultado ---- */
+(function () {
+  'use strict';
+  var panel = document.getElementById('campaigns'); if (!panel) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rows = Array.prototype.slice.call(panel.querySelectorAll('.camp'));
+  var all = document.getElementById('campAll'), nOn = document.getElementById('campOn');
+  var fmt = function (v, d) { return v.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: 'always' }); };
+  var count = function (b) {
+    var v = parseFloat(b.dataset.v), d = +b.dataset.dec, suf = b.dataset.suf || '';
+    if (reduce) { b.textContent = fmt(v, d) + suf; return; }
+    var t0 = performance.now(), dur = 1200;
+    (function step(t) { var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); b.textContent = fmt(v * e, d) + suf; if (k < 1) requestAnimationFrame(step); })(t0);
+  };
+  var sync = function () {
+    var n = rows.filter(function (r) { return r.classList.contains('on'); }).length;
+    nOn.textContent = n; panel.classList.toggle('has-on', n > 0);
+    all.textContent = n === rows.length ? 'Pausar todas' : 'Lanzar todas';
+  };
+  var set = function (r, on) {
+    if (r.classList.contains('on') === on) return;
+    r.classList.toggle('on', on);
+    var sw = r.querySelector('.camp-sw'), name = r.querySelector('.camp-name b').textContent;
+    sw.setAttribute('aria-pressed', on ? 'true' : 'false');
+    sw.querySelector('.sr-only').textContent = (on ? 'Pausar' : 'Lanzar') + ' la campaña ' + name;
+    r.querySelector('.camp-st span').textContent = on ? 'En antena' : 'En pausa';
+    if (on) count(r.querySelector('.camp-kpi b'));
+    sync();
+  };
+  rows.forEach(function (r) { r.querySelector('.camp-sw').addEventListener('click', function () { set(r, !r.classList.contains('on')); }); });
+  var cascade = function (on) { rows.forEach(function (r, i) { setTimeout(function () { set(r, on); }, reduce ? 0 : i * 180); }); };
+  all.addEventListener('click', function () { cascade(rows.some(function (r) { return !r.classList.contains('on'); })); });
+  /* Al llegar al panel por primera vez, las campañas se lanzan solas en cascada */
+  var launched = false, launch = function () { if (!launched) { launched = true; setTimeout(function () { cascade(true); }, reduce ? 0 : 350); } };
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); launch(); } }, { threshold: 0.35 });
+    io.observe(panel);
+  } else launch();
+})();
