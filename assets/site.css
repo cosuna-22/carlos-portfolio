@@ -1095,3 +1095,22 @@ html.c-cursor .big-word .hl-l{cursor:grab}
 .sc-en .sc-q,.sc-en .sc-res{font-family:Arial,Helvetica,sans-serif}
 @media (max-width:640px){.sc-sticker{right:-6px;width:76px;height:76px;font-size:11px}}
 .letter h2{text-wrap:balance}
+
+/* ============ v11 · Color de marca al hacer scroll y móvil de CIERZO ============ */
+body[data-brand]{transition:background-color .9s ease}
+body[data-brand].tinted{background-color:color-mix(in srgb,var(--brand) 9%,var(--bg))}
+[data-theme="dark"] body[data-brand].tinted{background-color:color-mix(in srgb,var(--brand) 14%,var(--bg))}
+body[data-brand].tinted .street .sc,body[data-brand].tinted .letter{transition:box-shadow .9s}
+/* El móvil de CIERZO avanza con el scroll */
+.scrub-track{height:280vh;position:relative}
+.scrub-sticky{position:sticky;top:max(90px,calc(50vh - 300px))}
+.sc-side-info{display:grid;gap:22px;align-content:center}
+.sc-count{margin:0;font:400 30px/1 var(--display);color:#141413}
+.sc-count b{font-weight:400;display:inline-block;min-width:1ch}
+.sc-count span{display:block;margin-top:8px;font:600 13px/1.3 var(--body,sans-serif);color:#3B4410}
+.sc-prog{height:6px;border-radius:3px;background:rgb(20 20 19/.15);overflow:hidden;width:min(240px,100%)}
+.sc-prog i{display:block;height:100%;background:#141413;transform-origin:0 50%;transform:scaleX(var(--p,0))}
+.sc-phone[data-scrub] picture{transition:opacity .25s}
+@media (max-width:640px){.sc-side-info{justify-items:center;text-align:center}.sc-steps{display:none}.scrub-track{height:240vh}.scrub-sticky{top:76px}}
+@media (prefers-reduced-motion:reduce){.scrub-track{height:auto}.scrub-sticky{position:static}body[data-brand]{transition:none}}
+body[data-brand].tinted header.site{background:color-mix(in srgb,color-mix(in srgb,var(--brand) 9%,var(--bg)) 82%,transparent)}
