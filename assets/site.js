@@ -630,17 +630,19 @@ T.d = {"Cambiar a modo claro": "Switch to light mode", "Cambiar a modo oscuro": 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var body = document.body;
 
-  /* Fondo con el color de la marca en las secciones claras del caso (no en la cabecera) */
-  if (body.hasAttribute('data-brand') && 'IntersectionObserver' in window) {
-    var secs = Array.prototype.filter.call(document.querySelectorAll('main section, body > section'), function (s) {
-      return !s.classList.contains('case-hero') && !s.classList.contains('band') && !s.classList.contains('contact');
-    });
-    var inView = new Set();
-    var tio = new IntersectionObserver(function (en) {
-      en.forEach(function (e) { if (e.isIntersecting) inView.add(e.target); else inView.delete(e.target); });
-      body.classList.toggle('tinted', inView.size > 0);
-    }, { rootMargin: '-45% 0px -45% 0px' });
-    secs.forEach(function (s) { tio.observe(s); });
+  /* Fondo con el color de la marca: se activa al dejar atrás la cabecera del caso y se quita al llegar al contacto */
+  if (body.hasAttribute('data-brand')) {
+    var hero = document.querySelector('.case-hero'), contact = document.querySelector('#contacto, .contact, .case-contact');
+    var tk = false;
+    var tint = function () {
+      tk = false;
+      var mid = window.innerHeight * 0.6;
+      var past = hero ? hero.getBoundingClientRect().bottom < mid : window.scrollY > 300;
+      var atEnd = contact ? contact.getBoundingClientRect().top < mid : false;
+      body.classList.toggle('tinted', past && !atEnd);
+    };
+    window.addEventListener('scroll', function () { if (!tk) { tk = true; requestAnimationFrame(tint); } }, { passive: true });
+    window.addEventListener('resize', tint); tint();
   }
 
   /* Pantallas de la app que avanzan según bajas */

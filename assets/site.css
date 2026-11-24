@@ -1098,7 +1098,7 @@ html.c-cursor .big-word .hl-l{cursor:grab}
 
 /* ============ v11 · Color de marca al hacer scroll y móvil de CIERZO ============ */
 body[data-brand]{transition:background-color .9s ease}
-body[data-brand].tinted{background-color:color-mix(in srgb,var(--brand) 9%,var(--bg))}
+body[data-brand].tinted{background-color:color-mix(in srgb,var(--brand) 13%,var(--bg))}
 [data-theme="dark"] body[data-brand].tinted{background-color:color-mix(in srgb,var(--brand) 14%,var(--bg))}
 body[data-brand].tinted .street .sc,body[data-brand].tinted .letter{transition:box-shadow .9s}
 /* El móvil de CIERZO avanza con el scroll */
@@ -1113,4 +1113,24 @@ body[data-brand].tinted .street .sc,body[data-brand].tinted .letter{transition:b
 .sc-phone[data-scrub] picture{transition:opacity .25s}
 @media (max-width:640px){.sc-side-info{justify-items:center;text-align:center}.sc-steps{display:none}.scrub-track{height:240vh}.scrub-sticky{top:76px}}
 @media (prefers-reduced-motion:reduce){.scrub-track{height:auto}.scrub-sticky{position:static}body[data-brand]{transition:none}}
-body[data-brand].tinted header.site{background:color-mix(in srgb,color-mix(in srgb,var(--brand) 9%,var(--bg)) 82%,transparent)}
+body[data-brand].tinted header.site{background:color-mix(in srgb,color-mix(in srgb,var(--brand) 13%,var(--bg)) 82%,transparent)}
+
+/* ============ v12 · auditoría responsive ============ */
+/* 320 px: la cabecera cabe sin scroll lateral */
+@media (max-width:359px){.logo{font-size:15px}.logo span{padding:0 3px;margin-left:2px}.nav-tools{gap:4px}.nav-tools .icon-btn{width:40px;height:40px}.stat-link .nw{white-space:normal}}
+/* Objetivos táctiles más cómodos */
+.cfilter{min-height:40px}
+.camp-sw::before{content:"";position:absolute;inset:-8px -6px}
+.esic-pop__close{min-width:40px;min-height:40px}
+@media (max-width:359px){.eyebrow{letter-spacing:.06em;overflow-wrap:anywhere}.qc{overflow-wrap:anywhere}.contact{overflow:hidden}}
+/* Cabecera de caso apilada: aire entre la portada y las etiquetas */
+@media (max-width:980px){.case-hero .case-cover{margin-bottom:28px}}
+/* Panel en móviles estrechos */
+@media (max-width:420px){
+ .camp-row{grid-template-columns:64px minmax(0,1fr) auto;gap:10px 12px;padding:14px 12px}
+ .camp-name b{font-size:17px}
+ .camp-k{font-size:11.5px}
+ .camp-bar{grid-template-columns:1fr;gap:12px}
+ .camp-bar #campAll{width:100%;justify-content:center}
+ .camp-title b{font-size:18px}
+}
