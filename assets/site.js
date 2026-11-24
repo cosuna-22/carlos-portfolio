@@ -452,7 +452,7 @@ T.d = {"Cambiar a modo claro": "Switch to light mode", "Cambiar a modo oscuro": 
   var cascade = function (on) { rows.forEach(function (r, i) { setTimeout(function () { set(r, on); }, reduce ? 0 : i * 180); }); };
   all.addEventListener('click', function () { cascade(rows.some(function (r) { return !r.classList.contains('on'); })); });
   /* Al llegar al panel por primera vez, las campañas se lanzan solas en cascada */
-  var launched = false, launch = function () { if (!launched) { launched = true; setTimeout(function () { cascade(true); }, reduce ? 0 : 350); } };
+  var launched = false, launch = function () { if (!launched) { launched = true; setTimeout(function () { cascade(true); }, reduce ? 0 : 1100); } };
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); launch(); } }, { threshold: 0.35 });
     io.observe(panel);
@@ -561,5 +561,65 @@ T.d = {"Cambiar a modo claro": "Switch to light mode", "Cambiar a modo oscuro": 
     }, { passive: true });
     document.addEventListener('pointerleave', function () { ring.classList.remove('on'); });
     window.addEventListener('blur', function () { ring.classList.remove('on'); });
+  }
+})();
+
+/* ---- v10 · Portadas que llegan, móvil de CIERZO y «hola» arrastrable ---- */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Las portadas del panel llegan desde los bordes antes de lanzarse */
+  var panel = document.getElementById('campaigns');
+  if (panel && !reduce && 'IntersectionObserver' in window && Element.prototype.animate) {
+    var imgs = Array.prototype.slice.call(panel.querySelectorAll('.camp-img'));
+    imgs.forEach(function (im) { im.style.opacity = '0'; });
+    var pio = new IntersectionObserver(function (en) {
+      if (!en[0].isIntersecting) return; pio.disconnect();
+      var vw = window.innerWidth;
+      imgs.forEach(function (im, i) {
+        var r = im.getBoundingClientRect(), fromLeft = i % 2 === 0;
+        var dx = fromLeft ? -(r.left + r.width + 40) : (vw - r.left + 40), dy = (i % 3 - 1) * 60, rot = fromLeft ? -18 : 18;
+        im.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + rot + 'deg) scale(1.3)', opacity: 0 },
+                    { transform: 'translate(0,0) rotate(' + (rot / -6) + 'deg) scale(1.05)', opacity: 1, offset: .82 },
+                    { transform: 'none', opacity: 1 }],
+                   { duration: 900, delay: i * 90, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' })
+          .finished.then(function () { im.style.opacity = ''; });
+        setTimeout(function () { im.style.opacity = ''; }, i * 90 + 30);
+      });
+    }, { threshold: 0.2 });
+    pio.observe(panel);
+  }
+
+  /* El móvil de CIERZO pasa sus pantallas solo */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-cycle]'), function (ph) {
+    var pics = ph.querySelectorAll('picture'); if (pics.length < 2) return;
+    pics[0].classList.add('on'); var k = 0, timer = 0;
+    var step = function () { pics[k].classList.remove('on'); k = (k + 1) % pics.length; pics[k].classList.add('on'); };
+    if (reduce) return;
+    var cio = new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) { if (!timer) timer = setInterval(step, 2200); }
+      else { clearInterval(timer); timer = 0; }
+    });
+    cio.observe(ph);
+  });
+
+  /* «hola.»: cada letra se puede arrastrar y vuelve a su sitio con un rebote */
+  var bw = document.querySelector('.contact .big-word');
+  if (bw && !reduce && window.matchMedia('(pointer: fine)').matches) {
+    var txt = bw.textContent; bw.textContent = '';
+    txt.split('').forEach(function (ch) { var s = document.createElement('span'); s.className = 'hl-l'; s.textContent = ch; bw.appendChild(s); });
+    Array.prototype.forEach.call(bw.querySelectorAll('.hl-l'), function (l) {
+      var sx = 0, sy = 0, dx = 0, dy = 0, on = false;
+      l.addEventListener('pointerdown', function (e) { on = true; sx = e.clientX - dx; sy = e.clientY - dy; l.setPointerCapture(e.pointerId); l.classList.add('drag'); l.getAnimations().forEach(function (a) { a.cancel(); }); });
+      l.addEventListener('pointermove', function (e) { if (!on) return; dx = e.clientX - sx; dy = e.clientY - sy; l.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + (dx / 18) + 'deg)'; });
+      var up = function () {
+        if (!on) return; on = false; l.classList.remove('drag');
+        var from = l.style.transform; l.style.transform = '';
+        l.animate([{ transform: from }, { transform: 'none' }], { duration: 900, easing: 'linear(0, 0.25 9%, 0.87 22%, 1.1 30%, 1.04 40%, 0.98 52%, 1.005 70%, 1)' });
+        dx = dy = 0;
+      };
+      l.addEventListener('pointerup', up); l.addEventListener('pointercancel', up);
+    });
   }
 })();
