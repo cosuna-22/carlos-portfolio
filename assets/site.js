@@ -623,3 +623,50 @@ T.d = {"Cambiar a modo claro": "Switch to light mode", "Cambiar a modo oscuro": 
     });
   }
 })();
+
+/* ---- v11 · El fondo toma el color de la marca y el móvil de CIERZO avanza con el scroll ---- */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var body = document.body;
+
+  /* Fondo con el color de la marca en las secciones claras del caso (no en la cabecera) */
+  if (body.hasAttribute('data-brand') && 'IntersectionObserver' in window) {
+    var secs = Array.prototype.filter.call(document.querySelectorAll('main section, body > section'), function (s) {
+      return !s.classList.contains('case-hero') && !s.classList.contains('band') && !s.classList.contains('contact');
+    });
+    var inView = new Set();
+    var tio = new IntersectionObserver(function (en) {
+      en.forEach(function (e) { if (e.isIntersecting) inView.add(e.target); else inView.delete(e.target); });
+      body.classList.toggle('tinted', inView.size > 0);
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    secs.forEach(function (s) { tio.observe(s); });
+  }
+
+  /* Pantallas de la app que avanzan según bajas */
+  var ph = document.querySelector('[data-scrub]');
+  if (ph) {
+    var pics = ph.querySelectorAll('picture'), n = pics.length, cur = -1;
+    var track = ph.closest('.scrub-track'), fig = ph.closest('.sc');
+    var cnt = fig && fig.querySelector('.sc-count b'), bar = fig && fig.querySelector('.sc-prog');
+    var show = function (k) {
+      if (k === cur) return;
+      if (cur >= 0) pics[cur].classList.remove('on');
+      pics[k].classList.add('on'); cur = k;
+      if (cnt) cnt.textContent = k + 1;
+    };
+    show(0);
+    if (!reduce && track) {
+      var ticking = false;
+      var upd = function () {
+        ticking = false;
+        var r = track.getBoundingClientRect(), span = r.height - window.innerHeight;
+        var p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+        show(Math.min(n - 1, Math.floor(p * n)));
+        if (bar) bar.style.setProperty('--p', p.toFixed(3));
+      };
+      window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+      window.addEventListener('resize', upd); upd();
+    }
+  }
+})();
