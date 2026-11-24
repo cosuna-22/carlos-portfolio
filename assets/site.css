@@ -948,3 +948,39 @@ html.c-cursor a,html.c-cursor button,html.c-cursor [role="button"],html.c-cursor
 /* Botón de idioma */
 .lang-btn{font:700 13px/1 var(--body,inherit);letter-spacing:.04em;text-decoration:none;color:inherit}
 .lang-btn:hover{background:var(--lime);color:#141413}
+
+/* ============ v9 · pulido UX/UI ============ */
+/* Respiración entre el panel y la banda del método */
+.method-band{margin-top:clamp(72px,9vw,120px)}
+.method-band>.wrap.block{padding-top:clamp(64px,8vw,104px);padding-bottom:clamp(64px,8vw,104px)}
+.mfunnel-track{right:calc(25% - 38px)}
+@media (max-width:860px){.method-band>.wrap.block{padding-top:56px;padding-bottom:56px}}
+/* Flechas de la banda de datos: nunca solas en una línea */
+.stat-link .nw{white-space:nowrap}
+/* La cabeza de la línea del timeline sobraba: el punto de cada puesto ya marca el avance */
+.timeline .fill::after{display:none}
+/* Cabecera en móvil: el nombre en una sola línea */
+@media (max-width:420px){.logo{font-size:18px;white-space:nowrap}.nav-tools{gap:6px}}
+/* Botones del hero a todo el ancho en móvil */
+@media (max-width:560px){.hero-copy .cta-row{display:grid;grid-template-columns:1fr;gap:10px}.hero-copy .cta-row .btn{justify-content:center;width:100%}}
+/* Barra del panel en modo oscuro: se distingue de las filas */
+[data-theme="dark"] .camp-bar{background:#232320;border-bottom:1.5px solid rgb(247 246 239 / .12)}
+
+/* En resumen (preguntas frecuentes) */
+.faq-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:clamp(24px,4vw,64px);align-items:start}
+.faq-grid .sec-head{position:sticky;top:110px;margin:0}
+.faq-list{border-top:2px solid var(--line)}
+.faq-item{border-bottom:1.5px solid var(--line)}
+.faq-item summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:64px;padding:16px 4px;cursor:pointer;font:400 clamp(17px,1.6vw,20px)/1.25 var(--display)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:focus-visible{outline:3px solid var(--lime);outline-offset:2px;border-radius:6px}
+.faq-item .ic{position:relative;flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);transition:background .25s,transform .35s var(--ease,ease)}
+.faq-item .ic::before,.faq-item .ic::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:var(--ink);transition:transform .35s var(--ease,ease)}
+.faq-item .ic::after{transform:rotate(90deg)}
+.faq-item summary:hover .ic{background:var(--lime)}
+.faq-item summary:hover .ic::before,.faq-item summary:hover .ic::after{background:#141413}
+.faq-item[open] .ic{background:var(--ink);transform:rotate(180deg)}
+.faq-item[open] .ic::before{background:var(--bg)}
+.faq-item[open] .ic::after{transform:rotate(0);background:var(--bg)}
+.faq-item p{margin:0;padding:0 48px 22px 4px;color:var(--ink-2);max-width:62ch}
+@media (max-width:860px){.faq-grid{grid-template-columns:1fr}.faq-grid .sec-head{position:static}.faq-item p{padding-right:4px}}
